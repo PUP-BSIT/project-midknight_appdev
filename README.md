@@ -1,4 +1,4 @@
-# [**Kajas App**](https://likha.website/)
+# [**Kajas App**](https://kajas.site/)
 
 ## **Introduction**
 Welcome to **_Kajas_** (pronounced as “KAH-yahs”), an online platform dedicated as a central hub for _graphic designers_, _illustrators_, _photographers_, and other _visual artists_ to curate and manage their professional portfolios.
