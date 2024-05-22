@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const UserInformation = require('../models/UserInformation');
+const db = require('../config/db')
 
 const signup = async (req, res) => {
   const { username, email, password, confirmPassword, firstName, middleName, lastName } = req.body;
@@ -43,6 +44,29 @@ const signup = async (req, res) => {
   });
 };
 
+const { query } = require('express')
+const pool = require ('./src/database/database')
+
+const verifyAccount = async (req, res) => {
+    try {
+        const { email } = req.body
+        User.verifyUser (email, (error, res) => {
+            if (error) 
+                return res.status(404).json({ title: "Internal Error", msg: "Not found!" });
+            const exist = res[0].count
+            if (exist == 0) {
+                return res.status(404).json({ title: "Internal Error", msg: "Not found!" });
+            }
+            return res.status(200).json({ title: "Account Verified", msg: "Your account has been verified!" });
+        })
+        
+    } catch (error) {
+        return res.status(500).json({ title: "Internal Error", msg: "Something went wrong!" });
+    }
+}
+
 module.exports = {
-  signup
+  signup,
+  verifyAccount
 };
+

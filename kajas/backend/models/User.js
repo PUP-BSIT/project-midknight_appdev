@@ -5,6 +5,12 @@ const createUser = (userInfoId, username, email, password, callback) => {
   db.query(query, [userInfoId, username, email, password], callback);
 };
 
+const verifyUser = (email, callback) => {
+  const query = 'SELECT COUNT (*) as count FROM user WHERE email = ?';
+  db.query(query, [email], callback);
+}
+
 module.exports = {
-  createUser
+  createUser,
+  verifyUser
 };
