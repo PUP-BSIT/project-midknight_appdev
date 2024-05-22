@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.container {
+    text-align: center;
+    background-color: #E2D6C8;
+    padding: 20px;
+    width: 450px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container:hover {
+    transform: scale(1.05); 
+}
+
+.container h1 {
+    color: #3E3E3E;
+    font-size: xx-large;
+}
+
+.container h3 {
+    color: #7A7A7A;
+    font-weight: 600;
+    font-size:x-large;
+    font-style: italic;
+}
+
+.logo img {
+    width: 100%;
+    max-width: 200px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo img:hover {
+    transform: translateY(-8px);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+form .input-group {
+    position: relative;
+    width: 75%;
+    margin-bottom: 5px; 
+}
+  
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    width: 75%;
+}
+  
+input[type="password"] {
+    padding-right: 10px; 
+}
+
+img.toggle-password {
+    position: absolute;
+    right: 13%; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+    height: 15px;
+}
+
+button.login {
+    font-family: 'Montserrat';
+    font-size: large;
+    padding: 10px;
+    width: 80%;
+    background-color: #3E3E3E;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button.login:hover {
+    background-color: #555;
+    transform: translateY(-8px);
+}
+
+.forgot-password {
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    display: block;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    background-color: #3E3E3E;
+    border: none;
+    margin: 20px 0;
+}
+
+.signup {
+    color: #3E3E3E;
+}
+
+.signup-link {
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
