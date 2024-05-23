@@ -125,3 +125,57 @@ hr {
 .signup-link:hover {
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 768px){
+    .container {
+        width: 200px;
+        height: 300px;
+    }
+
+    .container h1 {
+        font-size: medium;
+    }
+    
+    .container h3 {
+        font-size:small;
+    }
+    
+    .logo img {
+        width: 100%;
+        max-width: 150px;
+    }
+
+    form {
+        gap: 2.5px;
+    }
+
+    form .input-group {
+        width: 100%;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+        padding: 5px;
+    }
+
+    button.login {
+        font-size: small;
+        padding: 5px;
+        width: 85%;
+        margin-top: 5px;
+    }
+
+    .forgot-password {
+        margin-top: 10px;
+        font-size: x-small;
+    }
+
+    hr {
+        margin: 10px 0;
+    }
+
+    .signup {
+        font-size: x-small;
+    }
+}
