@@ -1,19 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-body {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    height: 100vh;
-    background: url('./assets/backgrounds/signup_background.png') 
-        center/cover no-repeat;
-    font-family: 'Montserrat', sans-serif;
-}
-
 .main-container {
     display: flex;
     width: 100%;
     height: 90%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -25,13 +16,20 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin: 20px;
+    margin-left: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container:hover {
+    transform: scale(1.05); 
 }
 
 .container h1 {
     color: #3E3E3E;
+    font-size: xx-large;
     margin-bottom: 24px;
 }
 
@@ -63,11 +61,14 @@ input[type="password"] {
     max-width: 50%;
 }
 
-.toggle-password {
+img.toggle-password {
     position: absolute;
-    left: 92%;
-    top: 10px;
+    right: 5%; 
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
+    width: 20px;
+    height: 15px;
 }
 
 .terms {
@@ -84,13 +85,16 @@ button.signup {
     padding: 10px;
     background-color: #3E3E3E;
     color: #FFF;
+    font-size: large;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 button.signup:hover {
     background-color: #555;
+    transform: translateY(-5px);
 }
 
 hr {
@@ -130,23 +134,21 @@ hr {
 .logo img {
     width: 80%;
     max-width: 100%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@media screen and (min-width: 320px) and (max-width: 426px) {
-    body {
-        background: url('./assets/backgrounds/signup_background_mobile.png') 
-            center/cover no-repeat;
-            flex-direction: column;
-    }
-    
+.logo img:hover {
+    transform: scale(1.05); 
+}
+
+@media only screen and (max-width: 768px) {
     .main-container {
-        width: 100%;
-        height: auto;
-        padding: 10px;
+        width: 350px;
+        height: 350px;
+        padding: 0;
         margin: 0;
-        border-radius: 0;
-        box-shadow: none;
-        
+        justify-content: center;
+        align-items: center;
     }
 
     .logo-mobile {
@@ -154,20 +156,28 @@ hr {
         justify-content: center;
         align-items: center;
         width: 50%;
+        margin: 0;
+        margin-top: 8px;
+        height: 40px;
     }
     
     .logo-mobile img {
         width: 80%;
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+
+    .logo-mobile img:hover {
+        transform: translateY(-8px);
+    }    
 
     .logo {
         display: none;
     }
 
     .container {
-        padding: 20px;
-        margin: 0 auto;
-        max-width: 70%;
+        padding: 15px;
+        margin: 10px 25px;
+        max-width: 100%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         display: flex;
@@ -176,33 +186,54 @@ hr {
     }
 
     .container h1 {
-        font-size: 24px;
-        margin-bottom: 16px;
+        font-size: medium;
+        margin: 12px;
     }
 
-    .toggle-password img {
-        max-width: 80%;
+    form {
+        gap: 2.5px;
     }
 
     input[type="text"],
     input[type="email"],
     input[type="password"] {
-        padding: 8px;
-        border: 1px solid #CCC;
-        border-radius: 5px;
-        width: calc(100% - 12px);
+        padding: 5px;
+        align-self: center;
+        height: 12px;
+    }
+
+    .password-container input {
+        width: calc(100% - 20px);
+    }
+    
+    img.toggle-password {
+        width: 15px;
+        height: 10px;
     }
 
     button.signup {
-        padding: 10px;
-        font-size: 12px;
+        font-size: small;
+        padding: 5px;
+        margin-top: 5px;
+    }
+    
+    .terms input {
+        margin-right: 2px;
+        width: 10px;
+        margin-top: 5px;
     }
 
     .terms{
-        font-size: 10px;
+        font-size: x-small;
+        align-items: center;
+        justify-content: center;
     }
 
     .login {
-        font-size: 12px;
+        font-size: x-small;
+    }
+
+    hr {
+        margin: 10px 0;
     }
 }
