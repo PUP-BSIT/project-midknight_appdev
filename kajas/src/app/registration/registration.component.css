@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background: url('./assets/backgrounds/signup_background.png') 
+        center/cover no-repeat;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 90%;
+}
+
+.container {
+    flex: 1;
+    text-align: center;
+    background-color: #E2D6C8;
+    padding: 20px;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container h1 {
+    color: #3E3E3E;
+    margin-bottom: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: calc(100% - 22px);
+}
+
+.toggle-password img {
+    max-width: 50%;
+}
+
+.toggle-password {
+    position: absolute;
+    left: 92%;
+    top: 10px;
+    cursor: pointer;
+}
+
+.terms {
+    text-align: left;
+    font-size: 0.9em;
+    color: #3E3E3E;
+}
+
+.terms input {
+    margin-right: 5px;
+}
+
+button.signup {
+    padding: 10px;
+    background-color: #3E3E3E;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.signup:hover {
+    background-color: #555;
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    background-color: #3E3E3E;
+    border: none;
+    margin: 20px 0;
+}
+
+.login {
+    color: #3E3E3E;
+    font-size: 0.9em;
+}
+
+.login-link {
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-mobile {
+    display: none;
+}
+
+.logo img {
+    width: 80%;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 426px) {
+    body {
+        background: url('./assets/backgrounds/signup_background_mobile.png') 
+            center/cover no-repeat;
+            flex-direction: column;
+    }
+    
+    .main-container {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        
+    }
+
+    .logo-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+    
+    .logo-mobile img {
+        width: 80%;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 70%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container h1 {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    .toggle-password img {
+        max-width: 80%;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 8px;
+        border: 1px solid #CCC;
+        border-radius: 5px;
+        width: calc(100% - 12px);
+    }
+
+    button.signup {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .terms{
+        font-size: 10px;
+    }
+
+    .login {
+        font-size: 12px;
+    }
+}

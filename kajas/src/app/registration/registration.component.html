@@ -1,0 +1,92 @@
+<div class="main-container">
+    <div class="container">
+        <div class="logo-mobile">
+            <img src="./assets/logos/kajas_logo_black1.png" alt="Kajas Logo">
+        </div>
+
+        <h1>Sign Up</h1>
+        
+        <form>
+        <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            placeholder="Username *" 
+            required>
+
+        <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="Email Address *" 
+            required>
+
+        <div class="password-container">
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                placeholder="Password *" 
+                required>
+
+            <label 
+                class="toggle-password" 
+                onclick="togglePasswordVisibility('password')">
+                <img src="./assets/icons/see.png" 
+                    alt="Toggle Password Visibility">
+            </label>
+        </div>
+
+        <div class="password-container">
+            <input 
+                type="password" 
+                id="confirm_password" 
+                name="confirm_password" 
+                placeholder="Confirm Password *" 
+                required>
+
+            <label 
+                class="toggle-password" 
+                onclick="togglePasswordVisibility('confirm_password')">
+                <img src="./assets/icons/see.png" 
+                    alt="Toggle Password Visibility">
+            </label>
+        </div>
+
+        <input 
+            type="text" 
+            id="first_name" 
+            name="first_name" 
+            placeholder="First Name *" 
+            required>
+        <input 
+            type="text" 
+            id="middle_name" 
+            name="middle_name" 
+            placeholder="Middle Name">
+        <input 
+            type="text" 
+            id="last_name" 
+            name="last_name" 
+            placeholder="Last Name *" 
+            required>
+
+        <label class="terms">
+            <input type="checkbox" id="terms" name="terms" required>
+            I've read and agree to the Terms and Conditions
+        </label>
+
+        <button class="signup" type="submit">SIGN UP</button>
+    </form>
+
+    <hr>
+
+    <div class="login">
+        <span>Already in Kajas? </span> 
+        <a href="#" class="login-link">Log In Here</a>
+    </div>
+
+    <div class="logo">
+        <img src="../assets/logos/kajas_logo_white.png" alt="Kajas Logo">
+    </div>
+</div>
