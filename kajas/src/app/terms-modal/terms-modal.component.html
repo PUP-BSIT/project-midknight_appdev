@@ -1,0 +1,137 @@
+<div class="modal" 
+  [ngStyle]="{'display': (showModal$ | async) ? 'block' : 'none'}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Kajas App Terms and Conditions</h2>
+    <div class="terms-and-conditions">
+      <p>Welcome to Kajas App! These Terms and Conditions govern your use of the
+         Kajas App (“App”). By creating an account, accessing, or using our App,
+         you agree to be bound by these Terms.</p>
+      <ol>
+        <li>
+          <h3>Acceptance of Terms</h3>
+          <p>By signing up, logging in, or using the Kajas App, you accept and 
+            agree to comply with these Terms and our Privacy Policy. If you do 
+            not agree with these Terms, you must not use the App.</p>
+        </li>
+        <li>
+          <h3>Account Registration and Verification</h3>
+          <ul>
+            <li>To use our App, you must create an account and provide a valid 
+              Gmail address for verification.</li>
+            <li>You agree to provide accurate and complete information during 
+              registration and to update your information as necessary.</li>
+            <li>You are responsible for maintaining the confidentiality of your 
+              account credentials and for all activities that occur under your 
+              account.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>User Conduct</h3>
+          <p>You agree not to use the App for any unlawful or prohibited 
+            activities, including but not limited to:</p>
+          <ul>
+            <li>Posting or sharing content that is offensive, defamatory, 
+              obscene, or otherwise objectionable.</li>
+            <li>Infringing on the intellectual property rights of others.</li>
+            <li>Engaging in any activity that disrupts or interferes with the 
+              App's operation.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Content Ownership and License</h3>
+          <p>You retain ownership of any content you create or upload to the 
+            App.</p>
+          <p>By uploading User Content, you grant us a non-exclusive, 
+            worldwide, royalty-free license to use, display, and distribute 
+            your content within the App for the purpose of operating and 
+            promoting the App.</p>
+        </li>
+        <li>
+          <h3>Privacy</h3>
+          <p>Your privacy is important to us. Please review our 
+            <a (click)="openPrivacyModal($event)" class="privacy-link">Privacy 
+              Policy</a> to understand how we collect, use, and protect your 
+              personal information.</p>
+        </li>
+        <li>
+          <h3>Profile and Artwork Management</h3>
+          <ul>
+            <li>You are responsible for setting up and maintaining your profile,
+               including adding, editing, and deleting artwork.</li>
+            <li>You must ensure that any content you upload does not violate 
+              the rights of third parties or any applicable laws.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>User Interactions</h3>
+          <ul>
+            <li>You can search for and view other users' profiles and 
+              artworks.</li>
+            <li>Public profiles can be shared via generated links.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Changes to Email, Password, and Account Deactivation</h3>
+          <ul>
+            <li>You can update your email and password through the Settings 
+              Page.</li>
+            <li>If you wish to deactivate your account, you can do so via the 
+              Settings Page. Deactivating your account will make your profile 
+              and content unavailable, but it may not delete all your data from 
+              our servers immediately.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Disclaimer of Warranties</h3>
+          <p>The App is provided "as is" and "as available" without warranties 
+            of any kind, either express or implied. We do not warrant that the 
+            App will be uninterrupted, error-free, or free of viruses or other 
+            harmful components.</p>
+        </li>
+        <li>
+          <h3>Limitation of Liability</h3>
+          <p>To the fullest extent permitted by law, we shall not be liable for 
+            any indirect, incidental, special, consequential, or punitive 
+            damages, or any loss of profits or revenues, whether incurred 
+            directly or indirectly, or any loss of data, use, goodwill, or 
+            other intangible losses resulting from:</p>
+          <ul>
+            <li>Your use or inability to use the App.</li>
+            <li>Any unauthorized access to or use of our servers and/or any 
+              personal information stored therein.</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Indemnification</h3>
+          <p>You agree to indemnify and hold us harmless from any claims, 
+            damages, losses, liabilities, and expenses (including legal fees) 
+            arising out of or related to your use of the App, your violation of 
+            these Terms, or your violation of any rights of another.</p>
+        </li>
+        <li>
+          <h3>Changes to Terms</h3>
+          <p>We reserve the right to modify these Terms at any time. We will 
+            notify you of any changes by posting the new Terms on the App. Your 
+            continued use of the App after such changes constitutes your 
+            acceptance of the new Terms.</p>
+        </li>
+        <li>
+          <h3>Governing Law</h3>
+          <p>These Terms shall be governed by and construed in accordance with 
+            the laws of the Philippines, without regard to its conflict of law 
+            principles.</p>
+        </li>
+        <li>
+          <h3>Contact Us</h3>
+          <p>If you have any questions about these Terms, please contact us at 
+            <a href="mailto:midknightsv3@gmail.com">
+              midknightsv3&#64;gmail.com.</a>
+          </p>
+        </li>
+      </ol>
+      <p>By using the Kajas App, you acknowledge that you have read, understood,
+         and agree to be bound by these Terms and Conditions.</p>
+    </div>
+  </div>
+</div>

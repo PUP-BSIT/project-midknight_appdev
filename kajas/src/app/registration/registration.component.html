@@ -1,0 +1,93 @@
+<div class="main-container">
+    <div class="container">
+      <div class="logo-mobile">
+        <img src="./assets/kajas_icon.png" alt="Kajas Logo">
+      </div>
+  
+      <h1>Sign Up</h1>
+      
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <input 
+          type="text" 
+          id="username" 
+          formControlName="username"
+          placeholder="Username *" 
+          required>
+  
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          placeholder="Email Address *" 
+          required>
+  
+        <div class="password-container">
+          <input 
+            [type]="hidePassword ? 'password' : 'text'" 
+            id="password" 
+            formControlName="password"
+            placeholder="Password *" 
+            required>
+          <img 
+            src="./assets/icons/{{hidePassword ? 'unsee' : 'see'}}.png" 
+            alt="Toggle Password Visibility"
+            class="toggle-password" 
+            (click)="togglePasswordVisibility('password')">
+        </div>
+  
+        <div class="password-container">
+          <input 
+            [type]="hideConfirmPassword ? 'password' : 'text'" 
+            id="confirm_password" 
+            formControlName="confirmPassword"
+            placeholder="Confirm Password *" 
+            required>
+          <img 
+            src="./assets/icons/{{hideConfirmPassword ? 'unsee' : 'see'}}.png" 
+            alt="Toggle Password Visibility" 
+            class="toggle-password" 
+            (click)="togglePasswordVisibility('confirmPassword')">
+        </div>
+  
+        <input 
+          type="text" 
+          id="first_name" 
+          formControlName="firstName"
+          placeholder="First Name *" 
+          required>
+          
+        <input 
+          type="text" 
+          id="middle_name" 
+          formControlName="middleName"
+          placeholder="Middle Name">
+          
+        <input 
+          type="text" 
+          id="last_name" 
+          formControlName="lastName"
+          placeholder="Last Name *" 
+          required>
+  
+          <label class="terms">
+            <input type="checkbox" formControlName="terms" required>
+              I've read and agree to the 
+                <a (click)="openTermsModal($event)" class="terms-link">Terms and Conditions</a>
+          </label>
+  
+        <button class="signup" type="submit">SIGN UP</button>
+      </form>
+  
+      <hr>
+  
+      <div class="login">
+        <span>Already in Kajas? </span> 
+        <a routerLink="/login" class="login-link">Log In Here</a>
+      </div>
+    </div>
+  
+    <div class="logo">
+      <img src="../assets/kajas_white.png" alt="Kajas Logo">
+    </div>
+  </div>
+  

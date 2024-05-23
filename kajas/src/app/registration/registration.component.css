@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 90%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    flex: 1;
+    text-align: center;
+    background-color: #E2D6C8;
+    padding: 20px;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 20px;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container:hover {
+    transform: scale(1.05); 
+}
+
+.container h1 {
+    color: #3E3E3E;
+    font-size: xx-large;
+    margin-bottom: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: calc(100% - 22px);
+}
+
+.toggle-password img {
+    max-width: 50%;
+}
+
+img.toggle-password {
+    position: absolute;
+    right: 5%; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+    height: 15px;
+}
+
+.terms {
+    text-align: left;
+    font-size: 0.9em;
+    color: #3E3E3E;
+}
+
+.terms input {
+    margin-right: 5px;
+}
+
+button.signup {
+    padding: 10px;
+    background-color: #3E3E3E;
+    color: #FFF;
+    font-size: large;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button.signup:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    background-color: #3E3E3E;
+    border: none;
+    margin: 20px 0;
+}
+
+.terms-link {
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+.login {
+    color: #3E3E3E;
+    font-size: 0.9em;
+}
+
+.login-link {
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-mobile {
+    display: none;
+}
+
+.logo img {
+    width: 80%;
+    max-width: 100%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo img:hover {
+    transform: scale(1.05); 
+}
+
+@media only screen and (max-width: 768px) {
+    .main-container {
+        width: 350px;
+        height: 350px;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        margin: 0;
+        margin-top: 8px;
+        height: 40px;
+    }
+    
+    .logo-mobile img {
+        width: 80%;
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .logo-mobile img:hover {
+        transform: translateY(-8px);
+    }    
+
+    .logo {
+        display: none;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 10px 25px;
+        max-width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container h1 {
+        font-size: medium;
+        margin: 12px;
+    }
+
+    form {
+        gap: 2.5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        padding: 5px;
+        align-self: center;
+        height: 12px;
+    }
+
+    .password-container input {
+        width: calc(100% - 20px);
+    }
+    
+    img.toggle-password {
+        width: 15px;
+        height: 10px;
+    }
+
+    button.signup {
+        font-size: small;
+        padding: 5px;
+        margin-top: 5px;
+    }
+    
+    .terms input {
+        margin-right: 2px;
+        width: 10px;
+        margin-top: 5px;
+    }
+
+    .terms{
+        font-size: x-small;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login {
+        font-size: x-small;
+    }
+
+    hr {
+        margin: 10px 0;
+    }
+}
