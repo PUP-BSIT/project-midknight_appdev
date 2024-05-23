@@ -1,18 +1,22 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-
 export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
 
-  constructor(private fb: FormBuilder, private renderer: Renderer2) {
+  constructor(
+    private fb: FormBuilder,
+    private renderer: Renderer2,
+    private modalService: ModalService
+  ) {
     this.registrationForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -92,4 +96,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.hideConfirmPassword = !this.hideConfirmPassword;
     }
   }
+
+  openTermsModal(event: Event): void {
+    event.preventDefault();
+    this.modalService.openTermsModal();
+  }  
 }

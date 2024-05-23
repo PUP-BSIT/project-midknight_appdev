@@ -69,10 +69,11 @@
           placeholder="Last Name *" 
           required>
   
-        <label class="terms">
-          <input type="checkbox" formControlName="terms" required>
-          I've read and agree to the Terms and Conditions
-        </label>
+          <label class="terms">
+            <input type="checkbox" formControlName="terms" required>
+              I've read and agree to the 
+                <a (click)="openTermsModal($event)" class="terms-link">Terms and Conditions</a>
+          </label>
   
         <button class="signup" type="submit">SIGN UP</button>
       </form>
