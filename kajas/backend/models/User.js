@@ -11,7 +11,21 @@ const verifyUser = (email, callback) => {
   db.query(query, [verify, email], callback);
 }
 
+const getAllUsernames = () => {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT username FROM user';
+    db.query(query, (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      const usernames = results.map(row => row.username);
+      resolve(usernames);
+    });
+  });
+};
+
 module.exports = {
   createUser,
-  verifyUser
+  verifyUser,
+  getAllUsernames
 };

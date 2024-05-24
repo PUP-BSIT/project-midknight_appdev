@@ -7,9 +7,12 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ModalService } from '../services/modal.service';
+import { UserService } from '../services/user.service';
 import { TermsModalComponent } from './terms-modal/terms-modal.component';
 import { PrivacyModalComponent } from './privacy-modal/privacy-modal.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -23,9 +26,13 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [ModalService],
+  providers: [ 
+    ModalService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
