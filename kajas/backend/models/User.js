@@ -5,6 +5,13 @@ const createUser = (userInfoId, username, email, password, callback) => {
   db.query(query, [userInfoId, username, email, password], callback);
 };
 
+const verifyUser = (email, callback) => {
+  const verify = 1;
+  const query = 'UPDATE user SET is_verify = ? WHERE email = ?';
+  db.query(query, [verify, email], callback);
+}
+
 module.exports = {
-  createUser
+  createUser,
+  verifyUser
 };

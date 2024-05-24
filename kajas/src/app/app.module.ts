@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ModalService } from '../services/modal.service';
 import { TermsModalComponent } from './terms-modal/terms-modal.component';
 import { PrivacyModalComponent } from './privacy-modal/privacy-modal.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PrivacyModalComponent } from './privacy-modal/privacy-modal.component';
     LoginComponent,
     RegistrationComponent,
     TermsModalComponent,
-    PrivacyModalComponent
+    PrivacyModalComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

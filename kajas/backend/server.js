@@ -1,15 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
+const emailRoute = require('./routes/emailRoute')
+const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
-// Middleware
+app.use(cors());
 app.use(bodyParser.json());
 
-// Routes
 app.use('/api', authRoutes);
+app.use(emailRoute)
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '../../services/modal.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-registration',
@@ -81,9 +82,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise <void> {
+
+    const url = "http://localhost:4000"
     if (this.registrationForm.valid) {
       console.log('Form Submitted', this.registrationForm.value);
+      const signupUser = await axios.post(`${url}/api/signup`,this.registrationForm.value)
+      if (signupUser.status === 201){
+        
+        const sendEmail = await axios.post(`${url}/send/email`, {
+          email: this.registrationForm.value.email
+        })
+
+        if (sendEmail.status === 200) {
+          alert(sendEmail.data.msg)
+        }
+
+      }
     } else {
       console.log('Form is invalid');
     }
