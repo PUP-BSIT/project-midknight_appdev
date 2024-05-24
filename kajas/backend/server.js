@@ -5,10 +5,8 @@ const authRoutes = require('./routes/auth');
 const app = express();
 const port = 3000;
 
-// Middleware
 app.use(bodyParser.json());
 
-// Routes
 app.use('/api', authRoutes);
 
 app.listen(port, () => {
