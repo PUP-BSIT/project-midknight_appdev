@@ -105,6 +105,16 @@ hr {
     margin: 20px 0;
 }
 
+.terms-link {
+    color: #3E3E3E;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
 .login {
     color: #3E3E3E;
     font-size: 0.9em;
