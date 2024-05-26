@@ -14,6 +14,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
   existingUsernames: string[] = [];
+  showModal: boolean = false;
+  modalMessage: string = '';
+
 
   constructor(
     private fb: FormBuilder,
@@ -136,19 +139,24 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const url = "http://localhost:4000";
     if (this.registrationForm.valid) {
       console.log('Form Submitted', this.registrationForm.value);
-      const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
-      if (signupUser.status === 201) {
-        const sendEmail = await axios.post(`${url}/send/email`, {
-          email: this.registrationForm.value.email
-        });
-        if (sendEmail.status === 200) {
-          alert(sendEmail.data.msg);
+      try {
+        const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
+        if (signupUser.status === 201) {
+          const sendEmail = await axios.post(`${url}/send/email`, {
+            email: this.registrationForm.value.email
+          });
+          if (sendEmail.status === 200) {
+            this.modalMessage = sendEmail.data.msg;
+            this.showModal = true;
+          }
         }
+      } catch (error) {
+        console.error('Error during registration:', error);
       }
     } else {
       console.log('Form is invalid');
     }
-  }
+  }  
 
   togglePasswordVisibility(field: string): void {
     if (field === 'password') {
@@ -162,6 +170,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.modalService.openTermsModal();
   }
+
+  closeModal() {
+    this.showModal = false;
+  }  
 
   getErrorMessage(controlName: string): string {
     const control = this.registrationForm.get(controlName);

@@ -97,3 +97,5 @@
     <img src="../assets/kajas_white.png" alt="Kajas Logo">
   </div>
 </div>
+<app-modal-message *ngIf="showModal" [message]="modalMessage" 
+  (closeModal)="closeModal()"></app-modal-message>

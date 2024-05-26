@@ -1,0 +1,76 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.modal {
+    background: white;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+    animation: slideIn 0.3s ease-in-out;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal:hover {
+    transform: scale(1.05); 
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    color: #3E3E3E;
+    font-size: x-large;
+}
+
+button {
+    padding: 10px;
+    width: 100%;
+    background-color: #3E3E3E;
+    color: #FFF;
+    font-size: large;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+  
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); }
+    to { transform: translateY(0); }
+}
+  
+@media only screen and (max-width: 768px) {
+    p {
+        font-size: medium;
+    }
+
+    button {
+        font-size: medium;
+    }
+}
+  

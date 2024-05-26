@@ -12,6 +12,7 @@ import { TermsModalComponent } from './terms-modal/terms-modal.component';
 import { PrivacyModalComponent } from './privacy-modal/privacy-modal.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalMessageComponent } from './shared/modal-message/modal-message.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationComponent,
     TermsModalComponent,
     PrivacyModalComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ModalMessageComponent
   ],
   imports: [
     BrowserModule,
