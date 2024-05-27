@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ModalService } from '../../services/modal.service';
+import { UserService } from '../../services/user.service';
 import axios from 'axios';
 
 @Component({
@@ -12,32 +13,48 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
+  existingUsernames: string[] = [];
+  showModal: boolean = false;
+  modalMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private userService: UserService 
   ) {
     this.registrationForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      username: ['', [Validators.required, this.usernameValidator.bind(this)]],
+      email: ['', [Validators.required, Validators.email, this.gmailValidator]],
+      password: ['', [Validators.required, this.passwordValidator]],
+      confirmPassword: ['', [Validators.required, this.confirmPasswordValidator.bind(this)]],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
       terms: [false, Validators.requiredTrue]
-    }, { validator: this.passwordMatchValidator });
+    });
   }
 
   ngOnInit(): void {
     this.setInitialStyles();
     window.addEventListener('resize', this.applyBackground.bind(this));
+    this.loadUsernames();
   }
 
   ngOnDestroy(): void {
     this.revertStyles();
     window.removeEventListener('resize', this.applyBackground.bind(this));
+  }
+
+  private loadUsernames(): void {
+    this.userService.getUsernames().subscribe(
+      (usernames) => {
+        this.existingUsernames = usernames;
+      },
+      (error) => {
+        console.error('Error fetching usernames:', error);
+      }
+    );
   }
 
   private setInitialStyles(): void {
@@ -73,36 +90,72 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  private passwordMatchValidator(form: FormGroup): { [key: string]: boolean } | null {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
+  private usernameValidator(control: AbstractControl): ValidationErrors | null {
+    if (this.existingUsernames.includes(control.value)) {
+      return { usernameTaken: true };
+    }
+    return null;
+  }
+
+  private gmailValidator(control: AbstractControl): ValidationErrors | null {
+    if (control.value && !control.value.endsWith('@gmail.com')) {
+      return { notGmail: true };
+    }
+    return null;
+  }
+
+  private passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.value;
+    const errors: ValidationErrors = {};
+    
+    if (!/[A-Z]/.test(password)) {
+      errors.noUpperCase = true;
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.noLowerCase = true;
+    }
+    if (!/[0-9]/.test(password)) {
+      errors.noNumber = true;
+    }
+    if (!/[!@#$%^&*]/.test(password)) {
+      errors.noSpecialChar = true;
+    }
+    if (password.length < 8) {
+      errors.tooShort = true;
+    }
+
+    return Object.keys(errors).length ? errors : null;
+  }
+
+  private confirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    if (this.registrationForm && control.value !== this.registrationForm.get('password')?.value) {
       return { mismatch: true };
     }
     return null;
   }
 
-  async onSubmit(): Promise <void> {
-
-    const url = "http://localhost:4000"
+  async onSubmit(): Promise<void> {
+    const url = "http://localhost:4000";
     if (this.registrationForm.valid) {
-      console.log('Form Submitted', this.registrationForm.value);
-      const signupUser = await axios.post(`${url}/api/signup`,this.registrationForm.value)
-      if (signupUser.status === 201){
-        
-        const sendEmail = await axios.post(`${url}/send/email`, {
-          email: this.registrationForm.value.email
-        })
-
-        if (sendEmail.status === 200) {
-          alert(sendEmail.data.msg)
+      try {
+        const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
+        if (signupUser.status === 201) {
+          const sendEmail = await axios.post(`${url}/send/email`, {
+            email: this.registrationForm.value.email
+          });
+          if (sendEmail.status === 200) {
+            this.modalMessage = sendEmail.data.msg;
+            this.showModal = true;
+          }
         }
-
+      } catch (error) {
+        console.error('Error during registration:', error);
       }
     } else {
-      console.log('Form is invalid');
+      this.modalMessage = 'Please fill out the form accurately and completely.';
+      this.showModal = true;
     }
-  }
+  }  
 
   togglePasswordVisibility(field: string): void {
     if (field === 'password') {
@@ -115,5 +168,43 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   openTermsModal(event: Event): void {
     event.preventDefault();
     this.modalService.openTermsModal();
+  }
+
+  closeModal() {
+    this.showModal = false;
   }  
+
+  getErrorMessage(controlName: string): string {
+    const control = this.registrationForm.get(controlName);
+    if (control && control.errors) {
+      if (control.errors.required) {
+        return `${this.capitalizeFirstLetter(controlName)} is required.`;
+      } else if (control.errors.email) {
+        return 'Email must be a valid email address.';
+      } else if (control.errors.notGmail) {
+        return 'Email must be a valid Google mail address.';
+      } else if (control.errors.usernameTaken) {
+        return 'Username is already taken.';
+      } else if (control.errors.tooShort) {
+        return 'Password must be at least 8 characters long.';
+      } else if (control.errors.noUpperCase) {
+        return 'Password must include at least one uppercase letter.';
+      } else if (control.errors.noLowerCase) {
+        return 'Password must include at least one lowercase letter.';
+      } else if (control.errors.noNumber) {
+        return 'Password must include at least one number.';
+      } else if (control.errors.noSpecialChar) {
+        return 'Password must include at least one special character.';
+      } else if (control.errors.mismatch) {
+        return 'Passwords must match.';
+      } else if (control.errors.requiredTrue) {
+        return 'You must agree to the terms and conditions.';
+      }
+    }
+    return '';
+  }
+
+  private capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1).replace(/([A-Z])/g, ' $1');
+  }
 }

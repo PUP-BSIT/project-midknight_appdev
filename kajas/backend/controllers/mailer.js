@@ -37,11 +37,11 @@ const mailer =  async (req, res) => {
             <p>KAJAS team</p>`              
         };
         await transporter.sendMail(mailOptions);
-        return res.status(200).json({ title: "Success", msg: 'Email sent successfully' });
+        return res.status(200).json({ title: "Success", msg: 'Thank you for signing up! Please check your email for a verification message to complete the account activation.' });
         
       } catch (error) {
             console.log(error);
-          return res.status(500).json({ title: "Internal Error", msg: "Something went wrong!" });
+          return res.status(500).json({ title: "Internal Error", msg: "Something went wrong! Please try again later." });
       }
 }
 
