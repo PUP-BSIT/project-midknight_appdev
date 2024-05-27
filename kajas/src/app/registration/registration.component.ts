@@ -17,7 +17,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   showModal: boolean = false;
   modalMessage: string = '';
 
-
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
@@ -51,7 +50,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.userService.getUsernames().subscribe(
       (usernames) => {
         this.existingUsernames = usernames;
-        console.log('Usernames loaded:', this.existingUsernames);
       },
       (error) => {
         console.error('Error fetching usernames:', error);
@@ -139,7 +137,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   async onSubmit(): Promise<void> {
     const url = "http://localhost:4000";
     if (this.registrationForm.valid) {
-      console.log('Form Submitted', this.registrationForm.value);
       try {
         const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
         if (signupUser.status === 201) {
@@ -155,7 +152,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         console.error('Error during registration:', error);
       }
     } else {
-      console.log('Form is invalid');
+      this.modalMessage = 'Please fill out the form accurately and completely.';
+      this.showModal = true;
     }
   }  
 

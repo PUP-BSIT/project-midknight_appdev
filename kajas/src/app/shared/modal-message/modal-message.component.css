@@ -12,8 +12,11 @@
 }
   
 .modal {
+    display: flex;
+    flex-direction: column;
     background: white;
     padding: 20px;
+    max-width: 30%;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
@@ -30,15 +33,16 @@
 p {
     font-family: 'Montserrat', sans-serif;
     color: #3E3E3E;
-    font-size: x-large;
+    font-size: larger;
+    text-align: center;
 }
 
 button {
     padding: 10px;
-    width: 100%;
+    width: 50%;
     background-color: #3E3E3E;
     color: #FFF;
-    font-size: large;
+    font-size: medium;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -65,12 +69,18 @@ button:hover {
 }
   
 @media only screen and (max-width: 768px) {
+    .modal {
+        max-width: 60%;
+        padding: 10px;
+    }
+
     p {
-        font-size: medium;
+        font-size: x-small;
     }
 
     button {
-        font-size: medium;
+        padding: 5px;
+        font-size: xx-small;
     }
 }
   
