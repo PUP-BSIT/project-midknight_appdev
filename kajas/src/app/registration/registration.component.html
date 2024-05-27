@@ -80,11 +80,16 @@
           </div>
         </div>
       </div>
-      <label class="terms">
-        <input type="checkbox" required>
-          I've read and agree to the <a (click)="openTermsModal($event)" 
-          class="terms-link">Terms and Conditions</a>
-      </label>
+      <div class="form-group-wrapper">
+        <label class="terms">
+          <input type="checkbox" formControlName="terms" required>
+          I've read and agree to the&nbsp;
+          <a (click)="openTermsModal($event)" class="terms-link"> Terms and Conditions</a>
+        </label>
+        <div *ngIf="registrationForm.get('terms').invalid && registrationForm.get('terms').touched" class="error-message">
+          {{ getErrorMessage('terms') }}
+        </div>
+      </div>
       <button class="signup" type="submit">SIGN UP</button>
     </form>
     <hr>

@@ -31,7 +31,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       confirmPassword: ['', [Validators.required, this.confirmPasswordValidator.bind(this)]],
       firstName: ['', Validators.required],
       middleName: [''],
-      lastName: ['', Validators.required]
+      lastName: ['', Validators.required],
+      terms: [false, Validators.requiredTrue]
     });
   }
 
@@ -198,6 +199,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         return 'Password must include at least one special character.';
       } else if (control.errors.mismatch) {
         return 'Passwords must match.';
+      } else if (control.errors.requiredTrue) {
+        return 'You must agree to the terms and conditions.';
       }
     }
     return '';

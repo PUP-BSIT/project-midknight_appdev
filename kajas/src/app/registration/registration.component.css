@@ -72,6 +72,8 @@ img.toggle-password {
 }
 
 .terms {
+    display: flex;
+    align-items: center;
     text-align: left;
     font-size: 0.9em;
     color: #3E3E3E;
