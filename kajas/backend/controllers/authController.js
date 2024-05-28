@@ -76,12 +76,10 @@ const verifyAccount = async (req, res) => {
           .status(404)
           .json({ title: "Internal Error", msg: "Not found!" });
       }
-      return res
-        .status(200)
-        .json({
-          title: "Account Verified",
-          msg: "Your account has been verified!",
-        });
+      return res.status(200).json({
+        title: "Account Verified",
+        msg: "Your account has been verified!",
+      });
     });
   } catch (error) {
     return res
@@ -107,7 +105,7 @@ const login = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     if (!user.is_verify) {
