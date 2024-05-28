@@ -21,6 +21,35 @@ const findUserByEmail = (email, callback) => {
   });
 };
 
+const setPasswordResetToken = (email, token, expires, callback) => {
+  const query = "UPDATE user SET reset_token = ?, reset_token_expires = ? WHERE email = ?";
+  db.query(query, [token, expires, email], callback);
+};
+
+const findUserByResetToken = (token) => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM user WHERE reset_token = ?";
+    db.query(query, [token], (err, results) => {
+      if (err || results.length === 0) {
+        return reject(err || new Error('User not found'));
+      }
+      resolve(results[0]);
+    });
+  });
+};
+
+const updatePassword = (email, hashedPassword) => {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE user SET password = ?, reset_token = NULL, reset_token_expires = NULL WHERE email = ?";
+    db.query(query, [hashedPassword, email], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(results);
+    });
+  });
+};
+
 const getAllUsernames = () => {
   return new Promise((resolve, reject) => {
     const query = 'SELECT username FROM user';
@@ -38,5 +67,8 @@ module.exports = {
   createUser,
   verifyUser,
   findUserByEmail,
+  setPasswordResetToken,
+  findUserByResetToken,
+  updatePassword,
   getAllUsernames
 };

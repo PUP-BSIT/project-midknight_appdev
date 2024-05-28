@@ -14,6 +14,7 @@ import { PrivacyModalComponent } from './privacy-modal/privacy-modal.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalMessageComponent } from './shared/modal-message/modal-message.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ModalMessageComponent } from './shared/modal-message/modal-message.comp
     TermsModalComponent,
     PrivacyModalComponent,
     ForgotPasswordComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

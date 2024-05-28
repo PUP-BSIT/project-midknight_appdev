@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const emailRoute = require('./routes/emailRoute');
 const userRoutes = require('./routes/userRoutes');
+const resetRoute = require('./routes/resetRoute');
 const cors = require('cors');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/api', authRoutes);
 app.use(emailRoute);
 app.use('/api/users', userRoutes);
+app.use(resetRoute);
 
 
 app.listen(port, () => {
