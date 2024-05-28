@@ -81,16 +81,18 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   async onSubmit(): Promise<void> {
     const url = "http://localhost:4000";
     this.submitted = true;
-
+  
     if (this.forgotPasswordForm.invalid) {
+      this.modalMessage = 'Please fill out the form correctly.';
+      this.showModal = true;
       return;
     }
-
+  
     try {
       const response = await axios.post(`${url}/send/resetLink`, {
         email: this.forgotPasswordForm.value.email
       });
-
+  
       if (response.status === 200) {
         this.modalMessage = 'Email to reset your password has been sent. Please check your inbox.';
         this.showModal = true;
@@ -102,14 +104,14 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.errorMessage = error.response?.data?.message || 'Something went wrong. Please try again later.';
     }
   }
-
+  
   getEmailErrorMessage() {
     const emailControl = this.forgotPasswordForm.get('email');
     if (emailControl.hasError('required')) {
       return 'Email is required.';
     } else if (emailControl.hasError('email')) {
       return 'Must be a valid email address.';
-    }  else if (emailControl.errors.notGmail) {
+    } else if (emailControl.errors.notGmail) {
       return 'Email must be a valid Google mail address.';
     } else if (emailControl.hasError('serverError')) {
       return emailControl.getError('serverError');
