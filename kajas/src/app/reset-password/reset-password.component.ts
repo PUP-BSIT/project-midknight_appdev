@@ -129,14 +129,22 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit() {
+    if (this.resetPasswordForm.invalid) {
+      this.modalMessage = 'Please fill out the form first.';
+      this.showModal = true;
+      return;
+    }
+
     if (this.resetPasswordForm.invalid) return;
     try {
-      await axios.post('http://localhost:3000/api/v1/users/resetPassword', {
+      await axios.post('http://localhost:4000/api/reset-password', {
         token: this.token,
-        newPassword: this.resetPasswordForm.get('newPassword')?.value
+        newPassword: this.resetPasswordForm.get('newPassword')?.value,
+        confirmNewPassword: this.resetPasswordForm.get('confirmNewPassword')?.value
       });
       this.modalMessage = 'Password has been reset successfully. You may now log in with your new password.';
     } catch (error) {
+      console.error('Error in password reset:', error);
       this.modalMessage = error.response?.data?.message || 'An error occurred. Please try again later.';
     }
     this.showModal = true;
@@ -144,6 +152,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.showModal = false;
-    this.router.navigate(['/login']);
+    if (this.resetPasswordForm.valid) {
+      this.router.navigate(['/login']);
+    }
   }
 }
