@@ -1,39 +1,47 @@
 <div class="container">
-    <h1>Welcome to</h1>
-    <div class="logo">
-      <img src="../../assets/kajas_black.png" alt="Kajas Logo">
+  <h1>Welcome to</h1>
+  <div class="logo">
+    <img src="../../assets/kajas_black.png" alt="Kajas Logo" />
+  </div>
+  <h3>"Where Art Finds its Home"</h3>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <input
+        type="email"
+        id="user_email"
+        formControlName="email"
+        placeholder="Email Address"
+      />
     </div>
-    <h3>"Where Art Finds its Home"</h3>
-  
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="input-group">
-        <input 
-          type="email"
-          id="user_email"
-          formControlName="email"
-          placeholder="Email Address">
-      </div>
-      <div class="input-group">
-        <input
-          [type]="hidePassword ? 'password' : 'text'"
-          id="user_password"
-          formControlName="password"
-          placeholder="Password">
-        <img 
-          src="../../assets/icons/{{hidePassword ? 'unsee' : 'see'}}.png" 
-          alt="Toggle Password Visibility" 
-          class="toggle-password" 
-          (click)="togglePasswordVisibility()">
-      </div>
-      <button class="login" type="submit" 
-        [disabled]="loginForm.invalid">LOG IN</button>
-    </form>
-    <a routerLink="/forgot-password" class="forgot-password">
-      Forgot Password?</a>
-    <hr>
-    <div class="signup">
-      <label>New to Kajas?</label> 
-      <a routerLink="/register" class="signup-link"> Sign Up Here</a>
+    <div class="input-group">
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        id="user_password"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <img
+        src="../../assets/icons/{{ hidePassword ? 'unsee' : 'see' }}.png"
+        alt="Toggle Password Visibility"
+        class="toggle-password"
+        (click)="togglePasswordVisibility()"
+      />
     </div>
+    <button class="login" type="submit" [disabled]="loginForm.invalid">
+      LOG IN
+    </button>
+  </form>
+  <a routerLink="/forgot-password" class="forgot-password"> Forgot Password?</a>
+  <hr />
+  <div class="signup">
+    <label>New to Kajas?</label>
+    <a routerLink="/register" class="signup-link"> Sign Up Here</a>
+  </div>
 </div>
-  
+
+<app-modal-message
+  *ngIf="showModal"
+  [message]="modalMessage"
+  (closeModal)="closeModal()"
+></app-modal-message>

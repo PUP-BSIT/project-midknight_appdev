@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,14 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   hidePassword: boolean = true;
+  showModal: boolean = false;
+  modalMessage: string = '';
 
   constructor(
     private renderer: Renderer2,
     private fb: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -23,7 +27,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Apply styles to html and body when the component is initialized
+    this.setInitialStyles();
+    window.addEventListener('resize', this.applyBackground.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    this.revertStyles();
+    window.removeEventListener('resize', this.applyBackground.bind(this));
+  }
+
+  private setInitialStyles(): void {
     this.renderer.setStyle(document.body, 'height', '100%');
     this.renderer.setStyle(document.body, 'overflow', 'hidden');
     this.renderer.setStyle(document.body, 'display', 'flex');
@@ -38,13 +51,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(document.documentElement, 'height', '100%');
     this.renderer.setStyle(document.documentElement, 'overflow', 'hidden');
     this.applyBackground();
-    window.addEventListener('resize', () => {
-      this.applyBackground();
-    });
   }
 
-  ngOnDestroy(): void {
-    // Revert styles when the component is destroyed
+  private revertStyles(): void {
     this.renderer.removeStyle(document.body, 'height');
     this.renderer.removeStyle(document.body, 'overflow');
     this.renderer.removeStyle(document.body, 'display');
@@ -54,19 +63,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.renderer.removeStyle(document.documentElement, 'height');
     this.renderer.removeStyle(document.documentElement, 'overflow');
-    window.removeEventListener('resize', () => {});
   }
 
-  applyBackground(): void {
+  private applyBackground(): void {
     if (window.innerWidth <= 425) {
-      // For mobile devices
       this.renderer.setStyle(
         document.body,
         'background',
         'url("../../assets/login_mbg.png") center/cover no-repeat'
       );
     } else {
-      // For desktop
       this.renderer.setStyle(
         document.body,
         'background',
@@ -75,22 +81,34 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
       this.http
         .post('http://localhost:4000/api/login', this.loginForm.value)
         .subscribe(
           (response: any) => {
-            alert('Login successful');
+            this.modalMessage = 'Login successful';
+            this.showModal = true;
+
+            setTimeout(() => {
+              console.log('Navigating to /signup');
+              this.router.navigateByUrl('/signup');
+            }, 1000);
           },
           (error: any) => {
-            alert(error.error.message || 'An error occurred during login');
+            this.modalMessage =
+              error.error.message || 'An error occurred during login';
+            this.showModal = true;
           }
         );
     }
   }
 
-  togglePasswordVisibility() {
+  togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 }
