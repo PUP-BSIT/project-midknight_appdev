@@ -13,6 +13,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   token: string;
   submitted = false;
   errorMessage: string = '';
+  showModal: boolean = false;
+  modalMessage: string = '';
 
   constructor(
     private renderer: Renderer2,
@@ -30,7 +32,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.token = this.route.snapshot.queryParamMap.get('token')!;
     if (!this.token) {
-      this.errorMessage = 'Invalid Token';
+      this.modalMessage = 'Invalid Token';
+      this.showModal = true;
     }
 
     this.renderer.setStyle(document.body, 'height', '100%');
@@ -81,7 +84,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     const { newPassword, confirmNewPassword } = this.resetPasswordForm.value;
 
     if (newPassword !== confirmNewPassword) {
-      this.errorMessage = 'Passwords do not match';
+      this.modalMessage = 'Passwords do not match';
+      this.showModal = true;
       return;
     }
 
@@ -94,13 +98,19 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       });
 
       if (response.status === 200) {
-        alert('Password has been reset successfully. You can now log in with your new password.');
-        this.router.navigate(['/login']);
+        this.modalMessage = 'Password has been reset successfully. You can now log in with your new password.';
+        this.showModal = true;
       }
     } catch (error) {
-      alert('Invalid Password')
-      console.error('Error resetting password:', error);
-      this.errorMessage = error.response?.data?.message || 'Something went wrong. Please try again later.';
+      this.modalMessage = error.response?.data?.message || 'Something went wrong. Please try again later.';
+      this.showModal = true;
+    }
+  }
+
+  closeModal() {
+    this.showModal = false;
+    if (this.modalMessage === 'Password has been reset successfully. You can now log in with your new password.') {
+      this.router.navigate(['/login']);
     }
   }
 }

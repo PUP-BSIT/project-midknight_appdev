@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalService } from '../../services/modal.service'; 
 import axios from 'axios';
 
 @Component({
@@ -13,11 +14,14 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm: FormGroup;
   submitted = false;
   errorMessage: string = '';
+  showModal: boolean = false;
+  modalMessage: string = '';
 
   constructor(
     private renderer: Renderer2,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService 
   ) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -25,7 +29,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Apply styles to html and body when the component is initialized
     this.renderer.setStyle(document.body, 'height', '100%');
     this.renderer.setStyle(document.body, 'overflow', 'hidden');
     this.renderer.setStyle(document.body, 'display', 'flex');
@@ -42,7 +45,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Revert styles when the component is destroyed
     this.renderer.removeStyle(document.body, 'height');
     this.renderer.removeStyle(document.body, 'overflow');
     this.renderer.removeStyle(document.body, 'display');
@@ -57,10 +59,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   applyBackground(): void {
     if (window.innerWidth <= 425) {
-      // For mobile devices
       this.renderer.setStyle(document.body, 'background', 'url("../../assets/login_mbg.png") center/cover no-repeat');
     } else {
-      // For desktop
       this.renderer.setStyle(document.body, 'background', 'url("../../assets/login_bg.png") center/cover no-repeat');
     }
   }
@@ -81,19 +81,22 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       });
 
       if (response.status === 200) {
-        console.log(response.data);
-        alert('Password reset email sent. Please check your inbox.');
-        this.router.navigate(['/login']);
+        this.modalMessage = 'Email to reset your password has been sent. Please check your inbox.';
+        this.showModal = true;
       }
     } catch (error) {
-      alert('Email does not Exist')
-      console.error('Error sending password reset email:', error);
+      this.modalMessage = 'Email does not exist. Please try again!';
+      this.showModal = true;
+      console.error('Error sending the email for resetting the password:', error);
       this.errorMessage = error.response?.data?.message || 'Something went wrong. Please try again later.';
     }
   }
 
   onCancel() {
-    // Handle cancel button click
     this.router.navigate(['/login']);
   }
+
+  closeModal() {
+    this.showModal = false;
+  }  
 }
