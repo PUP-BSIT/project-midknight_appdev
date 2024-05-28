@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -13,6 +14,7 @@ import { PrivacyModalComponent } from './privacy-modal/privacy-modal.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalMessageComponent } from './shared/modal-message/modal-message.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { ModalMessageComponent } from './shared/modal-message/modal-message.comp
     TermsModalComponent,
     PrivacyModalComponent,
     ForgotPasswordComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -37,4 +40,4 @@ import { ModalMessageComponent } from './shared/modal-message/modal-message.comp
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,8 @@
 const { log } = require('@angular-devkit/build-angular/src/builders/ssr-dev-server');
 const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 
 
 const transporter = nodemailer.createTransport({
@@ -45,4 +48,53 @@ const mailer =  async (req, res) => {
       }
 }
 
-module.exports = { mailer }
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ message: 'Email is required' });
+        }
+
+        User.findUserByEmail(email, async (err, user) => {
+            if (err) {
+                return res.status(500).json({ message: 'Internal server error' });
+            }
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            const token = crypto.randomBytes(20).toString('hex');
+            const expires = Date.now() + 3600000; // 1 hour
+
+            const mailOptions = {
+                from: 'midknightv03@kajas.site',
+                to: email,
+                subject: 'Password Reset',
+                html: `
+                    <p>You requested a password reset.</p>
+                    <p>Click the link below to reset your password:</p>
+                    <p><a href="http://localhost:4200/reset-password?token=${token}">Reset Password</a></p>
+                    <p>This link will expire in 1 hour.</p>
+                `
+            };
+
+            try {
+                await transporter.sendMail(mailOptions);
+                User.setPasswordResetToken(email, token, expires, (err) => {
+                    if (err) {
+                        return res.status(500).json({ message: 'Internal server error' });
+                    }
+                    res.status(200).json({ message: 'Password reset email sent' });
+                });
+            } catch (error) {
+                console.error('Error sending email:', error);
+                return res.status(500).json({ message: 'Error sending email' });
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+module.exports = { mailer, forgotPassword }

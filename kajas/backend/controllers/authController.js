@@ -1,61 +1,125 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
-const UserInformation = require('../models/UserInformation');
-const db = require('../config/db')
+const bcrypt = require("bcryptjs");
+const User = require("../models/User");
+const UserInformation = require("../models/UserInformation");
+const db = require("../config/db");
 
 const signup = async (req, res) => {
-  const { username, email, password, confirmPassword, firstName, middleName, lastName } = req.body;
+  const {
+    username,
+    email,
+    password,
+    confirmPassword,
+    firstName,
+    middleName,
+    lastName,
+  } = req.body;
 
-  if (!username || !email || !password || !confirmPassword || !firstName || !lastName) {
-    return res.status(400).json({ message: 'All required fields must be filled out' });
+  if (
+    !username ||
+    !email ||
+    !password ||
+    !confirmPassword ||
+    !firstName ||
+    !lastName
+  ) {
+    return res
+      .status(400)
+      .json({ message: "All required fields must be filled out" });
   }
   if (password !== confirmPassword) {
-    return res.status(400).json({ message: 'Passwords do not match' });
+    return res.status(400).json({ message: "Passwords do not match" });
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ message: 'Invalid email format' });
+    return res.status(400).json({ message: "Invalid email format" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  UserInformation.createUserInformation(firstName, middleName, lastName, (err, result) => {
-    if (err) {
-      console.error('Error inserting into user_information table:', err);
-      return res.status(500).json({ message: 'Internal server error' });
-    }
-
-    const userInformationId = result.insertId;
-
-    User.createUser(userInformationId, username, email, hashedPassword, (err, result) => {
+  UserInformation.createUserInformation(
+    firstName,
+    middleName,
+    lastName,
+    (err, result) => {
       if (err) {
-        console.error('Error inserting into user table:', err);
-        return res.status(500).json({ message: 'Internal server error' });
+        console.error("Error inserting into user_information table:", err);
+        return res.status(500).json({ message: "Internal server error" });
       }
 
-      res.status(201).json({ message: 'User registered successfully' });
-    });
-  });
+      const userInformationId = result.insertId;
+
+      User.createUser(
+        userInformationId,
+        username,
+        email,
+        hashedPassword,
+        (err, result) => {
+          if (err) {
+            console.error("Error inserting into user table:", err);
+            return res.status(500).json({ message: "Internal server error" });
+          }
+
+          res.status(201).json({ message: "User registered successfully" });
+        }
+      );
+    }
+  );
 };
 
 const verifyAccount = async (req, res) => {
   try {
-    const { email } = req.query
-    User.verifyUser (email, (error, result) => {
+    const { email } = req.query;
+    User.verifyUser(email, (error, result) => {
       if (error) {
-        return res.status(404).json({ title: "Internal Error", msg: "Not found!" });
-       }
-      return res.status(200).json({ title: "Account Verified", msg: "Your account has been verified!" });
-    })
-      
+        return res
+          .status(404)
+          .json({ title: "Internal Error", msg: "Not found!" });
+      }
+      return res
+        .status(200)
+        .json({
+          title: "Account Verified",
+          msg: "Your account has been verified!",
+        });
+    });
   } catch (error) {
-      return res.status(500).json({ title: "Internal Error", msg: "Something went wrong!" });
+    return res
+      .status(500)
+      .json({ title: "Internal Error", msg: "Something went wrong!" });
   }
-}
+};
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  User.findUserByEmail(email, async (err, user) => {
+    if (err) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+
+    if (!user.is_verify) {
+      return res.status(403).json({ message: "Account not verified" });
+    }
+
+    res.status(200).json({ message: "Login successful", user });
+  });
+};
 
 module.exports = {
   signup,
-  verifyAccount
+  verifyAccount,
+  login,
 };
-
