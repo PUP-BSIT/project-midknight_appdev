@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { getProfile, getLocation, setupProfile } = require('../controllers/profileController');
+const { getProfile, getLocation, setupProfile, setupSocialLinks } = require('../controllers/profileController');
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -23,6 +23,6 @@ const upload = multer({ storage: storage });
 router.get('/profile/:username', getProfile);
 router.get('/location/:id', getLocation);
 router.post('/setProfile/',upload.single('profile'), setupProfile);
-
+router.post('/setSocials', setupSocialLinks);
 
 module.exports = router;
