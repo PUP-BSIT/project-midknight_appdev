@@ -102,6 +102,10 @@ const getUserProfile = (username, callback) => {
   });
 };
 
+const getLocation = async (id, callback) => {
+  db.query ("SELECT country, city FROM user_information WHERE user_information_id = ?", [id], callback)
+}
+
 module.exports = {
   createUser,
   verifyUser,
@@ -109,5 +113,6 @@ module.exports = {
   setPasswordResetToken,
   findUserByResetToken,
   updatePassword,
-  getAllUsernames
+  getAllUsernames,
+  getLocation
 };

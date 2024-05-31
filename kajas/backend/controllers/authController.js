@@ -92,27 +92,27 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    return res.status(400).json({ message: "Email and password are required!" });
   }
 
   User.findUserByEmail(email, async (err, user) => {
     if (err) {
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error." });
     }
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Invalid email or password. Please try again!" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password or email" });
+      return res.status(400).json({ message: "Invalid email or password. Please try again!" });
     }
 
     if (!user.is_verify) {
-      return res.status(403).json({ message: "Account not verified" });
+      return res.status(403).json({ message: "Account not verified." });
     }
 
-    res.status(200).json({ message: "Login successful", user });
+    res.status(200).json({ message: "Login Success! Welcome to Kajas!", user });
   });
 };
 
