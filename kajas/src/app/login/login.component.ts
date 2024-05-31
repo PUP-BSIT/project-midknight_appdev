@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
             setTimeout(() => {
               console.log('Navigating to /signup');
-              this.router.navigateByUrl('/signup');
+              this.router.navigateByUrl('/profile');
             }, 1000);
           },
           (error: any) => {
