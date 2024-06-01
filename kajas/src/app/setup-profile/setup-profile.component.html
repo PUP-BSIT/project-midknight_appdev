@@ -4,7 +4,7 @@
     <div class="modal">
         <div class="modal-content">
             <h1>Set Up Profile</h1>
-            <form>
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <div class="left-column">
                     <div class="form-group profile-pic-group">
                         <label 
@@ -26,7 +26,8 @@
                         <textarea 
                             id="bio" 
                             maxlength="600" 
-                            placeholder="Describe yourself here...">
+                            placeholder="Describe yourself here..." 
+                            formControlName="bio">
                         </textarea>
                     </div>
                 </div>
@@ -35,88 +36,121 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="first-name">First Name *</label>
-                            <input type="text" id="first-name" required>
+                            <input 
+                                type="text" 
+                                id="first-name" 
+                                formControlName="firstName" 
+                                required>
                         </div>
 
                         <div class="form-group">
                             <label for="last-name">Last Name *</label>
-                            <input type="text" id="last-name" required>
+                            <input 
+                                type="text" 
+                                id="last-name" 
+                                formControlName="lastName" 
+                                required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="middle-name">Middle Name</label>
-                            <input type="text" id="middle-name">
+                            <input 
+                                type="text" 
+                                id="middle-name" 
+                                formControlName="middleName">
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address *</label>
-                            <input type="email" id="email" required>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                formControlName="email" 
+                                required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="location">Location *</label>
-                            <select id="country" required>
-                                <option 
-                                    value="" 
-                                    disabled selected>
+                            <select 
+                                id="country" 
+                                formControlName="country" 
+                                (change)="onCountryChange($event)" 
+                                required>
+                                
+                                <option value="" disabled selected>
                                     Country
                                 </option>
 
-                                <option value="us">United States</option>
-                                <option value="ca">Canada</option>
-                                <!-- to add more -->
+                                <option 
+                                    *ngFor="let country of countries" 
+                                    [value]="country.id">
+                                    {{ country.name }}
+                                </option>
                             </select>
 
-                            <select id="city" required>
-                                <option 
-                                    value="" 
-                                    disabled selected>
+                            <select 
+                                id="city" 
+                                formControlName="city" 
+                                [disabled]="!profileForm.get('country').value" 
+                                required>
+
+                                <option value="" disabled selected>
                                     City
                                 </option>
 
-                                <option value="us">United States</option>
-                                <option value="ca">Canada</option>
-                                <!-- to add more -->
+                                <option 
+                                    *ngFor="let city of cities" 
+                                    [value]="city.name">
+                                    {{ city.name }}
+                                </option>
                             </select>
-
                         </div>
 
                         <div class="form-group social-links">
                             <label>Social Links</label>
-                            <input type="text" placeholder="LinkedIn">
-                            <input type="text" placeholder="Facebook">
-                            <input type="text" placeholder="Instagram">
+                            <input 
+                                type="text" 
+                                formControlName="linkedIn" 
+                                placeholder="LinkedIn">
+                            <input 
+                                type="text" 
+                                formControlName="facebook" 
+                                placeholder="Facebook">
+                            <input 
+                                type="text" 
+                                formControlName="instagram" 
+                                placeholder="Instagram">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="website">Website</label>
-                        <input type="url" id="website">
+                        <input 
+                            type="url" 
+                            id="website" 
+                            formControlName="website">
                     </div>
 
                     <div class="form-group">
                         <label for="kajas-url">Kajas URL</label>
                         <div class="kajas-url-wrapper">
-                            <span 
-                                class="kajas-url-prefix">
-                                kajas.site /
-                            </span>
+                            <span class="kajas-url-prefix">kajas.site /</span>
                             <input 
                                 type="text" 
                                 id="kajas-url" 
+                                formControlName="kajasUrl" 
                                 placeholder="custom-url">
                         </div>
                     </div>
                     <button 
-                        type="submit" 
-                        class="continue-button">
-                        Continue
-                    </button>
+                    type="submit" class="continue-button">Continue</button>
                 </div>
             </form>
         </div>
     </div>
-</div>    
+</div>
+
+

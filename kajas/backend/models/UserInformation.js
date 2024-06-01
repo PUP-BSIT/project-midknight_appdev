@@ -6,18 +6,16 @@ const createUserInformation = (firstName, middleName, lastName, callback) => {
   db.query(query, [firstName, middleName, lastName], callback);
 };
 
-const updateUserInformation = (id, profile, bio, kajasLink, callback) => {
-  const query = `UPDATE user_information SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?  WHERE user_information_id = 1`;
-  db.query(query, [profile, bio, kajasLink, country, city, id], callback);
-} 
-
-const addSocialLinks = (id, platform, url, callback) => {
-  const query = 'INSERT INTO social_links (platform, url) VALUES (?, ?)';
-  db.query(query, [platform, url], callback);
+const updateUserInformation = (id, firstName, middleName, lastName, email, bio, country, city, kajasLink, facebook, linkedin, instagram, website, callback) => {
+  const query = `
+    UPDATE user_information 
+    SET first_name = ?, middle_name = ?, last_name = ?, email = ?, bio = ?, country = ?, city = ?, kajas_link = ?, facebook = ?, linkedin = ?, instagram = ?, website = ? 
+    WHERE user_information_id = 1`;
+  db.query(query, [firstName, middleName, lastName, email, bio, country, city, kajasLink, facebook, linkedin, instagram, website, id], callback);
 };
+
 
 module.exports = {
   createUserInformation,
-  updateUserInformation,
-  addSocialLinks
+  updateUserInformation
 };

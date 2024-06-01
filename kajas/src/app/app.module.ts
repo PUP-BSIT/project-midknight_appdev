@@ -18,6 +18,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SetupProfileComponent } from './setup-profile/setup-profile.component';
+import { LocationService } from '../services/location.service';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { SetupProfileComponent } from './setup-profile/setup-profile.component';
   ],
   providers: [ 
     ModalService,
-    UserService
+    UserService,
+    LocationService
   ],
   bootstrap: [AppComponent]
 })
