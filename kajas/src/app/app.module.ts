@@ -17,6 +17,7 @@ import { ModalMessageComponent } from './shared/modal-message/modal-message.comp
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SetupProfileComponent } from './setup-profile/setup-profile.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ProfileComponent } from './profile/profile.component';
     ModalMessageComponent,
     ResetPasswordComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    SetupProfileComponent
   ],
   imports: [
     BrowserModule,
