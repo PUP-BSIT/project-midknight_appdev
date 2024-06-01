@@ -87,12 +87,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         .post('http://localhost:4000/api/login', this.loginForm.value)
         .subscribe(
           (response: any) => {
-            this.modalMessage = 'Login successful';
+            this.modalMessage = 'Login Success! Welcome to Kajas!';
             this.showModal = true;
 
             setTimeout(() => {
               console.log('Navigating to /signup');
-              this.router.navigateByUrl('/signup');
+              this.router.navigateByUrl('/profile');
             }, 1000);
           },
           (error: any) => {
@@ -101,6 +101,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.showModal = true;
           }
         );
+    } else {
+      this.modalMessage = 'Please fill out the form accurately first.';
+      this.showModal = true;
     }
   }
 
