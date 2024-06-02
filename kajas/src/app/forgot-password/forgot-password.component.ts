@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { Router } from '@angular/router';
 import { ModalService } from '../../services/modal.service'; 
 import axios from 'axios';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,9 +14,10 @@ import axios from 'axios';
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm: FormGroup;
   submitted = false;
-  errorMessage: string = '';
-  showModal: boolean = false;
-  modalMessage: string = '';
+  errorMessage = '';
+  showModal = false;
+  modalMessage = '';
+  resizeSubscription: Subscription;
 
   constructor(
     private renderer: Renderer2,
@@ -24,18 +26,24 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     private modalService: ModalService 
   ) {
     this.forgotPasswordForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email, this.gmailValidator]]
+      email: ['', {
+        validators: [
+          Validators.required,
+          Validators.email,
+          this.gmailValidator
+        ]
+      }]
     });
   }
 
   ngOnInit(): void {
     this.setInitialStyles();
-    window.addEventListener('resize', this.applyBackground.bind(this));
+    this.resizeSubscription = fromEvent(window, 'resize').subscribe(() => this.applyBackground());
   }
 
   ngOnDestroy(): void {
     this.revertStyles();
-    window.removeEventListener('resize', this.applyBackground.bind(this));
+    this.resizeSubscription.unsubscribe();
   }
 
   private setInitialStyles(): void {
@@ -64,11 +72,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   private applyBackground(): void {
-    if (window.innerWidth <= 425) {
-      this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_mbg.png") center/cover no-repeat');
-    } else {
-      this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_bg.png") center/cover no-repeat');
-    }
+    const backgroundUrl = window.innerWidth <= 425 ? '../../assets/signup_mbg.png' : '../../assets/signup_bg.png';
+    this.renderer.setStyle(document.body, 'background', `url("${backgroundUrl}") center/cover no-repeat`);
   }
 
   private gmailValidator(control: AbstractControl): ValidationErrors | null {
@@ -105,25 +110,23 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }
   }
   
-  getEmailErrorMessage() {
+  getEmailErrorMessage(): string {
     const emailControl = this.forgotPasswordForm.get('email');
     if (emailControl.hasError('required')) {
       return 'Email is required.';
     } else if (emailControl.hasError('email')) {
       return 'Must be a valid email address.';
-    } else if (emailControl.errors.notGmail) {
+    } else if (emailControl.hasError('notGmail')) {
       return 'Email must be a valid Google mail address.';
-    } else if (emailControl.hasError('serverError')) {
-      return emailControl.getError('serverError');
     }
     return '';
   }
 
-  onCancel() {
+  onCancel(): void {
     this.router.navigate(['/login']);
   }
 
-  closeModal() {
+  closeModal(): void {
     this.showModal = false;
   }  
 }
