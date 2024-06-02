@@ -9,20 +9,24 @@
         <div class="form-group">
           <input type="text" id="username" formControlName="username" 
             placeholder="Username *" required>
-          <div *ngIf="registrationForm.get('username').invalid && 
-            registrationForm.get('username').touched" class="error-message">
-            {{ getErrorMessage('username') }}
-          </div>
+              @if(registrationForm.get('username').invalid && 
+                registrationForm.get('username').touched) {
+                <div class="error-message">
+                  {{ getErrorMessage('username') }}
+                </div>
+              }
         </div>
       </div>
       <div class="form-group-wrapper">
         <div class="form-group">
           <input type="email" id="email" formControlName="email" 
             placeholder="Email Address *" required>
-          <div *ngIf="registrationForm.get('email').invalid && 
-            registrationForm.get('email').touched" class="error-message">
-            {{ getErrorMessage('email') }}
-          </div>
+              @if(registrationForm.get('email').invalid && 
+                registrationForm.get('email').touched) {
+                  <div class="error-message">
+                    {{ getErrorMessage('email') }}
+                  </div>
+              }
         </div>
       </div>
       <div class="form-group-wrapper password-container">
@@ -30,38 +34,42 @@
           <input [type]="hidePassword ? 'password' : 'text'" id="password" 
             formControlName="password" placeholder="Password *" required>
           <img src="./assets/icons/{{hidePassword ? 'unsee' : 'see'}}.png" 
-            alt="Toggle Password Visibility" class="toggle-password" 
+            alt="Toggle Password Visibility" class="toggle-password"
             (click)="togglePasswordVisibility('password')">
-          <div *ngIf="registrationForm.get('password').invalid && 
-            registrationForm.get('password').touched" class="error-message">
-            {{ getErrorMessage('password') }}
-          </div>
+              @if(registrationForm.get('password').invalid && 
+                registrationForm.get('password').touched) {
+                  <div class="error-message">
+                    {{ getErrorMessage('password') }}
+                  </div>
+              }
         </div>
       </div>
       <div class="form-group-wrapper password-container">
         <div class="form-group">
           <input [type]="hideConfirmPassword ? 'password' : 'text'" 
-            id="confirm_password" formControlName="confirmPassword"   
-            placeholder="Confirm Password *" required>
-          <img 
-            src="./assets/icons/{{hideConfirmPassword ? 'unsee' : 'see'}}.png" 
+            id="confirm_password" formControlName="confirmPassword" 
+              placeholder="Confirm Password *" required>
+          <img src="./assets/icons/{{hideConfirmPassword ? 'unsee' : 'see'}}.png"
             alt="Toggle Password Visibility" class="toggle-password" 
             (click)="togglePasswordVisibility('confirmPassword')">
-          <div *ngIf="registrationForm.get('confirmPassword').invalid && 
-            registrationForm.get('confirmPassword').touched" 
-            class="error-message">
-            {{ getErrorMessage('confirmPassword') }}
-          </div>
+              @if(registrationForm.get('confirmPassword').invalid &&
+                registrationForm.get('confirmPassword').touched) {
+                  <div class="error-message">
+                    {{ getErrorMessage('confirmPassword') }}
+                  </div>
+              }
         </div>
       </div>
       <div class="form-group-wrapper">
         <div class="form-group">
-          <input type="text" id="first_name" formControlName="firstName" 
-            placeholder="First Name *" required>
-          <div *ngIf="registrationForm.get('firstName').invalid && 
-            registrationForm.get('firstName').touched" class="error-message">
-            {{ getErrorMessage('firstName') }}
-          </div>
+          <input type="text" id="first_name" 
+            formControlName="firstName" placeholder="First Name *" required>
+              @if(registrationForm.get('firstName').invalid && 
+                registrationForm.get('firstName').touched) {
+                  <div class="error-message">
+                    {{ getErrorMessage('firstName') }}
+                  </div>
+                }
         </div>
       </div>
       <div class="form-group-wrapper">
@@ -74,21 +82,27 @@
         <div class="form-group">
           <input type="text" id="last_name" formControlName="lastName" 
             placeholder="Last Name *" required>
-          <div *ngIf="registrationForm.get('lastName').invalid && 
-            registrationForm.get('lastName').touched" class="error-message">
-            {{ getErrorMessage('lastName') }}
-          </div>
+              @if(registrationForm.get('lastName').invalid && 
+                registrationForm.get('lastName').touched) {
+                  <div class="error-message">
+                    {{ getErrorMessage('lastName') }}
+                  </div>
+              }
         </div>
       </div>
       <div class="form-group-wrapper">
         <label class="terms">
           <input type="checkbox" formControlName="terms" required>
           I've read and agree to the&nbsp;
-          <a (click)="openTermsModal($event)" class="terms-link"> Terms and Conditions</a>
+          <a (click)="openTermsModal($event)" class="terms-link"> 
+            Terms and Conditions</a>
         </label>
-        <div *ngIf="registrationForm.get('terms').invalid && registrationForm.get('terms').touched" class="error-message">
-          {{ getErrorMessage('terms') }}
-        </div>
+          @if(registrationForm.get('terms').invalid &&
+              registrationForm.get('terms').touched) {
+                <div class="error-message">
+                  {{ getErrorMessage('terms') }}
+                </div>
+          }
       </div>
       <button class="signup" type="submit">SIGN UP</button>
     </form>
@@ -102,5 +116,8 @@
     <img src="../assets/kajas_white.png" alt="Kajas Logo">
   </div>
 </div>
-<app-modal-message *ngIf="showModal" [message]="modalMessage" 
-  (closeModal)="closeModal()"></app-modal-message>
+
+@if (showModal) {
+  <app-modal-message [message]="modalMessage" 
+    (closeModal)="closeModal()"></app-modal-message>
+}
