@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LocationService {
   private countriesUrl = 'assets/data/countries.json';
   private citiesUrl = 'assets/data/cities.json';
