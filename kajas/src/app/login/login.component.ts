@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,10 @@ import { SessionStorageService } from 'angular-web-storage';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  hidePassword: boolean = true;
-  showModal: boolean = false;
-  modalMessage: string = '';
+  hidePassword = true;
+  showModal = false;
+  modalMessage = '';
+  resizeSubscription: Subscription;
 
   constructor(
     private renderer: Renderer2,
@@ -23,19 +25,29 @@ export class LoginComponent implements OnInit, OnDestroy {
     private sessionStorage: SessionStorageService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', {
+        validators: [
+          Validators.required,
+          Validators.email
+        ]
+      }],
+      password: ['', {
+        validators: [
+          Validators.required,
+          Validators.minLength(6)
+        ]
+      }]
     });
   }
 
   ngOnInit(): void {
     this.setInitialStyles();
-    window.addEventListener('resize', this.applyBackground.bind(this));
+    this.resizeSubscription = fromEvent(window, 'resize').subscribe(() => this.applyBackground());
   }
 
   ngOnDestroy(): void {
     this.revertStyles();
-    window.removeEventListener('resize', this.applyBackground.bind(this));
+    this.resizeSubscription.unsubscribe();
   }
 
   private setInitialStyles(): void {
@@ -68,19 +80,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private applyBackground(): void {
-    if (window.innerWidth <= 425) {
-      this.renderer.setStyle(
-        document.body,
-        'background',
-        'url("../../assets/login_mbg.png") center/cover no-repeat'
-      );
-    } else {
-      this.renderer.setStyle(
-        document.body,
-        'background',
-        'url("../../assets/login_bg.png") center/cover no-repeat'
-      );
-    }
+    const backgroundUrl = window.innerWidth <= 425 ? '../../assets/login_mbg.png' : '../../assets/login_bg.png';
+    this.renderer.setStyle(document.body, 'background', `url("${backgroundUrl}") center/cover no-repeat`);
   }
 
   onSubmit(): void {
@@ -91,13 +92,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           (response: any) => {
             this.modalMessage = 'Login Success! Welcome to Kajas!';
             this.showModal = true;
-            console.log(response.user.user_id);
             this.sessionStorage.set('id', response.user.user_id);
             this.sessionStorage.set('username', response.user.username);
             this.sessionStorage.set('email', response.user.email);
 
             setTimeout(() => {
-              console.log('Navigating to /signup');
               this.router.navigateByUrl('/profile');
             }, 1000);
           },
