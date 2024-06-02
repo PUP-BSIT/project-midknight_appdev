@@ -84,11 +84,10 @@
                                     Country
                                 </option>
 
-                                <option 
-                                    *ngFor="let country of countries" 
-                                    [value]="country.id">
-                                    {{ country.name }}
-                                </option>
+                                @for(country of countries; track country.id) {
+                                    <option [value]="country.id">
+                                        {{ country.name }}</option>
+                                }
                             </select>
                             <input type="hidden" formControlName="country">
 
@@ -102,11 +101,10 @@
                                     City
                                 </option>
 
-                                <option 
-                                    *ngFor="let city of cities" 
-                                    [value]="city.name">
-                                    {{ city.name }}
-                                </option>
+                                @for(city of cities; track city.name) {
+                                    <option [value]="city.name">
+                                        {{ city.name }}</option>
+                                }
                             </select>
                         </div>
 
