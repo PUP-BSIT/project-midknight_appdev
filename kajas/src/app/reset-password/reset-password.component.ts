@@ -11,10 +11,10 @@ import axios from 'axios';
 export class ResetPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
   token: string;
-  hidePassword: boolean = true;
-  hideConfirmPassword: boolean = true;
-  showModal: boolean = false;
-  modalMessage: string = '';
+  hidePassword = true;
+  hideConfirmPassword = true;
+  showModal = false;
+  modalMessage = '';
 
   constructor(
     private renderer: Renderer2,
