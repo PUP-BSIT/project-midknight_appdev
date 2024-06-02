@@ -32,8 +32,8 @@ const getLocation = async (req, res) => {
 
 const setupProfile = async (req, res) => {
   const profile = req.file ? req.file.path : null;
-  const {id, bio, kajasLink } = req.body;
-  updateUserInformation (id, profile, bio, kajasLink, (error, result)=> {
+  const { id, bio, kajasLink, country, city, facebook, linkedin, instagram,website} = req.body;
+  updateUserInformation (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, (error, result)=> {
     if (error){
       console.error('Error fetching user profile:', err);
       return res.status(500).json({ message: 'Internal server error' });
@@ -42,6 +42,7 @@ const setupProfile = async (req, res) => {
     res.status(200).json({ message: 'Success!' });
   })
 }
+
 
 module.exports = {
   getProfile,

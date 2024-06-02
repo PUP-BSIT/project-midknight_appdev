@@ -24,5 +24,4 @@ router.get('/profile/:username', getProfile);
 router.get('/location/:id', getLocation);
 router.post('/setProfile/',upload.single('profile'), setupProfile);
 
-
 module.exports = router;

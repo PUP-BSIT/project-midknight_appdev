@@ -16,7 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalMessageComponent } from './shared/modal-message/modal-message.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { HeaderComponent } from './header/header.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SetupProfileComponent } from './setup-profile/setup-profile.component';
+import { LocationService } from '../services/location.service';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { SetupProfileComponent } from './setup-profile/setup-profile.component';
     ModalMessageComponent,
     ResetPasswordComponent,
     HeaderComponent,
+    ProfileComponent,
     SetupProfileComponent
   ],
   imports: [
@@ -40,7 +43,8 @@ import { SetupProfileComponent } from './setup-profile/setup-profile.component';
   ],
   providers: [ 
     ModalService,
-    UserService
+    UserService,
+    LocationService
   ],
   bootstrap: [AppComponent]
 })

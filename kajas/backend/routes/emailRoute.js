@@ -1,6 +1,5 @@
 const express = require('express');
-const { mailer } = require('../controllers/mailer')
-const { forgotPassword } = require('../controllers/mailer')
+const { mailer, forgotPassword } = require('../controllers/mailer')
 
 const router = express.Router();
 
