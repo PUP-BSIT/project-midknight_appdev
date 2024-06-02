@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocationService } from '../../services/location.service';
+import { SessionStorageService } from 'angular-web-storage';
 import axios from 'axios';
 
 @Component({
@@ -14,8 +15,11 @@ export class SetupProfileComponent implements OnInit {
   cities: any[] = [];
   selectedCountryName: string = '';
 
-  constructor(private fb: FormBuilder, private locationService: LocationService) {
+  constructor(private fb: FormBuilder, private locationService: LocationService, 
+    private sessionStorage: SessionStorageService) {
+
     this.profileForm = this.fb.group({
+      id: this.sessionStorage.get('id'),
       profilePic: [''],
       bio: [''],
       firstName: ['', Validators.required],

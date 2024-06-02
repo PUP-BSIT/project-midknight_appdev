@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private sessionStorage: SessionStorageService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -89,6 +91,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           (response: any) => {
             this.modalMessage = 'Login Success! Welcome to Kajas!';
             this.showModal = true;
+            console.log(response.user.user_id);
+            this.sessionStorage.set('id', response.user.user_id);
+            this.sessionStorage.set('username', response.user.username);
+            this.sessionStorage.set('email', response.user.email);
 
             setTimeout(() => {
               console.log('Navigating to /signup');

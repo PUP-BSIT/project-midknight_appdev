@@ -5,6 +5,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SetupProfileComponent } from './setup-profile/setup-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'signup', component: RegistrationComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'setup-profile', component: SetupProfileComponent },
   { path: '**', redirectTo: '/login' },
 ];
 

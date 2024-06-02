@@ -6,12 +6,13 @@ const createUserInformation = (firstName, middleName, lastName, callback) => {
   db.query(query, [firstName, middleName, lastName], callback);
 };
 
-const updateUserInformation = (id, firstName, middleName, lastName, email, bio, country, city, kajasLink, facebook, linkedin, instagram, website, callback) => {
+const updateUserInformation = (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, callback) => {
   const query = `
     UPDATE user_information 
-    SET first_name = ?, middle_name = ?, last_name = ?, email = ?, bio = ?, country = ?, city = ?, kajas_link = ?, facebook = ?, linkedin = ?, instagram = ?, website = ? 
-    WHERE user_information_id = 1`;
-  db.query(query, [firstName, middleName, lastName, email, bio, country, city, kajasLink, facebook, linkedin, instagram, website, id], callback);
+    SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?, facebook = ?, linkedin = ?, instagram = ?, website = ? 
+    WHERE user_information_id = ?`; 
+
+  db.query(query, [profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, id], callback);
 };
 
 
