@@ -13,7 +13,7 @@ export class SetupProfileComponent implements OnInit {
   profileForm: FormGroup;
   countries: any[] = [];
   cities: any[] = [];
-  selectedCountryName: string = '';
+  selectedCountryName = '';
 
   constructor(private fb: FormBuilder, private locationService: LocationService, 
     private sessionStorage: SessionStorageService) {
@@ -22,12 +22,12 @@ export class SetupProfileComponent implements OnInit {
       id: this.sessionStorage.get('id'),
       profilePic: [''],
       bio: [''],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       middleName: [''],
       email: ['', [Validators.required, Validators.email]],
-      country: ['', Validators.required],
-      city: ['', Validators.required],
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
       linkedIn: [''],
       facebook: [''],
       instagram: [''],
@@ -50,12 +50,11 @@ export class SetupProfileComponent implements OnInit {
 
     this.locationService.getCities(countryCode).subscribe(data => {
       this.cities = data.filter(city => city['country code'] === countryCode);
-      this.cities.sort((a, b) => a.name.localeCompare(b.name)); // Sort cities alphabetically
+      this.cities.sort((a, b) => a.name.localeCompare(b.name));
     });
   }
 
   async onSubmit(): Promise<void> {
-    console.log(this.profileForm.value)
     const url = "http://localhost:4000/api/setProfile";
     const formData = new FormData();
     Object.keys(this.profileForm.controls).forEach(key => {
@@ -64,7 +63,6 @@ export class SetupProfileComponent implements OnInit {
 
     try {
       const response = await axios.post(url, formData);
-      console.log(response.data);
     } catch (error) {
       console.error('Error submitting the profile data:', error);
     }
