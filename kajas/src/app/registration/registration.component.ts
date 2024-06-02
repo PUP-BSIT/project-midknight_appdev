@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ModalService } from '../../services/modal.service';
 import { UserService } from '../../services/user.service';
+import { fromEvent, Subscription } from 'rxjs';
 import axios from 'axios';
 
 @Component({
@@ -9,13 +10,15 @@ import axios from 'axios';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
+
 export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup;
-  hidePassword: boolean = true;
-  hideConfirmPassword: boolean = true;
+  hidePassword = true;
+  hideConfirmPassword = true;
   existingUsernames: string[] = [];
-  showModal: boolean = false;
-  modalMessage: string = '';
+  showModal = false;
+  modalMessage = '';
+  resizeSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -24,10 +27,31 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private userService: UserService 
   ) {
     this.registrationForm = this.fb.group({
-      username: ['', [Validators.required, this.usernameValidator.bind(this)]],
-      email: ['', [Validators.required, Validators.email, this.gmailValidator]],
-      password: ['', [Validators.required, this.passwordValidator]],
-      confirmPassword: ['', [Validators.required, this.confirmPasswordValidator.bind(this)]],
+      username: ['', {
+        validators: [
+          Validators.required,
+          this.usernameValidator.bind(this)
+        ]
+      }],
+      email: ['', {
+        validators: [
+          Validators.required,
+          Validators.email,
+          this.gmailValidator
+        ]
+      }],
+      password: ['', {
+        validators: [
+          Validators.required,
+          this.passwordValidator
+        ]
+      }],
+      confirmPassword: ['', {
+        validators: [
+          Validators.required,
+          this.confirmPasswordValidator.bind(this)
+        ]
+      }],
       firstName: ['', Validators.required],
       middleName: [''],
       lastName: ['', Validators.required],
@@ -37,24 +61,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.setInitialStyles();
-    window.addEventListener('resize', this.applyBackground.bind(this));
-    this.loadUsernames();
+    this.resizeSubscription = fromEvent(window, 'resize').subscribe(() => this.applyBackground());
   }
 
   ngOnDestroy(): void {
     this.revertStyles();
-    window.removeEventListener('resize', this.applyBackground.bind(this));
-  }
-
-  private loadUsernames(): void {
-    this.userService.getUsernames().subscribe(
-      (usernames) => {
-        this.existingUsernames = usernames;
-      },
-      (error) => {
-        console.error('Error fetching usernames:', error);
-      }
-    );
+    this.resizeSubscription.unsubscribe();
   }
 
   private setInitialStyles(): void {
@@ -83,11 +95,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   private applyBackground(): void {
-    if (window.innerWidth <= 425) {
-      this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_mbg.png") center/cover no-repeat');
-    } else {
-      this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_bg.png") center/cover no-repeat');
-    }
+    const backgroundUrl = window.innerWidth <= 425 ? '../../assets/signup_mbg.png' : '../../assets/signup_bg.png';
+    this.renderer.setStyle(document.body, 'background', `url("${backgroundUrl}") center/cover no-repeat`);
   }
 
   private usernameValidator(control: AbstractControl): ValidationErrors | null {
