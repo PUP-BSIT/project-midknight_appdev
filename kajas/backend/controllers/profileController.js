@@ -24,7 +24,6 @@ const getLocation = async (req, res) => {
       console.error('Error fetching user profile:', error);
       return res.status(500).json({ message: 'Internal server error' });
     }
-    console.log(result);
     const isFirstTimeLogin = result.some(row => row.country === null || row.city === null);
 
     res.status(200).json({
@@ -41,7 +40,6 @@ const setupProfile = async (req, res) => {
       console.error('Error fetching user profile:', err);
       return res.status(500).json({ message: 'Internal server error' });
     }
-    console.log (result);
     res.status(200).json({ message: 'Success!' });
   })
 }

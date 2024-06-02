@@ -93,9 +93,6 @@ const getUserProfile = (username, callback) => {
           return callback(err, null);
         }
         userProfile.social_links = socialLinks;
-        console.log('User profile fetched:', userProfile);
-        console.log('Artworks fetched:', userProfile.artworks);
-        console.log('Social links fetched:', userProfile.social_links);
         callback(null, userProfile);
       });
     });

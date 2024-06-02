@@ -18,7 +18,6 @@ const transporter = nodemailer.createTransport({
 const mailer =  async (req, res) => {
     try {
         const { email } = req.body
-        console.log(email);
         const mailOptions = {
             from: 'midknightv03@kajas.site',
             to: email,
@@ -43,7 +42,7 @@ const mailer =  async (req, res) => {
         return res.status(200).json({ title: "Success", msg: 'Thank you for signing up! Please check your email for a verification message to complete the account activation.' });
         
       } catch (error) {
-            console.log(error);
+            console.error();
           return res.status(500).json({ title: "Internal Error", msg: "Something went wrong! Please try again later." });
       }
 }
