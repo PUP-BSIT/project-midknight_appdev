@@ -82,10 +82,8 @@ const verifyAccount = async (req, res) => {
           .status(404)
           .json({ title: "Internal Error", msg: "Not found!" });
       }
-      return res.status(200).json({
-        title: "Account Verified",
-        msg: "Your account has been verified!",
-      });
+      const redirectUrl = 'http://localhost:4200/login';
+      return res.redirect(301, redirectUrl);
     });
   } catch (error) {
     return res

@@ -17,17 +17,20 @@ const getProfile = (req, res) => {
 };
 
 const getLocation = async (req, res) => {
-  const {id} = req.params
-  User.getLocation (id, (error, result) => {
-    if (error){
-      console.error('Error fetching user profile:', err);
+  const { id } = req.params;
+
+  User.getLocation(id, (error, result) => {
+    if (error) {
+      console.error('Error fetching user profile:', error);
       return res.status(500).json({ message: 'Internal server error' });
     }
-    const isFirstTImeLogin= result.some(row => row.country == null || row.cty == null);
+    console.log(result);
+    const isFirstTimeLogin = result.some(row => row.country === null || row.city === null);
+
     res.status(200).json({
-      isFirstTImeLogin: isFirstTImeLogin
+      isFirstTimeLogin: isFirstTimeLogin
     });
-  })
+  });
 }
 
 const setupProfile = async (req, res) => {
