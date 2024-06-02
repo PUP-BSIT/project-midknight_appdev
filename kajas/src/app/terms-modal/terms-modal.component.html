@@ -1,5 +1,4 @@
-<div class="modal" 
-  [ngStyle]="{'display': (showModal$ | async) ? 'block' : 'none'}">
+<div class="modal" [ngClass]="{'show': (showModal$ | async)}">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <h2>Kajas App Terms and Conditions</h2>
