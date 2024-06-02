@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit{
       const response = await axios.get(`${url}/api/location/id?${id}`);
       if (response.status === 200) {
           alert (response.data.msg);
-          console.log('Navigating to /setupprofile');
           this.router.navigateByUrl('/setup-profile')
         }
       }
