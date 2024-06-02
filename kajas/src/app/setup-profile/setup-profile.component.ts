@@ -12,6 +12,7 @@ export class SetupProfileComponent implements OnInit {
   profileForm: FormGroup;
   countries: any[] = [];
   cities: any[] = [];
+  selectedCountryName: string = '';
 
   constructor(private fb: FormBuilder, private locationService: LocationService) {
     this.profileForm = this.fb.group({
@@ -40,9 +41,12 @@ export class SetupProfileComponent implements OnInit {
 
   onCountryChange(event: Event): void {
     const countryCode = (event.target as HTMLSelectElement).value;
+    this.selectedCountryName = this.countries.find(country => country.id === countryCode).name;
+    this.profileForm.patchValue({ country: this.selectedCountryName });
+
     this.locationService.getCities(countryCode).subscribe(data => {
       this.cities = data.filter(city => city['country code'] === countryCode);
-      this.cities.sort((a, b) => a.name.localeCompare(b.name)); 
+      this.cities.sort((a, b) => a.name.localeCompare(b.name)); // Sort cities alphabetically
     });
   }
 

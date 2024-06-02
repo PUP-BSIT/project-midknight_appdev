@@ -76,7 +76,7 @@
                             <label for="location">Location *</label>
                             <select 
                                 id="country" 
-                                formControlName="country" 
+                                 
                                 (change)="onCountryChange($event)" 
                                 required>
                                 
@@ -90,6 +90,7 @@
                                     {{ country.name }}
                                 </option>
                             </select>
+                            <input type="hidden" formControlName="country">
 
                             <select 
                                 id="city" 
