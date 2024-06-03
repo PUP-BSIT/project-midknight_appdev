@@ -31,7 +31,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
+              "src/kajas.ico",
               "src/assets"
             ],
             "styles": [
@@ -65,12 +65,16 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "kajas:build:production"
             },
             "development": {
-              "buildTarget": "kajas:build:development"
+              "buildTarget": "kajas:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +94,7 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              "src/favicon.ico",
+              "src/kajas.ico",
               "src/assets"
             ],
             "styles": [
@@ -101,5 +105,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "4f4ff88b-e732-45d4-8039-a83ffc6daa51"
   }
 }

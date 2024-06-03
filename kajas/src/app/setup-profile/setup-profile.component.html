@@ -1,0 +1,155 @@
+<app-header></app-header>
+
+<div class="setup">
+    <div class="modal">
+        <div class="modal-content">
+            <h1>Set Up Profile</h1>
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <div class="left-column">
+                    <div class="form-group profile-pic-group">
+                        <label 
+                            for="profile-pic" 
+                            class="profile-pic-label">
+                            <img 
+                                src="../../assets/icons/placeholder_image.png" 
+                                alt="Profile Pic Placeholder">
+                        </label>
+                        <input 
+                            type="file" 
+                            id="profile-pic" 
+                            class="profile-pic-input" 
+                            accept="image/*">
+                    </div>
+
+                    <div class="form-group bio-group">
+                        <label for="bio">Bio</label>
+                        <textarea 
+                            id="bio" 
+                            maxlength="600" 
+                            placeholder="Describe yourself here..." 
+                            formControlName="bio">
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name *</label>
+                            <input 
+                                type="text" 
+                                id="first-name" 
+                                formControlName="firstName" 
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last-name">Last Name *</label>
+                            <input 
+                                type="text" 
+                                id="last-name" 
+                                formControlName="lastName" 
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="middle-name">Middle Name</label>
+                            <input 
+                                type="text" 
+                                id="middle-name" 
+                                formControlName="middleName">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                formControlName="email" 
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location *</label>
+                            <select 
+                                id="country" 
+                                 
+                                (change)="onCountryChange($event)" 
+                                required>
+                                
+                                <option value="" disabled selected>
+                                    Country
+                                </option>
+
+                                @for(country of countries; track country.id) {
+                                    <option [value]="country.id">
+                                        {{ country.name }}</option>
+                                }
+                            </select>
+                            <input type="hidden" formControlName="country">
+
+                            <select 
+                                id="city" 
+                                formControlName="city" 
+                                [disabled]="!profileForm.get('country').value" 
+                                required>
+
+                                <option value="" disabled selected>
+                                    City
+                                </option>
+
+                                @for(city of cities; track city.name) {
+                                    <option [value]="city.name">
+                                        {{ city.name }}</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group social-links">
+                            <label>Social Links</label>
+                            <input 
+                                type="text" 
+                                formControlName="linkedIn" 
+                                placeholder="LinkedIn">
+                            <input 
+                                type="text" 
+                                formControlName="facebook" 
+                                placeholder="Facebook">
+                            <input 
+                                type="text" 
+                                formControlName="instagram" 
+                                placeholder="Instagram">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website</label>
+                        <input 
+                            type="url" 
+                            id="website" 
+                            formControlName="website">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kajas-url">Kajas URL</label>
+                        <div class="kajas-url-wrapper">
+                            <span class="kajas-url-prefix">kajas.site /</span>
+                            <input 
+                                type="text" 
+                                id="kajas-url" 
+                                formControlName="kajasUrl" 
+                                placeholder="custom-url">
+                        </div>
+                    </div>
+                    <button 
+                    type="submit" class="continue-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
