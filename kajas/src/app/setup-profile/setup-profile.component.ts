@@ -22,12 +22,33 @@ export class SetupProfileComponent implements OnInit {
       id: this.sessionStorage.get('id'),
       profilePic: [''],
       bio: [''],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      lastName: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
       middleName: [''],
-      email: ['', [Validators.required, Validators.email]],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
+      email: ['', {
+        validators: [
+          Validators.required,
+          Validators.email
+        ]
+      }],
+      country: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      city: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
       linkedIn: [''],
       facebook: [''],
       instagram: [''],

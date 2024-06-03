@@ -10,7 +10,7 @@ import axios from 'axios';
 })
 export class ResetPasswordComponent implements OnInit, OnDestroy {
   resetPasswordForm: FormGroup;
-  token: string;
+  token = '';
   hidePassword = true;
   hideConfirmPassword = true;
   showModal = false;
@@ -23,8 +23,18 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.resetPasswordForm = this.fb.group({
-      newPassword: ['', [Validators.required, this.passwordValidator]],
-      confirmNewPassword: ['', [Validators.required, this.confirmPasswordValidator.bind(this)]]
+      newPassword: ['', {
+        validators: [
+          Validators.required,
+          this.passwordValidator
+        ]
+      }],
+      confirmNewPassword: ['', {
+        validators: [
+          Validators.required,
+          this.confirmPasswordValidator.bind(this)
+        ]
+      }],
     });
   }
 

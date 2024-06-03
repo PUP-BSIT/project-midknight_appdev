@@ -7,69 +7,91 @@
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <div class="form-group-wrapper">
         <div class="form-group">
-          <input type="text" id="username" formControlName="username" 
-            placeholder="Username *" required>
-              @if(registrationForm.get('username').invalid && 
-                registrationForm.get('username').touched) {
-                <div class="error-message">
-                  {{ getErrorMessage('username') }}
-                </div>
-              }
+          <input 
+            type="text" 
+            id="username" 
+            formControlName="username" 
+            placeholder="Username *" 
+            required>
+          @if(registrationForm.get('username').invalid && 
+            registrationForm.get('username').touched) {
+              <div class="error-message">
+                {{ getErrorMessage('username') }}
+              </div>
+          }
         </div>
       </div>
       <div class="form-group-wrapper">
         <div class="form-group">
-          <input type="email" id="email" formControlName="email" 
-            placeholder="Email Address *" required>
-              @if(registrationForm.get('email').invalid && 
-                registrationForm.get('email').touched) {
-                  <div class="error-message">
-                    {{ getErrorMessage('email') }}
-                  </div>
-              }
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Email Address *" 
+            required>
+          @if(registrationForm.get('email').invalid && 
+            registrationForm.get('email').touched) {
+              <div class="error-message">
+                {{ getErrorMessage('email') }}
+              </div>
+          }
         </div>
       </div>
       <div class="form-group-wrapper password-container">
         <div class="form-group">
-          <input [type]="hidePassword ? 'password' : 'text'" id="password" 
-            formControlName="password" placeholder="Password *" required>
-          <img src="./assets/icons/{{hidePassword ? 'unsee' : 'see'}}.png" 
-            alt="Toggle Password Visibility" class="toggle-password"
+          <input 
+            [type]="hidePassword ? 'password' : 'text'" 
+            id="password" 
+            formControlName="password" 
+            placeholder="Password *" 
+            required>
+          <img 
+            src="./assets/icons/{{hidePassword ? 'unsee' : 'see'}}.png" 
+            alt="Toggle Password Visibility" 
+            class="toggle-password"
             (click)="togglePasswordVisibility('password')">
-              @if(registrationForm.get('password').invalid && 
-                registrationForm.get('password').touched) {
-                  <div class="error-message">
-                    {{ getErrorMessage('password') }}
-                  </div>
-              }
+          @if(registrationForm.get('password').invalid && 
+            registrationForm.get('password').touched) {
+              <div class="error-message">
+                {{ getErrorMessage('password') }}
+              </div>
+          }
         </div>
       </div>
       <div class="form-group-wrapper password-container">
         <div class="form-group">
-          <input [type]="hideConfirmPassword ? 'password' : 'text'" 
-            id="confirm_password" formControlName="confirmPassword" 
-              placeholder="Confirm Password *" required>
-          <img src="./assets/icons/{{hideConfirmPassword ? 'unsee' : 'see'}}.png"
+          <input 
+            [type]="hideConfirmPassword ? 'password' : 'text'" 
+            id="confirm_password" 
+            formControlName="confirmPassword" 
+            placeholder="Confirm Password *" 
+            required>
+          <img 
+            src="./assets/icons/{{hideConfirmPassword ? 'unsee' : 'see'}}.png"
             alt="Toggle Password Visibility" class="toggle-password" 
             (click)="togglePasswordVisibility('confirmPassword')">
-              @if(registrationForm.get('confirmPassword').invalid &&
-                registrationForm.get('confirmPassword').touched) {
-                  <div class="error-message">
-                    {{ getErrorMessage('confirmPassword') }}
-                  </div>
-              }
+          @if(registrationForm.get('confirmPassword').invalid &&
+            registrationForm.get('confirmPassword').touched) {
+              <div class="error-message">
+                {{ getErrorMessage('confirmPassword') }}
+              </div>
+          }
         </div>
       </div>
       <div class="form-group-wrapper">
         <div class="form-group">
-          <input type="text" id="first_name" 
-            formControlName="firstName" placeholder="First Name *" required>
-              @if(registrationForm.get('firstName').invalid && 
-                registrationForm.get('firstName').touched) {
-                  <div class="error-message">
-                    {{ getErrorMessage('firstName') }}
-                  </div>
-                }
+          <input 
+            type="text" 
+            id="first_name" 
+            formControlName="firstName" 
+            placeholder="First Name *" 
+            required>
+          @if(registrationForm.get('firstName').invalid && 
+            registrationForm.get('firstName').touched) {
+              <div class="error-message">
+                {{ getErrorMessage('firstName') }}
+              </div>
+          }
         </div>
       </div>
       <div class="form-group-wrapper">
@@ -80,14 +102,18 @@
       </div>
       <div class="form-group-wrapper">
         <div class="form-group">
-          <input type="text" id="last_name" formControlName="lastName" 
-            placeholder="Last Name *" required>
-              @if(registrationForm.get('lastName').invalid && 
-                registrationForm.get('lastName').touched) {
-                  <div class="error-message">
-                    {{ getErrorMessage('lastName') }}
-                  </div>
-              }
+          <input 
+            type="text" 
+            id="last_name" 
+            formControlName="lastName" 
+            placeholder="Last Name *" 
+            required>
+          @if(registrationForm.get('lastName').invalid && 
+            registrationForm.get('lastName').touched) {
+              <div class="error-message">
+                {{ getErrorMessage('lastName') }}
+              </div>
+          }
         </div>
       </div>
       <div class="form-group-wrapper">
@@ -97,12 +123,12 @@
           <a (click)="openTermsModal($event)" class="terms-link"> 
             Terms and Conditions</a>
         </label>
-          @if(registrationForm.get('terms').invalid &&
-              registrationForm.get('terms').touched) {
-                <div class="error-message">
-                  {{ getErrorMessage('terms') }}
-                </div>
-          }
+        @if(registrationForm.get('terms').invalid &&
+          registrationForm.get('terms').touched) {
+            <div class="error-message">
+              {{ getErrorMessage('terms') }}
+            </div>
+        }
       </div>
       <button class="signup" type="submit">SIGN UP</button>
     </form>

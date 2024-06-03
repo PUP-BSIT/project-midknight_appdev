@@ -52,10 +52,22 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.confirmPasswordValidator.bind(this)
         ]
       }],
-      firstName: ['', Validators.required],
+      firstName: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
       middleName: [''],
-      lastName: ['', Validators.required],
-      terms: [false, Validators.requiredTrue]
+      lastName: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      terms: [false,  {
+        validators: [
+          Validators.required
+        ]
+      }],
     });
   }
 
