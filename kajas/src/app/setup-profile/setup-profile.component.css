@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+body {
+    background-color: #f1eee7;
+    font-family: "Montserrat", sans-serif;
+}
 .setup {
     display: flex;
     justify-content: center;
@@ -54,8 +58,8 @@ form {
 }
 
 .profile-pic-label {
-    height: 100%;
-    width: 100%;
+    width: 250px;
+    height: 250px;
     background-color: #8E7C70;
     border-radius: 10px;
     overflow: hidden;
@@ -63,12 +67,13 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 0;
 }
 
 .profile-pic-label img {
-    max-height: 50%;
-    max-width: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .profile-pic-input {
@@ -96,7 +101,6 @@ form {
     opacity: 1;
     font-family: Montserrat, sans-serif;
 }
-
 
 .right-column {
     font-size: 12px;
@@ -164,14 +168,13 @@ form select {
     height: 23px;
     width: calc(100% - 10px);
     border-radius: 8px;
-
 }
 
 #kajas-url {
     margin-bottom: 0;
 }
 
-.kajas-url-wrapper input ::placeholder {
+.kajas-url-wrapper input::placeholder {
     color: grey;
     opacity: 1;
     font-family: Montserrat, sans-serif;
