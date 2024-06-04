@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
 import { fromEvent, Subscription } from 'rxjs';
+import axios from 'axios';
 
 @Component({
   selector: 'app-login',
@@ -84,25 +85,40 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(document.body, 'background', `url("${backgroundUrl}") center/cover no-repeat`);
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       this.http
         .post('http://localhost:4000/api/login', this.loginForm.value)
         .subscribe(
-          (response: any) => {
+          async (response: any) => {
             this.modalMessage = 'Login Success! Welcome to Kajas!';
             this.showModal = true;
             this.sessionStorage.set('id', response.user.user_id);
             this.sessionStorage.set('username', response.user.username);
             this.sessionStorage.set('email', response.user.email);
-
-            setTimeout(() => {
-              this.router.navigateByUrl('/profile');
-            }, 1000);
+  
+            const url = "http://localhost:4000";
+            const id = response.user.user_id;
+  
+            try {
+              const axiosResponse = await axios.get(`${url}/api/location/id?id=${id}`);
+              if (axiosResponse.status === 200) {
+                const isFirstTime = axiosResponse.data.isFirstTimeLogin;
+  
+                if (isFirstTime) {
+                  this.router.navigateByUrl('/setup-profile');
+                } else {
+                  this.router.navigateByUrl('/profile');
+                }
+              }
+            } catch (error) {
+              console.error(error);
+              this.modalMessage = 'An error occurred while fetching location data';
+              this.showModal = true;
+            }
           },
           (error: any) => {
-            this.modalMessage =
-              error.error.message || 'An error occurred during login';
+            this.modalMessage = error.error.message || 'An error occurred during login';
             this.showModal = true;
           }
         );
@@ -111,7 +127,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.showModal = true;
     }
   }
-
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }

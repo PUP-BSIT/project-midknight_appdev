@@ -107,7 +107,7 @@ const getLocation = (id, callback) => {
     }
     
     const { country, city } = results[0];
-    if (country === null && city === null) {       
+    if (!country && !city) {       
       return callback(err, null);
     }    
     return callback(null, results[0]);

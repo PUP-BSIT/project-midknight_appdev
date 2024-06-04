@@ -17,8 +17,9 @@ const getProfile = (req, res) => {
 };
 
 const getLocation = async (req, res) => {
-  const queryKeys = Object.keys(req.query);
-  const id = queryKeys[0];
+  
+  const { id } = req.query;
+  
   User.getLocation(id, (error, result) => {
     if (error) {
       console.error('Error fetching user profile:', error);
