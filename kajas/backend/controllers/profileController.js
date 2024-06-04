@@ -17,33 +17,37 @@ const getProfile = (req, res) => {
 };
 
 const getLocation = async (req, res) => {
-  const { id } = req.params;
-
+  const queryKeys = Object.keys(req.query);
+  const id = queryKeys[0];
   User.getLocation(id, (error, result) => {
     if (error) {
       console.error('Error fetching user profile:', error);
       return res.status(500).json({ message: 'Internal server error' });
+    }    
+    if (!result) {
+      return res.status(200).json({
+        isFirstTimeLogin: 1
+       });
     }
-    const isFirstTimeLogin = result.some(row => row.country === null || row.city === null);
-
-    res.status(200).json({
-      isFirstTimeLogin: isFirstTimeLogin
-    });
+    res.status(200).json({ isFirstTimeLogin: 0 });
   });
 }
 
 const setupProfile = async (req, res) => {
-  const profile = req.file ? req.file.path : null;
-  const { id, bio, kajasLink, country, city, facebook, linkedin, instagram,website} = req.body;
-  updateUserInformation (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, (error, result)=> {
+  try {
+    const profile = req.file ? req.file.path : null;
+    const { id, bio, kajasLink, country, city, facebook, linkedin, instagram,website} = req.body;
+    updateUserInformation (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, (error, result)=> {
     if (error){
       console.error('Error fetching user profile:', err);
       return res.status(500).json({ message: 'Internal server error' });
     }
     res.status(200).json({ message: 'Success!' });
   })
+  }catch (err){
+    console.log(err);
+  }
 }
-
 
 module.exports = {
   getProfile,

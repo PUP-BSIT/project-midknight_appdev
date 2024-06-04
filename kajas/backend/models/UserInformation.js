@@ -7,12 +7,16 @@ const createUserInformation = (firstName, middleName, lastName, callback) => {
 };
 
 const updateUserInformation = (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, callback) => {
-  const query = `
+  try{
+    const query = `
     UPDATE user_information 
     SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?, facebook = ?, linkedin = ?, instagram = ?, website = ? 
     WHERE user_information_id = ?`; 
 
   db.query(query, [profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, id], callback);
+  }catch (err){
+    console.error(err);
+  }
 };
 
 

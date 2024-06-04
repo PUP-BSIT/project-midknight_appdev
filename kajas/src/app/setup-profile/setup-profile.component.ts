@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocationService } from '../../services/location.service';
 import { SessionStorageService } from 'angular-web-storage';
+import { Router } from '@angular/router';
 import axios from 'axios';
 
 @Component({
@@ -16,11 +17,11 @@ export class SetupProfileComponent implements OnInit {
   selectedCountryName = '';
 
   constructor(private fb: FormBuilder, private locationService: LocationService, 
-    private sessionStorage: SessionStorageService) {
+    private sessionStorage: SessionStorageService, private router: Router) {
 
     this.profileForm = this.fb.group({
       id: this.sessionStorage.get('id'),
-      profilePic: [''],
+      profile: [''],
       bio: [''],
       firstName: ['', {
         validators: [
@@ -53,7 +54,7 @@ export class SetupProfileComponent implements OnInit {
       facebook: [''],
       instagram: [''],
       website: [''],
-      kajasUrl: ['']
+      kajas_link: this.sessionStorage.get('username')
     });
   }
 
@@ -72,7 +73,7 @@ export class SetupProfileComponent implements OnInit {
       reader.onload = (e: any) => {
         const imgElement = document.getElementById('profile-pic-placeholder') as HTMLImageElement;
         imgElement.src = e.target.result;
-        this.profileForm.patchValue({ profilePic: file });
+        this.profileForm.patchValue({ profile: file });
       };
       reader.readAsDataURL(file);
     }
@@ -98,6 +99,7 @@ export class SetupProfileComponent implements OnInit {
 
     try {
       const response = await axios.post(url, formData);
+      this.router.navigateByUrl('/profile');
     } catch (error) {
       console.error('Error submitting the profile data:', error);
     }

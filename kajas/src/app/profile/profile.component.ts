@@ -15,11 +15,15 @@ export class ProfileComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     const url = "http://localhost:4000";
     const id = this.sessionStorage.get('id');
+    
     try {
       const response = await axios.get(`${url}/api/location/id?${id}`);
       if (response.status === 200) {
-          alert (response.data.msg);
-          this.router.navigateByUrl('/setup-profile')
+          const isFirstTime = response.data.isFirstTimeLogin;
+                    
+          if (isFirstTime) {
+            this.router.navigateByUrl('/setup-profile')
+          } 
         }
       }
        catch (error) {
