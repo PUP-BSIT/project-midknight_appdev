@@ -3,6 +3,7 @@
 body {
   background-color: #f1eee7;
   font-family: "Montserrat", sans-serif;
+  margin: 0;
 }
 
 .profile-container {
@@ -22,7 +23,7 @@ body {
   color: #f1eee7;
   background-color: #8e7c70;
   padding: 40px;
-  width: 800px;
+  width: 1000px;
   height: 300px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -34,10 +35,11 @@ body {
 }
 
 .profile-picture img {
-  padding-left: 25px;
+  margin-left: 25px;
   margin-right: 35px;
   width: 250px;
   object-fit: fill;
+  border-radius: 8px;
 }
 
 .profile-info {
@@ -73,14 +75,7 @@ body {
 
 .social-links a {
   color: #f1eee7;
-}
-
-.social-links a img {
-  width: 20px;
-}
-
-.social-links a img:hover {
-  transform: scale(1.2);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .social-links a:hover {
@@ -89,19 +84,31 @@ body {
   font-weight: 600;
 }
 
+.social-links a img {
+  width: 20px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-links a img:hover {
+  transform: scale(1.2);
+}
+
 .edit-profile {
   background-color: rgba(62, 62, 62, 0.5);
-  color: #fff;
+  color: #f1eee7;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .edit-profile:hover {
   transform: scale(1.05);
   font-weight: 600;
+  color: rgba(62, 62, 62, 62);
+  background-color: #f1eee7;
 }
 
 .gallery-container {
@@ -117,7 +124,7 @@ body {
   display: flex;
   text-align: left;
   color: #4d493e;
-  width: 800px;
+  width: 1000px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -138,6 +145,7 @@ body {
 .gallery-button {
   padding-top: 20px;
   padding-left: 20px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .gallery-button:hover {
@@ -169,13 +177,15 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  width: 800px;
+  width: 1080px;
 }
 
 .gallery-item {
   justify-content: center;
   overflow: hidden;
   border-radius: 8px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .gallery-item img {
@@ -198,8 +208,7 @@ body {
   .profile-picture img {
     width: 150px;
     height: 150px;
-    margin-right: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .profile-info h1 {
@@ -210,26 +219,47 @@ body {
     font-size: small;
   }
 
+  .social-links {
+    justify-content: center;
+  }
+
   .social-links a img {
     text-align: center;
   }
 
   .edit-profile {
-    width: 100%;
+    width: 30%;
     text-align: center;
   }
 
   .gallery-container {
     width: 90%;
     height: auto;
-    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 8px;
   }
 
   .gallery-container h2 {
     font-size: x-large;
   }
 
+  .gallery-button {
+    padding-left: 3px;
+    padding-top: 13px;
+  }
+
+  .gallery-button img {
+    width: 12px;
+  }
+
+  .gallery-button a {
+    font-size: small;
+  }
+
   .gallery-images {
+    padding-top: 8px;
     grid-template-columns: repeat(2, 1fr);
   }
 
