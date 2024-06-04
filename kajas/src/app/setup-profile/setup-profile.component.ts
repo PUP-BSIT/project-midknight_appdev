@@ -64,6 +64,20 @@ export class SetupProfileComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const imgElement = document.getElementById('profile-pic-placeholder') as HTMLImageElement;
+        imgElement.src = e.target.result;
+        this.profileForm.patchValue({ profilePic: file });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   onCountryChange(event: Event): void {
     const countryCode = (event.target as HTMLSelectElement).value;
     this.selectedCountryName = this.countries.find(country => country.id === countryCode).name;

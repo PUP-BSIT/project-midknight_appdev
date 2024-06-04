@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+body {
+    background-color: #f1eee7;
+    font-family: "Montserrat", sans-serif;
+}
+
 .setup {
     display: flex;
     justify-content: center;
@@ -54,8 +59,8 @@ form {
 }
 
 .profile-pic-label {
-    height: 100%;
-    width: 100%;
+    width: 250px;
+    height: 250px;
     background-color: #8E7C70;
     border-radius: 10px;
     overflow: hidden;
@@ -63,12 +68,13 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 0;
 }
 
 .profile-pic-label img {
-    max-height: 50%;
-    max-width: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .profile-pic-input {
@@ -96,7 +102,6 @@ form {
     opacity: 1;
     font-family: Montserrat, sans-serif;
 }
-
 
 .right-column {
     font-size: 12px;
@@ -164,14 +169,13 @@ form select {
     height: 23px;
     width: calc(100% - 10px);
     border-radius: 8px;
-
 }
 
 #kajas-url {
     margin-bottom: 0;
 }
 
-.kajas-url-wrapper input ::placeholder {
+.kajas-url-wrapper input::placeholder {
     color: grey;
     opacity: 1;
     font-family: Montserrat, sans-serif;
@@ -192,4 +196,113 @@ form select {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal {
+        margin-top: 10%;
+        margin-bottom: 10%;
+        max-width: 80%;
+    }
+
+    .modal-content {
+        position: relative;
+        padding: 0px;
+        border-radius: 10px;
+        max-width: 100%;
+        align-items: center;
+    }
+    
+    h1 {
+        color: #4D493E;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    form {
+        flex-direction: column;
+    }
+    
+    .left-column {
+        margin-right: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bio-group {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .bio-group textarea {
+        width: 90%;
+        height: 50px;
+        font-size: 11px;
+        margin-bottom: 0;
+    }
+
+    .right-column {
+        flex-direction: column;
+        font-size: 11px;
+    }
+    
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 4px;
+    }
+    
+    .form-group {
+        margin-left: 0px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="url"] {
+        height: 23px;
+        width: 90%;
+        padding: 5px;
+        margin-bottom: 8px;
+        background-color: #F1EEE7;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    form select {
+        height: 32px;
+        width: 90%;
+        padding: 5px;
+        margin-bottom: 8px;
+    }
+
+    .profile-pic-label {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .kajas-url-prefix {
+        flex-direction: column;
+        padding: 10px;
+        height: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        color: #7A5038;
+        border: none;
+        background-color: none;
+        font-weight: bold;
+    }
+    
+    .kajas-url-wrapper input {
+        flex-direction: column;
+        flex: 1;
+        padding: 5px;
+        height: 23px;
+        width: calc(100% - 10px);
+        border-radius: 8px;
+    }
 }
