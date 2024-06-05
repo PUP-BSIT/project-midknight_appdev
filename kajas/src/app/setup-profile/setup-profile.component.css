@@ -132,6 +132,7 @@ form {
 .form-group {
     flex: 1;
     margin-left: 3%;
+    position: relative;
 }
 
 form input[type="text"],
@@ -228,6 +229,52 @@ button.continue-button:hover {
     transform: translateY(-5px);
 }
 
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.7em;
+    position: absolute;
+    top: -10px; 
+    right: -15px;
+    width: 80%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+  
+.error-message::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f8d7da transparent transparent transparent;
+}
+  
+.form-group .error-message {
+    position: absolute;
+    top: -10px; 
+    right: -15px;
+    width: 80%;
+}
+
+input[type="text"].ng-touched.ng-invalid {
+    border: 1px solid #721c24;
+}
+  
+.form-group input.ng-touched.ng-invalid ~ .error-message,
+.form-group input.ng-dirty.ng-invalid ~ .error-message {
+    opacity: 0.8;
+    visibility: visible;
+}
+
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .modal {
@@ -304,7 +351,7 @@ button.continue-button:hover {
         height: 20px;
         width: 100%;
         padding: 4px;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
         background-color: #F1EEE7;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -316,7 +363,7 @@ button.continue-button:hover {
         height: 20px;
         width: 100%;
         padding: 2.5px;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
         border-radius: 4px;
         font-size: x-small;
     }
@@ -357,5 +404,23 @@ button.continue-button:hover {
         padding: 5px;
         font-size: small;
         border-radius: 5px;
+    }
+
+    .error-message {
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.3em;
+        top: 0px; 
+        width: 70%;
+    }
+      
+    .error-message::before {
+        bottom: -10px;
+        left: 10px;
+        border-width: 5px;
+    }
+      
+    .form-group .error-message {
+        top: 0px;
     }
 }

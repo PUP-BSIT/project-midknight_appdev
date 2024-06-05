@@ -1,166 +1,244 @@
-<body>
-    <app-header></app-header> 
-    <div class="setup">
-        <div class="modal">
-            <div class="modal-content">
-                <h1>Set Up Profile</h1>
-                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-                    <div class="left-column">
-                        <div class="form-group profile-pic-group">
-                            <label 
-                                for="profile-pic" 
-                                class="profile-pic-label">
-                                <img 
-                                    id="profile-pic-placeholder" 
-                                    src="../../assets/icons/placeholder_image.png" 
-                                    alt="Profile Pic Placeholder">
-                            </label>
-                            <input 
-                                type="file" 
-                                id="profile-pic" 
-                                class="profile-pic-input" 
-                                accept="image/*"
-                                (change)="onFileSelected($event)">
-                                
-                        </div>
-    
-                        <div class="form-group bio-group">
-                            <label for="bio">Bio</label>
-                            <textarea 
-                                id="bio" 
-                                maxlength="250" 
-                                placeholder="Describe yourself here..." 
-                                formControlName="bio">
-                            </textarea>
-                        </div>
+<app-header></app-header> 
+<div class="setup">
+    <div class="modal">
+        <div class="modal-content">
+            <h1>Set Up Profile</h1>
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <div class="left-column">
+                    <div class="form-group profile-pic-group">
+                        <label 
+                            for="profile-pic" 
+                            class="profile-pic-label">
+                            <img 
+                                id="profile-pic-placeholder" 
+                                src="../../assets/icons/placeholder_image.png" 
+                                alt="Profile Pic Placeholder">
+                        </label>
+                        <input 
+                            type="file" 
+                            id="profile-pic" 
+                            class="profile-pic-input" 
+                            accept="image/*"
+                            (change)="onFileSelected($event)">
+                            
                     </div>
-    
-                    <div class="right-column">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="first-name">First Name *</label>
-                                <input 
-                                    type="text" 
-                                    id="first-name" 
-                                    formControlName="firstName" 
-                                    placeholder="{{ firstNamePlaceholder }}"
-                                    required>
-                            </div>
-    
-                            <div class="form-group">
-                                <label for="last-name">Last Name *</label>
-                                <input 
-                                    type="text" 
-                                    id="last-name" 
-                                    formControlName="lastName" 
-                                    placeholder="{{ lastNamePlaceholder }}"
-                                    required>
-                            </div>
-                        </div>
-    
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="middle-name">Middle Name</label>
-                                <input 
-                                    type="text" 
-                                    id="middle-name" 
-                                    formControlName="middleName"
-                                    placeholder="{{ middleNamePlaceholder }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
-                                    formControlName="email" 
-                                    placeholder="{{ emailPlaceholder }}"
-                                    required
-                                    readonly>
-                            </div>
-                        </div>
-    
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="location">Location *</label>
-                                <select 
-                                    id="country" 
-                                    (change)="onCountryChange($event)" 
-                                    required>
-                                    
-                                    <option value="" disabled selected>
-                                        Country
-                                    </option>
-    
-                                    @for(country of countries; track country.id) {
-                                        <option [value]="country.id">
-                                            {{ country.name }}</option>
-                                    }
-                                </select>
-                                <input type="hidden" formControlName="country">
-    
-                                <select 
-                                    id="city" 
-                                    formControlName="city" 
-                                    [disabled]="!profileForm.get('country').value" 
-                                    required>
-    
-                                    <option value="" disabled selected>
-                                        City
-                                    </option>
-    
-                                    @for(city of cities; track city.name) {
-                                        <option [value]="city.name">
-                                            {{ city.name }}</option>
-                                    }
-                                </select>
-                            </div>
-    
-                            <div class="form-group social-links">
-                                <label>Social Links</label>
-                                <input 
-                                    type="text" 
-                                    formControlName="linkedIn" 
-                                    placeholder="LinkedIn">
-                                <input 
-                                    type="text" 
-                                    formControlName="facebook" 
-                                    placeholder="Facebook">
-                                <input 
-                                    type="text" 
-                                    formControlName="instagram" 
-                                    placeholder="Instagram">
-                            </div>
-                        </div>
-    
+
+                    <div class="form-group bio-group">
+                        <label for="bio">Bio</label>
+                        <textarea 
+                            id="bio" 
+                            maxlength="250" 
+                            placeholder="Describe yourself here..." 
+                            formControlName="bio">
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="form-row">
                         <div class="form-group">
-                            <label for="website">Website</label>
+                            <label for="first-name">First Name *</label>
                             <input 
-                                type="url" 
-                                id="website" 
-                                formControlName="website"
-                                placeholder="Website Address">
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="kajas-url">Kajas URL</label>
-                            <div class="kajas-url-wrapper">
-                                <span class="kajas-url-prefix">
-                                    kajas.site /</span>
-                                <input 
-                                    type="text" 
-                                    id="kajas-url" 
-                                    formControlName="kajas_link" 
-                                    placeholder="{{ kajasPlaceholder }}">
-                            </div>
+                                type="text" 
+                                id="first-name" 
+                                formControlName="firstName" 
+                                placeholder="{{ firstNamePlaceholder }}"
+                                required>
+                            @if(profileForm.get('firstName').invalid && 
+                                profileForm.get('firstName').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('firstName') }}
+                                </div>
+                            }
                         </div>
 
-                        <div class="button-container">
-                            <button type="submit" class="continue-button">
-                                SAVE</button>
+                        <div class="form-group">
+                            <label for="middle-name">Middle Name</label>
+                            <input 
+                                type="text" 
+                                id="middle-name" 
+                                formControlName="middleName"
+                                placeholder="{{ middleNamePlaceholder }}">
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="last-name">Last Name *</label>
+                            <input 
+                                type="text" 
+                                id="last-name" 
+                                formControlName="lastName" 
+                                placeholder="{{ lastNamePlaceholder }}"
+                                required>
+                            @if(profileForm.get('lastName').invalid && 
+                                profileForm.get('lastName').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('lastName') }}
+                                </div>
+                            }
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                formControlName="email" 
+                                placeholder="{{ emailPlaceholder }}"
+                                required
+                                readonly>
+                            @if(profileForm.get('email').invalid && 
+                                profileForm.get('email').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('email') }}
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location *</label>
+                            <select 
+                                id="country" 
+                                (change)="onCountryChange($event)" 
+                                [ngClass]="{'ng-touched ng-invalid':
+                                    profileForm.get('country').touched && 
+                                    profileForm.get('country').invalid}" 
+                                required>
+                                
+                                <option value="" disabled selected>
+                                    Country
+                                </option>
+
+                                @for(country of countries; track country.id) {
+                                    <option [value]="country.id">
+                                        {{ country.name }}</option>
+                                }
+                            </select>
+                            <input type="hidden" formControlName="country">
+                                @if(profileForm.get('country').invalid && 
+                                    profileForm.get('country').touched) {
+                                    <div class="error-message">
+                                        {{ getErrorMessage('country') }}
+                                    </div>
+                                }
+
+                            <select 
+                                id="city" 
+                                formControlName="city" 
+                                [ngClass]="{'ng-touched ng-invalid':
+                                    profileForm.get('city').touched && 
+                                    profileForm.get('city').invalid}" 
+                                [disabled]="!profileForm.get('country').value" 
+                                required>
+
+                                <option value="" disabled selected>
+                                    City
+                                </option>
+
+                                @for(city of cities; track city.name) {
+                                    <option [value]="city.name">
+                                        {{ city.name }}</option>
+                                }
+
+                                @if(profileForm.get('city').invalid && 
+                                    profileForm.get('city').touched) {
+                                    <div class="error-message">
+                                        {{ getErrorMessage('city') }}
+                                    </div>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group social-links">
+                            <label>Social Links</label>
+                            <div class="form-group">
+                                <input 
+                                type="text" 
+                                formControlName="linkedIn" 
+                                placeholder="LinkedIn">
+                            @if(profileForm.get('linkedIn').invalid && 
+                                profileForm.get('linkedIn').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('linkedIn') }}
+                                </div>
+                            }
+                            </div>
+                            <div class="form-group">
+                                <input 
+                                type="text" 
+                                formControlName="facebook" 
+                                placeholder="Facebook">
+                            @if(profileForm.get('facebook').invalid && 
+                                profileForm.get('facebook').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('facebook') }}
+                                </div>
+                            }
+                            </div>
+                            <div class="form-group">
+                                <input 
+                                type="text" 
+                                formControlName="instagram" 
+                                placeholder="Instagram">
+                            @if(profileForm.get('instagram').invalid && 
+                                profileForm.get('instagram').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('instagram') }}
+                                </div>
+                            }
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website</label>
+                        <input 
+                            type="url" 
+                            id="website" 
+                            formControlName="website"
+                            placeholder="Website Address">
+                        @if(profileForm.get('website').invalid && 
+                            profileForm.get('website').touched) {
+                            <div class="error-message">
+                                {{ getErrorMessage('website') }}
+                            </div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kajas-url">Kajas URL</label>
+                        <div class="kajas-url-wrapper">
+                            <span class="kajas-url-prefix">
+                                kajas.site /</span>
+                            <input 
+                                type="text" 
+                                id="kajas-url" 
+                                formControlName="kajas_link" 
+                                placeholder="{{ kajasPlaceholder }}">
+                            @if(profileForm.get('kajas_link').invalid && 
+                                profileForm.get('kajas_link').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('kajas_link') }}
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button type="submit" class="continue-button">
+                            SAVE</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</body>
+</div>
+
+@if (showModal) {
+  <app-modal-message [message]="modalMessage" 
+    (closeModal)="closeModal()"></app-modal-message>
+}
