@@ -23,23 +23,10 @@ export class SetupProfileComponent implements OnInit {
       id: this.sessionStorage.get('id'),
       profile: [''],
       bio: [''],
-      firstName: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],
-      lastName: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],
-      middleName: [''],
-      email: ['', {
-        validators: [
-          Validators.required,
-          Validators.email
-        ]
-      }],
+      firstName: this.sessionStorage.get('first_name'),
+      lastName: this.sessionStorage.get('last_name'),
+      middleName: this.sessionStorage.get('middle_name'),
+      email: this.sessionStorage.get('email'),
       country: ['', {
         validators: [
           Validators.required

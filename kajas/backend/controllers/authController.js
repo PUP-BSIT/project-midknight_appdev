@@ -101,6 +101,7 @@ const login = async (req, res) => {
 
   User.findUserByEmail(email, async (err, user) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ message: "Internal server error." });
     }
     if (!user) {
