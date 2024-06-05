@@ -17,12 +17,14 @@ export class SetupProfileComponent implements OnInit {
   selectedCountryName = '';
   showModal = false;
   modalMessage = '';
+  profileImageUrl: string | ArrayBuffer | null = '';
 
   firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
   lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
   middleNamePlaceholder = this.sessionStorage.get('middle_name') || '';
   emailPlaceholder = this.sessionStorage.get('email') || '';
   kajasPlaceholder = this.sessionStorage.get('username') || '';
+  
 
   constructor(
     private fb: FormBuilder, 
@@ -85,6 +87,7 @@ export class SetupProfileComponent implements OnInit {
       const file = input.files[0];
       const reader = new FileReader();
       reader.onload = (e: any) => {
+        this.profileImageUrl = e.target.result;
         this.profileForm.patchValue({ profile: file });
       };
       reader.readAsDataURL(file);

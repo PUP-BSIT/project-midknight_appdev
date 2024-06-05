@@ -11,7 +11,8 @@
                             class="profile-pic-label">
                             <img 
                                 id="profile-pic-placeholder" 
-                                src="../../assets/icons/placeholder_image.png" 
+                                [src]="profileImageUrl || 
+                                    '../../assets/icons/placeholder_image.png'" 
                                 alt="Profile Pic Placeholder">
                         </label>
                         <input 
