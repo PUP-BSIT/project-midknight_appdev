@@ -35,18 +35,62 @@ export class SetupProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       id: [this.sessionStorage.get('id')],
       profile: [''],
-      bio: ['', [Validators.maxLength(250)]],
-      firstName: [this.sessionStorage.get('first_name'), [Validators.required]],
-      lastName: [this.sessionStorage.get('last_name'), [Validators.required]],
+      bio: ['', {
+        validators: [
+          Validators.maxLength(250)
+        ]
+      }],
+      firstName: [this.sessionStorage.get('first_name'), {
+        validators: [
+          Validators.required
+        ]
+      }],
+      lastName: [this.sessionStorage.get('last_name'), {
+        validators: [
+          Validators.required
+        ]
+      }],
       middleName: [this.sessionStorage.get('middle_name')],
-      email: [{ value: this.sessionStorage.get('email'), disabled: true }],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      linkedIn: ['', [this.urlValidator(), this.socialMediaValidator('linkedin')]],
-      facebook: ['', [this.urlValidator(), this.socialMediaValidator('facebook')]],
-      instagram: ['', [this.urlValidator(), this.socialMediaValidator('instagram')]],
-      website: ['', [this.urlValidator()]],
-      kajas_link: [this.sessionStorage.get('username'), [Validators.required]]
+      email: [{ value: this.sessionStorage.get('email'), 
+        disabled: true }],
+      country: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      city: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      linkedIn: ['', {
+        validators: [
+          this.urlValidator(), 
+          this.socialMediaValidator('linkedin')
+        ]
+      }],
+      facebook: ['', {
+        validators: [
+          this.urlValidator(), 
+          this.socialMediaValidator('facebook')
+        ]
+      }],
+      instagram: ['', {
+        validators: [
+          this.urlValidator(), 
+          this.socialMediaValidator('instagram')
+        ]
+      }],
+      website: ['', {
+        validators: [
+          this.urlValidator()
+        ]
+      }],
+      kajas_link: [this.sessionStorage.get('username'), {
+        validators: [
+          Validators.required
+        ]
+      }],
     });
   }
 

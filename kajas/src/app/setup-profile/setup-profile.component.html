@@ -119,7 +119,7 @@
                                 }
                             </select>
                             <input type="hidden" formControlName="country">
-                                @if(profileForm.get('country').invalid && 
+                            @if(profileForm.get('country').invalid && 
                                     profileForm.get('country').touched) {
                                     <div class="error-message">
                                         {{ getErrorMessage('country') }}
@@ -160,36 +160,36 @@
                                 type="text" 
                                 formControlName="linkedIn" 
                                 placeholder="LinkedIn">
-                            @if(profileForm.get('linkedIn').invalid && 
-                                profileForm.get('linkedIn').touched) {
-                                <div class="error-message">
-                                    {{ getErrorMessage('linkedIn') }}
-                                </div>
-                            }
+                                @if(profileForm.get('linkedIn').invalid && 
+                                    profileForm.get('linkedIn').touched) {
+                                    <div class="error-message">
+                                        {{ getErrorMessage('linkedIn') }}
+                                    </div>
+                                }
                             </div>
                             <div class="form-group">
                                 <input 
                                 type="text" 
                                 formControlName="facebook" 
                                 placeholder="Facebook">
-                            @if(profileForm.get('facebook').invalid && 
-                                profileForm.get('facebook').touched) {
-                                <div class="error-message">
-                                    {{ getErrorMessage('facebook') }}
-                                </div>
-                            }
+                                @if(profileForm.get('facebook').invalid && 
+                                    profileForm.get('facebook').touched) {
+                                    <div class="error-message">
+                                        {{ getErrorMessage('facebook') }}
+                                    </div>
+                                }
                             </div>
                             <div class="form-group">
                                 <input 
                                 type="text" 
                                 formControlName="instagram" 
                                 placeholder="Instagram">
-                            @if(profileForm.get('instagram').invalid && 
-                                profileForm.get('instagram').touched) {
-                                <div class="error-message">
-                                    {{ getErrorMessage('instagram') }}
-                                </div>
-                            }
+                                @if(profileForm.get('instagram').invalid && 
+                                    profileForm.get('instagram').touched) {
+                                    <div class="error-message">
+                                        {{ getErrorMessage('instagram') }}
+                                    </div>
+                                }
                             </div>
                             
                         </div>
