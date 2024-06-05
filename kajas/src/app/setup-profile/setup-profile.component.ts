@@ -18,74 +18,64 @@ export class SetupProfileComponent implements OnInit {
   showModal = false;
   modalMessage = '';
 
-  firstNamePlaceholder: string;
-  lastNamePlaceholder: string;
-  middleNamePlaceholder: string;
-  emailPlaceholder: string;
-  kajasPlaceholder: string;
+  firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
+  lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
+  middleNamePlaceholder = this.sessionStorage.get('middle_name') || '';
+  emailPlaceholder = this.sessionStorage.get('email') || '';
+  kajasPlaceholder = this.sessionStorage.get('username') || '';
 
-  constructor(private fb: FormBuilder, private locationService: LocationService, 
-    private sessionStorage: SessionStorageService, private router: Router) {
-
-    this.firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
-    this.lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
-    this.middleNamePlaceholder = this.sessionStorage.get('middle_name') || '';
-    this.emailPlaceholder = this.sessionStorage.get('email') || '';
-    this.kajasPlaceholder = this.sessionStorage.get('username') || '';
-
+  constructor(
+    private fb: FormBuilder, 
+    private locationService: LocationService, 
+    private sessionStorage: SessionStorageService, 
+    private router: Router
+  ) {
     this.profileForm = this.fb.group({
       id: [this.sessionStorage.get('id')],
       profile: [''],
       bio: ['', [Validators.maxLength(250)]],
-      firstName: [this.sessionStorage.get('first_name'), Validators.required],
-      lastName: [this.sessionStorage.get('last_name'), Validators.required],
+      firstName: [this.sessionStorage.get('first_name'), [Validators.required]],
+      lastName: [this.sessionStorage.get('last_name'), [Validators.required]],
       middleName: [this.sessionStorage.get('middle_name')],
-      email: [{value: this.sessionStorage.get('email'), disabled: true}],
-      country: ['', Validators.required],
-      city: ['', Validators.required],
-      linkedIn: ['', [this.urlValidator, this.socialMediaValidator('linkedin')]],
-      facebook: ['', [this.urlValidator, this.socialMediaValidator('facebook')]],
-      instagram: ['', [this.urlValidator, this.socialMediaValidator('instagram')]],
-      website: ['', this.urlValidator],
-      kajas_link: [this.sessionStorage.get('username'), Validators.required]
+      email: [{ value: this.sessionStorage.get('email'), disabled: true }],
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      linkedIn: ['', [this.urlValidator(), this.socialMediaValidator('linkedin')]],
+      facebook: ['', [this.urlValidator(), this.socialMediaValidator('facebook')]],
+      instagram: ['', [this.urlValidator(), this.socialMediaValidator('instagram')]],
+      website: ['', [this.urlValidator()]],
+      kajas_link: [this.sessionStorage.get('username'), [Validators.required]]
     });
   }
 
   ngOnInit(): void {
     this.locationService.getCountries().subscribe(data => {
       this.countries = data;
-      this.countries.sort((a, b) => a.name.localeCompare(b.name)); 
+      this.countries.sort((a, b) => a.name.localeCompare(b.name));
     });
   }
 
-  urlValidator(control: AbstractControl): ValidationErrors | null {
-    if (!control.value) {
-      return null;
-    }
-    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-    return urlPattern.test(control.value) ? null : { invalidUrl: true };
-  }
-
-  socialMediaValidator(platform: string) {
+  urlValidator(): (control: AbstractControl) => ValidationErrors | null {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
         return null;
       }
-      let pattern: RegExp;
-      switch (platform) {
-        case 'linkedin':
-          pattern = /^https:\/\/(www\.)?linkedin\.com\/.*$/i;
-          break;
-        case 'facebook':
-          pattern = /^https:\/\/(www\.)?facebook\.com\/.*$/i;
-          break;
-        case 'instagram':
-          pattern = /^https:\/\/(www\.)?instagram\.com\/.*$/i;
-          break;
-        default:
-          return null;
+      const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+      return urlPattern.test(control.value) ? null : { invalidUrl: true };
+    };
+  }
+
+  socialMediaValidator(platform: string): (control: AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
       }
-      return pattern.test(control.value) ? null : { invalidSocialMediaUrl: true };
+      const patterns: { [key: string]: RegExp } = {
+        linkedin: /^https:\/\/(www\.)?linkedin\.com\/.*$/i,
+        facebook: /^https:\/\/(www\.)?facebook\.com\/.*$/i,
+        instagram: /^https:\/\/(www\.)?instagram\.com\/.*$/i
+      };
+      return patterns[platform].test(control.value) ? null : { invalidSocialMediaUrl: true };
     };
   }
 
@@ -95,8 +85,6 @@ export class SetupProfileComponent implements OnInit {
       const file = input.files[0];
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const imgElement = document.getElementById('profile-pic-placeholder') as HTMLImageElement;
-        imgElement.src = e.target.result;
         this.profileForm.patchValue({ profile: file });
       };
       reader.readAsDataURL(file);
@@ -105,7 +93,7 @@ export class SetupProfileComponent implements OnInit {
 
   onCountryChange(event: Event): void {
     const countryCode = (event.target as HTMLSelectElement).value;
-    this.selectedCountryName = this.countries.find(country => country.id === countryCode).name;
+    this.selectedCountryName = this.countries.find(country => country.id === countryCode)?.name || '';
     this.profileForm.patchValue({ country: this.selectedCountryName });
 
     this.locationService.getCities(countryCode).subscribe(data => {
@@ -135,7 +123,7 @@ export class SetupProfileComponent implements OnInit {
         }
       }
     });
-  
+
     try {
       const response = await axios.post(url, formData);
       if (response.status === 200) {
@@ -170,5 +158,5 @@ export class SetupProfileComponent implements OnInit {
       this.router.navigateByUrl('/profile');
     }
     this.showModal = false;
-  }  
+  }
 }
