@@ -72,6 +72,9 @@ img.toggle-password {
 }
 
 .terms {
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
     text-align: left;
     font-size: 0.9em;
     color: #3E3E3E;
@@ -151,6 +154,58 @@ hr {
     transform: scale(1.05); 
 }
 
+.form-group-wrapper {
+    position: relative;
+}
+  
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.7em;
+    position: absolute;
+    top: -30px; 
+    right: 0;
+    width: 70%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+  
+.error-message::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f8d7da transparent transparent transparent;
+}
+  
+.form-group .error-message {
+    position: absolute;
+    top: -35px; 
+    right: 0;
+    width: 70%;
+}
+
+input[type="text"].ng-touched.ng-invalid,
+input[type="email"].ng-touched.ng-invalid,
+input[type="password"].ng-touched.ng-invalid {
+    border: 1px solid #721c24;
+}
+  
+.form-group input.ng-touched.ng-invalid ~ .error-message,
+.form-group input.ng-dirty.ng-invalid ~ .error-message {
+    opacity: 0.8;
+    visibility: visible;
+}
+  
 @media only screen and (max-width: 768px) {
     .main-container {
         width: 350px;
@@ -246,4 +301,23 @@ hr {
     hr {
         margin: 10px 0;
     }
+
+    .error-message {
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.3em;
+        top: -20px; 
+        width: 70%;
+    }
+      
+    .error-message::before {
+        bottom: -10px;
+        left: 10px;
+        border-width: 5px;
+    }
+      
+    .form-group .error-message {
+        top: -20px;
+    }
+    
 }

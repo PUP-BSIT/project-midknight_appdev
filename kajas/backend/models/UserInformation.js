@@ -1,3 +1,4 @@
+const { callbackPromise } = require('nodemailer/lib/shared');
 const db = require('../config/db');
 
 const createUserInformation = (firstName, middleName, lastName, callback) => {
@@ -5,6 +6,17 @@ const createUserInformation = (firstName, middleName, lastName, callback) => {
   db.query(query, [firstName, middleName, lastName], callback);
 };
 
+const updateUserInformation = (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, callback) => {
+  const query = `
+    UPDATE user_information 
+    SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?, facebook = ?, linkedin = ?, instagram = ?, website = ? 
+    WHERE user_information_id = ?`; 
+
+  db.query(query, [profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, id], callback);
+};
+
+
 module.exports = {
-  createUserInformation
+  createUserInformation,
+  updateUserInformation
 };

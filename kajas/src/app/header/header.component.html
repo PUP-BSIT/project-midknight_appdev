@@ -1,0 +1,17 @@
+<div class="tab-container">
+    <div class="logo">
+        <img src="../../assets/kajas_icon.png" alt="Kajas Logo">
+    </div>
+
+    <div class="search-field">
+        <input type="text" class="search-field" placeholder="SEARCH">
+    </div>
+
+    <div class="dropdown-button" (click)="toggleDropdown($event)">
+        <img src="../../assets/icons/dropbox.png" alt="drop down">
+        <div class="dropdown-content" [ngClass]="{'show': dropdownOpen}">
+            <a href="#" (click)="navigateToSettings($event)">Settings</a>
+            <a href="#" (click)="logout($event)">Log Out</a>
+        </div>
+    </div>
+</div>

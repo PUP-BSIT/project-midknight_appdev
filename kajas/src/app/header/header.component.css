@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.tab-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #8b7a71;
+    padding: 5px;
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    top: 0;           
+    left: 0;       
+    z-index: 1000;   
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    width: 25%;
+}
+
+.logo img {
+    width: 30%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo img:hover {
+    transform: translateY(-5px);
+}
+
+.search-field {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    margin-right: 5%;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff;
+    font-size: large;
+}
+
+.dropdown-button {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    position: relative;
+    width: 5%;
+}
+
+.dropdown-button img {
+    width: 50%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dropdown-button img:hover {
+    transform: translateY(-5px);
+}
+
+.dropdown-content {
+    display: block; 
+    position: absolute;
+    top: 200%; 
+    background-color: #8b7a71;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 0 0 5px 10px;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0; 
+    overflow: hidden; 
+    transform: translateY(-10px); 
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease; 
+}
+
+.dropdown-content a {
+    color: white;
+    font-size: large;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #726458;
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    max-height: 200px; 
+}
+
+@media only screen and (max-width: 426px) {
+    .tab-container {
+        padding: 0;
+    }
+
+    .logo {
+        width: 20%;
+    }
+    
+    .logo img {
+        width: 100%;
+    }
+
+    .search-field {
+        width: 50%;
+        margin-right: 2%;
+    }
+    
+    input[type="text"] {
+        width: 80%;
+        padding: 5px;
+        padding-left: 8px;
+        font-size: xx-small;
+    }
+
+    .dropdown-button img {
+        width: 100%;
+    }
+
+    .dropdown-button img:hover {
+        transform: translateY(0);
+    }
+
+    .dropdown-content {
+        top: 220%; 
+    }
+    
+    .dropdown-content a {
+        font-size: xx-small;
+        padding: 10px 12px;
+    }
+}
+
+@media screen and (min-width: 427px) and (max-width: 769px) {
+    .search-field {
+        width: 50%;
+        margin-right: 2%;
+    }
+    
+    input[type="text"] {
+        width: 80%;
+        padding: 5px;
+        padding-left: 8px;
+        font-size: xx-small;
+    }
+}

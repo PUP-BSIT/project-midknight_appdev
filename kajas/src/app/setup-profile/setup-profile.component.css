@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:host {
+    background-color: #f1eee7;
+    font-family: "Montserrat", sans-serif;
+}
+
+.setup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+}
+
+.modal {
+    background-color: #d6c4b3;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    padding:  60px;
+    border-radius: 10px;
+    max-width: 70%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal:hover {
+    transform: scale(1.02); 
+}
+
+.modal-content {
+    position: relative;
+    border-radius: 10px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    color: #4D493E;
+    font-size: xx-large;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    gap: 20px;
+}
+
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 10%;
+    align-items: center;
+}
+
+.profile-pic-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-pic-group:hover {
+    transform: scale(1.05); 
+}
+
+.profile-pic-label {
+    width: 250px;
+    height: 250px;
+    background-color: #8E7C70;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.profile-pic-label img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-pic-input {
+    display: none;
+}
+
+.bio-group {
+    width: 100%;
+    text-align: left;
+}
+
+.bio-group textarea {
+    width: 100%;
+    height: 80%;
+    padding: 10px;
+    background-color: #F1EEE7;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    resize: none;
+    font-family: Montserrat, sans-serif;
+}
+
+.bio-group textarea::placeholder {
+    color: grey;
+    opacity: 1;
+    font-family: Montserrat, sans-serif;
+}
+
+.right-column {
+    font-size: 0.9em;
+    flex: 2;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+    margin-left: 3%;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="url"] {
+    height: 23px;
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #F1EEE7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+form select {
+    height: 35px;
+    width: 105%;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 11px;
+    background-color: #F1EEE7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: block;
+    color: grey;
+    opacity: 1;
+    font-family: Montserrat, sans-serif;
+}
+
+#website {
+    margin-bottom: 10px;
+}
+
+.kajas-url-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kajas-url-prefix {
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    color: #7A5038;
+    border: none;
+    background-color: none;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.kajas-url-wrapper input {
+    flex: 1;
+    padding: 5px !important;
+    margin-left: 2px;
+    height: 23px !important;
+    border-radius: 8px;
+}
+
+.kajas-url-wrapper input::placeholder {
+    color: grey;
+    opacity: 1;
+    font-family: Montserrat, sans-serif;
+}
+
+.social-links input {
+    height: 15px;
+    margin-bottom: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+}
+
+.continue-button {
+    margin-top: 16px;
+    margin-left: 20px;
+    width: 80%;
+    padding: 10px;
+    background-color: #3E3E3E;
+    color: #FFF;
+    font-size: large;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button.continue-button:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal {
+        margin-top: 20%;
+        margin-bottom: 10%;
+        max-width: 60%;
+        padding: 30px;
+    }
+
+    .modal-content {
+        position: initial;
+        width: 100%;
+        align-items: center;
+    }
+    
+    h1 {
+        font-size: medium;
+        margin-bottom: 12px;
+    }
+    
+    form {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .left-column {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bio-group {
+        width: 100%;
+        text-align: left;
+        font-size: x-small;
+    }
+    
+    .bio-group textarea {
+        width: 100%;
+        height: 60px;
+        font-size: x-small;
+        margin-bottom: 0;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    .right-column {
+        margin: 0;
+        flex-direction: column;
+        font-size: x-small;
+    }
+    
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 4px;
+        width: 100%;
+    }
+    
+    .form-group {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        gap: 0;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="url"] {
+        height: 20px;
+        width: 100%;
+        padding: 4px;
+        margin-bottom: 8px;
+        background-color: #F1EEE7;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: x-small;
+        box-sizing: border-box;
+    }
+
+    form select {
+        height: 20px;
+        width: 100%;
+        padding: 2.5px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        font-size: x-small;
+    }
+
+    .profile-pic-label {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .kajas-url-prefix {
+        flex-direction: column;
+        padding: 5px;
+        color: #7A5038;
+        border: none;
+        background-color: none;
+        font-weight: bold;
+        font-size: x-small;
+    }
+    
+    .kajas-url-wrapper input {
+        padding: 5px;
+        height: 20px !important;
+        font-size: x-small;
+    }
+    
+    .button-container {
+        width: 100%; 
+    }
+
+    .continue-button {
+        margin-top: 10px;
+        margin-left: 0;
+        padding: 5px;
+        font-size: small;
+        border-radius: 5px;
+    }
+}
