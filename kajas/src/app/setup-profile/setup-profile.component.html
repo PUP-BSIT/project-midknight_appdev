@@ -28,7 +28,7 @@
                             <label for="bio">Bio</label>
                             <textarea 
                                 id="bio" 
-                                maxlength="100" 
+                                maxlength="250" 
                                 placeholder="Describe yourself here..." 
                                 formControlName="bio">
                             </textarea>
@@ -43,6 +43,7 @@
                                     type="text" 
                                     id="first-name" 
                                     formControlName="firstName" 
+                                    placeholder="{{ firstNamePlaceholder }}"
                                     required>
                             </div>
     
@@ -52,6 +53,7 @@
                                     type="text" 
                                     id="last-name" 
                                     formControlName="lastName" 
+                                    placeholder="{{ lastNamePlaceholder }}"
                                     required>
                             </div>
                         </div>
@@ -62,7 +64,8 @@
                                 <input 
                                     type="text" 
                                     id="middle-name" 
-                                    formControlName="middleName">
+                                    formControlName="middleName"
+                                    placeholder="{{ middleNamePlaceholder }}">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email Address *</label>
@@ -70,7 +73,9 @@
                                     type="email" 
                                     id="email" 
                                     formControlName="email" 
-                                    required>
+                                    placeholder="{{ emailPlaceholder }}"
+                                    required
+                                    readonly>
                             </div>
                         </div>
     
@@ -132,22 +137,26 @@
                             <input 
                                 type="url" 
                                 id="website" 
-                                formControlName="website">
+                                formControlName="website"
+                                placeholder="Website Address">
                         </div>
     
                         <div class="form-group">
                             <label for="kajas-url">Kajas URL</label>
                             <div class="kajas-url-wrapper">
-                                <span class="kajas-url-prefix">kajas.site /</span>
+                                <span class="kajas-url-prefix">
+                                    kajas.site /</span>
                                 <input 
                                     type="text" 
                                     id="kajas-url" 
                                     formControlName="kajas_link" 
-                                    placeholder="custom-url">
+                                    placeholder="{{ kajasPlaceholder }}">
                             </div>
                         </div>
+
                         <div class="button-container">
-                            <button type="submit" class="continue-button">SAVE</button>
+                            <button type="submit" class="continue-button">
+                                SAVE</button>
                         </div>
                     </div>
                 </form>

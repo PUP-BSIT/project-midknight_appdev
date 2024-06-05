@@ -116,6 +116,12 @@ const getLocation = (id, callback) => {
 
 }
 
+const updateUsername = (id, username, callback) => {
+  const query = "UPDATE user SET username = ? WHERE user_information_id = ?";
+  db.query(query, [username, id], callback);
+};
+
+
 module.exports = {
   createUser,
   verifyUser,
@@ -124,5 +130,6 @@ module.exports = {
   findUserByResetToken,
   updatePassword,
   getAllUsernames,
-  getLocation
+  getLocation,
+  updateUsername
 };

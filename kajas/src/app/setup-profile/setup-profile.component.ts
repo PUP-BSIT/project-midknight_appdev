@@ -16,32 +16,36 @@ export class SetupProfileComponent implements OnInit {
   cities: any[] = [];
   selectedCountryName = '';
 
+  firstNamePlaceholder: string;
+  lastNamePlaceholder: string;
+  middleNamePlaceholder: string;
+  emailPlaceholder: string;
+  kajasPlaceholder: string;
+
   constructor(private fb: FormBuilder, private locationService: LocationService, 
     private sessionStorage: SessionStorageService, private router: Router) {
 
+    this.firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
+    this.lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
+    this.middleNamePlaceholder = this.sessionStorage.get('middle_name') || '';
+    this.emailPlaceholder = this.sessionStorage.get('email') || '';
+    this.kajasPlaceholder = this.sessionStorage.get('username') || '';
+
     this.profileForm = this.fb.group({
-      id: this.sessionStorage.get('id'),
+      id: [this.sessionStorage.get('id')],
       profile: [''],
       bio: [''],
-      firstName: this.sessionStorage.get('first_name'),
-      lastName: this.sessionStorage.get('last_name'),
-      middleName: this.sessionStorage.get('middle_name'),
+      firstName: [this.sessionStorage.get('first_name'), Validators.required],
+      lastName: [this.sessionStorage.get('last_name'), Validators.required],
+      middleName: [this.sessionStorage.get('middle_name')],
       email: this.sessionStorage.get('email'),
-      country: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],
-      city: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
       linkedIn: [''],
       facebook: [''],
       instagram: [''],
       website: [''],
-      kajas_link: this.sessionStorage.get('username')
+      kajas_link: [this.sessionStorage.get('username')]
     });
   }
 
@@ -78,12 +82,24 @@ export class SetupProfileComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
+    if (this.profileForm.invalid) {
+      return;
+    }
+  
     const url = "http://localhost:4000/api/setProfile";
     const formData = new FormData();
+  
     Object.keys(this.profileForm.controls).forEach(key => {
-      formData.append(key, this.profileForm.get(key).value);
+      const control = this.profileForm.get(key);
+      if (control && control.value !== null && control.value !== undefined) {
+        if (key === 'profile' && control.value instanceof File) {
+          formData.append(key, control.value);
+        } else {
+          formData.append(key, control.value);
+        }
+      }
     });
-
+  
     try {
       const response = await axios.post(url, formData);
       this.router.navigateByUrl('/profile');
@@ -91,4 +107,5 @@ export class SetupProfileComponent implements OnInit {
       console.error('Error submitting the profile data:', error);
     }
   }
+  
 }
