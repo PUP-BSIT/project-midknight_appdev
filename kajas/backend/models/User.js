@@ -100,7 +100,19 @@ const getUserProfile = (username, callback) => {
 };
 
 const getLocation = (id, callback) => {
-  db.query("SELECT country, city FROM user_information WHERE user_information_id = ?", [id], callback);
+  const query = "SELECT country, city FROM user_information WHERE user_information_id = ?";
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      return callback(err, null);
+    }
+    
+    const { country, city } = results[0];
+    if (!country && !city) {       
+      return callback(err, null);
+    }    
+    return callback(null, results[0]);
+  });
+
 }
 
 module.exports = {
