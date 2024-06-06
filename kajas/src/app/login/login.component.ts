@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   showModal = false;
   modalMessage = '';
   resizeSubscription: Subscription;
+  redirectUrl: string | null = null;
 
   constructor(
     private renderer: Renderer2,
@@ -108,12 +109,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               const axiosResponse = await axios.get(`${url}/api/location/id?id=${id}`);
               if (axiosResponse.status === 200) {
                 const isFirstTime = axiosResponse.data.isFirstTimeLogin;
-  
-                if (isFirstTime) {
-                  this.router.navigateByUrl('/setup-profile');
-                } else {
-                  this.router.navigateByUrl('/profile');
-                }
+                this.redirectUrl = isFirstTime ? '/setup-profile' : '/profile';
               }
             } catch (error) {
               console.error(error);
@@ -131,11 +127,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.showModal = true;
     }
   }
+
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
 
   closeModal(): void {
     this.showModal = false;
+    if (this.redirectUrl) {
+      this.router.navigateByUrl(this.redirectUrl);
+      this.redirectUrl = null; 
+    }
   }
 }
