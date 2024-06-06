@@ -129,6 +129,7 @@ module.exports = {
   setPasswordResetToken,
   findUserByResetToken,
   updatePassword,
+  getUserProfile,
   getAllUsernames,
   getLocation,
   updateUsername
