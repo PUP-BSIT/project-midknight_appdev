@@ -120,11 +120,11 @@
                             </select>
                             <input type="hidden" formControlName="country">
                             @if(profileForm.get('country').invalid && 
-                                    profileForm.get('country').touched) {
-                                    <div class="error-message">
-                                        {{ getErrorMessage('country') }}
-                                    </div>
-                                }
+                                profileForm.get('country').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('country') }}
+                                </div>
+                            }
 
                             <select 
                                 id="city" 
