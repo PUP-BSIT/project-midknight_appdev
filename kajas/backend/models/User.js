@@ -12,7 +12,8 @@ const verifyUser = (email, callback) => {
 };
 
 const findUserByEmail = (email, callback) => {
-  const query = "SELECT * FROM user WHERE email = ?";
+  const query = `SELECT user.*, user_information.* FROM user LEFT JOIN user_information ON user.user_information_id 
+  = user_information.user_information_id WHERE user.email = ?;`;
   db.query(query, [email], (err, results) => {
     if (err) {
       return callback(err, null);
@@ -115,6 +116,12 @@ const getLocation = (id, callback) => {
 
 }
 
+const updateUsername = (id, username, callback) => {
+  const query = "UPDATE user SET username = ? WHERE user_information_id = ?";
+  db.query(query, [username, id], callback);
+};
+
+
 module.exports = {
   createUser,
   verifyUser,
@@ -123,5 +130,6 @@ module.exports = {
   findUserByResetToken,
   updatePassword,
   getAllUsernames,
-  getLocation
+  getLocation,
+  updateUsername
 };

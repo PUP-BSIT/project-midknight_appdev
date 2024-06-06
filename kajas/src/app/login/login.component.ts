@@ -93,9 +93,13 @@ export class LoginComponent implements OnInit, OnDestroy {
           async (response: any) => {
             this.modalMessage = 'Login Success! Welcome to Kajas!';
             this.showModal = true;
+            console.log(response);
             this.sessionStorage.set('id', response.user.user_id);
             this.sessionStorage.set('username', response.user.username);
             this.sessionStorage.set('email', response.user.email);
+            this.sessionStorage.set('first_name', response.user.first_name);
+            this.sessionStorage.set('middle_name', response.user.middle_name);
+            this.sessionStorage.set('last_name', response.user.last_name);
   
             const url = "http://localhost:4000";
             const id = response.user.user_id;

@@ -6,18 +6,17 @@ const createUserInformation = (firstName, middleName, lastName, callback) => {
   db.query(query, [firstName, middleName, lastName], callback);
 };
 
-const updateUserInformation = (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, callback) => {
-  try{
-    const query = `
+const updateUserInformation = (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, firstName, middleName, lastName, callback) => {
+  const fullKajasLink = `kajas.site/${kajasLink}`;
+  const query = `
     UPDATE user_information 
-    SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?, facebook = ?, linkedin = ?, instagram = ?, website = ? 
-    WHERE user_information_id = ?`; 
-
-  db.query(query, [profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, id], callback);
-  }catch (err){
-    console.error(err);
-  }
+    SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?, facebook = ?, linkedin = ?, instagram = ?, website = ?, first_name = ?, middle_name = ?, last_name = ? 
+    WHERE user_information_id = ?`;
+  
+  db.query(query, [profile, bio, fullKajasLink, country, city, facebook, linkedin, instagram, website, firstName, middleName, lastName, id], callback);
 };
+
+
 
 
 module.exports = {
