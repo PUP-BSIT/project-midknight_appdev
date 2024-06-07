@@ -275,7 +275,6 @@ input[type="text"].ng-touched.ng-invalid {
     visibility: visible;
 }
 
-
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .modal {
         margin-top: 20%;
@@ -424,3 +423,9 @@ input[type="text"].ng-touched.ng-invalid {
         top: 0px;
     }
 }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+} 

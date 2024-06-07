@@ -19,6 +19,8 @@ const updateUserInformation = (id, profile, bio, kajasLink, country, city, faceb
 
 
 
+
+
 module.exports = {
   createUserInformation,
   updateUserInformation
