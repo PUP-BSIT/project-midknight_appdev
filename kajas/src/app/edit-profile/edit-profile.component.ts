@@ -185,7 +185,10 @@ export class EditProfileComponent implements OnInit {
       if (response.status === 200) {
         this.modalMessage = 'Profile edit Successfully!';
         this.showModal = true;
-
+        
+        this.sessionStorage.set('first_name', this.profileForm.controls.first_name.value);
+        this.sessionStorage.set('middle_name', this.profileForm.controls.middle_name.value);
+        this.sessionStorage.set('last_name', this.profileForm.controls.last_name.value);
         this.sessionStorage.set('city', this.profileForm.controls.city.value);
         this.sessionStorage.set('country', this.profileForm.controls.country.value);
         this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
