@@ -170,12 +170,22 @@ export class SetupProfileComponent implements OnInit {
         }
       }
     });
-
+        
     try {
       const response = await axios.post(url, formData);
       if (response.status === 200) {
         this.modalMessage = 'Profile Setup Successfully!';
         this.showModal = true;
+
+        this.sessionStorage.set('city', this.profileForm.controls.city.value);
+        this.sessionStorage.set('country', this.profileForm.controls.country.value);
+        this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
+        this.sessionStorage.set('profile', this.profileForm.controls.profile.value);
+        this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
+        this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
+        this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
+        this.sessionStorage.set('website', this.profileForm.controls.website.value);
+        this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
       }
     } catch (error) {
       console.error('Error submitting the profile data:', error);
