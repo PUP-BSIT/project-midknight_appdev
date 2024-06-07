@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { LocationService } from '../../services/location.service';
 import { SessionStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
@@ -15,31 +15,44 @@ export class SetupProfileComponent implements OnInit {
   countries: any[] = [];
   cities: any[] = [];
   selectedCountryName = '';
+  showModal = false;
+  modalMessage = '';
+  profileImageUrl: string | ArrayBuffer | null = '';
 
-  constructor(private fb: FormBuilder, private locationService: LocationService, 
-    private sessionStorage: SessionStorageService, private router: Router) {
+  firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
+  lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
+  middleNamePlaceholder = this.sessionStorage.get('middle_name') || '';
+  emailPlaceholder = this.sessionStorage.get('email') || '';
+  kajasPlaceholder = this.sessionStorage.get('username') || '';
+  
 
+  constructor(
+    private fb: FormBuilder, 
+    private locationService: LocationService, 
+    private sessionStorage: SessionStorageService, 
+    private router: Router
+  ) {
     this.profileForm = this.fb.group({
-      id: this.sessionStorage.get('id'),
+      id: [this.sessionStorage.get('id')],
       profile: [''],
-      bio: [''],
-      firstName: ['', {
+      bio: ['', {
+        validators: [
+          Validators.maxLength(250)
+        ]
+      }],
+      firstName: [this.sessionStorage.get('first_name'), {
         validators: [
           Validators.required
         ]
       }],
-      lastName: ['', {
+      lastName: [this.sessionStorage.get('last_name'), {
         validators: [
           Validators.required
         ]
       }],
-      middleName: [''],
-      email: ['', {
-        validators: [
-          Validators.required,
-          Validators.email
-        ]
-      }],
+      middleName: [this.sessionStorage.get('middle_name')],
+      email: [{ value: this.sessionStorage.get('email'), 
+        disabled: true }],
       country: ['', {
         validators: [
           Validators.required
@@ -50,19 +63,66 @@ export class SetupProfileComponent implements OnInit {
           Validators.required
         ]
       }],
-      linkedIn: [''],
-      facebook: [''],
-      instagram: [''],
-      website: [''],
-      kajas_link: this.sessionStorage.get('username')
+      linkedIn: ['', {
+        validators: [
+          this.urlValidator(), 
+          this.socialMediaValidator('linkedin')
+        ]
+      }],
+      facebook: ['', {
+        validators: [
+          this.urlValidator(), 
+          this.socialMediaValidator('facebook')
+        ]
+      }],
+      instagram: ['', {
+        validators: [
+          this.urlValidator(), 
+          this.socialMediaValidator('instagram')
+        ]
+      }],
+      website: ['', {
+        validators: [
+          this.urlValidator()
+        ]
+      }],
+      kajas_link: [this.sessionStorage.get('username'), {
+        validators: [
+          Validators.required
+        ]
+      }],
     });
   }
 
   ngOnInit(): void {
     this.locationService.getCountries().subscribe(data => {
       this.countries = data;
-      this.countries.sort((a, b) => a.name.localeCompare(b.name)); 
+      this.countries.sort((a, b) => a.name.localeCompare(b.name));
     });
+  }
+
+  urlValidator(): (control: AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+      return urlPattern.test(control.value) ? null : { invalidUrl: true };
+    };
+  }
+
+  socialMediaValidator(platform: string): (control: AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const patterns: { [key: string]: RegExp } = {
+        linkedin: /^https:\/\/(www\.)?linkedin\.com\/.*$/i,
+        facebook: /^https:\/\/(www\.)?facebook\.com\/.*$/i,
+        instagram: /^https:\/\/(www\.)?instagram\.com\/.*$/i
+      };
+      return patterns[platform].test(control.value) ? null : { invalidSocialMediaUrl: true };
+    };
   }
 
   onFileSelected(event: Event): void {
@@ -71,8 +131,7 @@ export class SetupProfileComponent implements OnInit {
       const file = input.files[0];
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const imgElement = document.getElementById('profile-pic-placeholder') as HTMLImageElement;
-        imgElement.src = e.target.result;
+        this.profileImageUrl = e.target.result;
         this.profileForm.patchValue({ profile: file });
       };
       reader.readAsDataURL(file);
@@ -81,7 +140,7 @@ export class SetupProfileComponent implements OnInit {
 
   onCountryChange(event: Event): void {
     const countryCode = (event.target as HTMLSelectElement).value;
-    this.selectedCountryName = this.countries.find(country => country.id === countryCode).name;
+    this.selectedCountryName = this.countries.find(country => country.id === countryCode)?.name || '';
     this.profileForm.patchValue({ country: this.selectedCountryName });
 
     this.locationService.getCities(countryCode).subscribe(data => {
@@ -93,15 +152,58 @@ export class SetupProfileComponent implements OnInit {
   async onSubmit(): Promise<void> {
     const url = "http://localhost:4000/api/setProfile";
     const formData = new FormData();
+
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched();
+      this.modalMessage = 'Please fill out the form accurately and completely.';
+      this.showModal = true;
+      return;
+    }
+
     Object.keys(this.profileForm.controls).forEach(key => {
-      formData.append(key, this.profileForm.get(key).value);
+      const control = this.profileForm.get(key);
+      if (control && control.value !== null && control.value !== undefined) {
+        if (key === 'profile' && control.value instanceof File) {
+          formData.append(key, control.value);
+        } else {
+          formData.append(key, control.value);
+        }
+      }
     });
 
     try {
       const response = await axios.post(url, formData);
-      this.router.navigateByUrl('/profile');
+      if (response.status === 200) {
+        this.modalMessage = 'Profile Setup Successfully!';
+        this.showModal = true;
+      }
     } catch (error) {
       console.error('Error submitting the profile data:', error);
     }
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.profileForm.get(controlName);
+    if (control && control.errors) {
+      if (control.errors.required) {
+        return `${this.capitalizeFirstLetter(controlName)} is required.`;
+      } else if (control.errors.invalidUrl) {
+        return `${this.capitalizeFirstLetter(controlName)} must be a valid URL.`;
+      } else if (control.errors.invalidSocialMediaUrl) {
+        return `${this.capitalizeFirstLetter(controlName)} must be a valid ${controlName} URL.`;
+      }
+    }
+    return '';
+  }
+
+  private capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1).replace(/([A-Z])/g, ' $1');
+  }
+
+  closeModal(): void {
+    if (this.modalMessage === 'Profile Setup Successfully!') {
+      this.router.navigateByUrl('/profile');
+    }
+    this.showModal = false;
   }
 }
