@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import axios from 'axios';
 
 @Component({
-  selector: 'app-setup-profile',
-  templateUrl: './setup-profile.component.html',
-  styleUrls: ['./setup-profile.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class SetupProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
   profileForm: FormGroup;
   countries: any[] = [];
   cities: any[] = [];
@@ -23,9 +23,16 @@ export class SetupProfileComponent implements OnInit {
   lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
   middleNamePlaceholder = this.sessionStorage.get('middle_name') || 'Middle Name';
   emailPlaceholder = this.sessionStorage.get('email') || '';
-  kajasPlaceholder = this.sessionStorage.get('username') || '';
+  kajasPlaceholder = this.sessionStorage.get('kajasLink') || '';
+  countryPlaceholder = this.sessionStorage.get('country') || '';
+  cityPlaceholder = this.sessionStorage.get('city') || '';
+  bioPlaceholder = this.sessionStorage.get('bio') || 'Describe yourself here...';
+  facebookPlaceholder = this.sessionStorage.get('facebook') || 'Facebook';
+  linkedinPlaceholder = this.sessionStorage.get('linkedin') || 'LinkedIn';
+  instagramPlaceholder = this.sessionStorage.get('instagram') || 'Instagram';
+  websitePlaceholder = this.sessionStorage.get('website') || 'Website Address';
+  profilePlaceholder = this.sessionStorage.get('profile') || '';
   
-
   constructor(
     private fb: FormBuilder, 
     private locationService: LocationService, 
@@ -35,7 +42,7 @@ export class SetupProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       id: [this.sessionStorage.get('id')],
       profile: [''],
-      bio: ['', {
+      bio: [this.sessionStorage.get('bio'), {
         validators: [
           Validators.maxLength(250)
         ]
@@ -53,35 +60,37 @@ export class SetupProfileComponent implements OnInit {
       middleName: [this.sessionStorage.get('middle_name')],
       email: [{ value: this.sessionStorage.get('email'), 
         disabled: true }],
-      country: ['', {
+      country: [this.sessionStorage.get('country'),{
+        value: this.sessionStorage.get('country'),
         validators: [
           Validators.required
         ]
       }],
-      city: ['', {
+      city: [this.sessionStorage.get('city'),{
+        value: this.sessionStorage.get('city'),
         validators: [
           Validators.required
         ]
       }],
-      linkedIn: ['', {
+      linkedIn: [this.sessionStorage.get('linkedin'), {
         validators: [
           this.urlValidator(), 
           this.socialMediaValidator('linkedin')
         ]
       }],
-      facebook: ['', {
+      facebook: [this.sessionStorage.get('facebook'), {
         validators: [
           this.urlValidator(), 
           this.socialMediaValidator('facebook')
         ]
       }],
-      instagram: ['', {
+      instagram: [this.sessionStorage.get('instagram'), {
         validators: [
           this.urlValidator(), 
           this.socialMediaValidator('instagram')
         ]
       }],
-      website: ['', {
+      website: [this.sessionStorage.get('website'), {
         validators: [
           this.urlValidator()
         ]
@@ -174,7 +183,7 @@ export class SetupProfileComponent implements OnInit {
     try {
       const response = await axios.post(url, formData);
       if (response.status === 200) {
-        this.modalMessage = 'Profile Setup Successfully!';
+        this.modalMessage = 'Profile edit Successfully!';
         this.showModal = true;
 
         this.sessionStorage.set('city', this.profileForm.controls.city.value);
@@ -211,9 +220,13 @@ export class SetupProfileComponent implements OnInit {
   }
 
   closeModal(): void {
-    if (this.modalMessage === 'Profile Setup Successfully!') {
+    if (this.modalMessage === 'Profile edit Successfully!') {
       this.router.navigateByUrl('/profile');
     }
     this.showModal = false;
+  }
+
+    close():void{
+    this.router.navigateByUrl('/profile');
   }
 }

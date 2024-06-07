@@ -19,6 +19,7 @@ import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SetupProfileComponent } from './setup-profile/setup-profile.component';
 import { LocationService } from '../services/location.service';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LocationService } from '../services/location.service';
     ResetPasswordComponent,
     HeaderComponent,
     ProfileComponent,
-    SetupProfileComponent
+    SetupProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
