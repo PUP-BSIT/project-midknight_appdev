@@ -43,14 +43,11 @@
     color: #aaa;
     font-size: 64px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
     color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
 h1 {
@@ -299,12 +296,23 @@ input[type="text"].ng-touched.ng-invalid {
         margin-bottom: 10%;
         max-width: 60%;
         padding: 30px;
+        transition: none;
+    }
+
+    .modal:hover  {
+        transform: none;
     }
 
     .modal-content {
         position: initial;
         width: 100%;
         align-items: center;
+    }
+
+    .close {
+        top: 15%;
+        right: 15%;
+        font-size: 32px;
     }
     
     h1 {
@@ -441,3 +449,19 @@ input[type="text"].ng-touched.ng-invalid {
         top: 0px;
     }
 }
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+    .close {
+        top: 20%;
+        right: 20%;
+        font-size: 32px;
+    }
+}   
+
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+    .close {
+        top: 32%;
+        right: 20%;
+        font-size: 50px;
+    }
+}   

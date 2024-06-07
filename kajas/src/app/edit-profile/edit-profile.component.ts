@@ -17,7 +17,6 @@ export class EditProfileComponent implements OnInit {
   selectedCountryName = '';
   showModal = false;
   modalMessage = '';
-  profileImageUrl: string | ArrayBuffer | null = '';
 
   firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
   lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
@@ -31,7 +30,8 @@ export class EditProfileComponent implements OnInit {
   linkedinPlaceholder = this.sessionStorage.get('linkedin') || 'LinkedIn';
   instagramPlaceholder = this.sessionStorage.get('instagram') || 'Instagram';
   websitePlaceholder = this.sessionStorage.get('website') || 'Website Address';
-  profilePlaceholder = this.sessionStorage.get('profile') || '';
+  profilePlaceholder = this.getAbsoluteUrl(this.sessionStorage.get('profile') || '');
+  profileImageUrl = this.profilePlaceholder;
   
   constructor(
     private fb: FormBuilder, 
@@ -110,6 +110,13 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+  getAbsoluteUrl(relativePath: string): string {
+    if (relativePath.startsWith('..')) {
+      return `http://localhost:4000/uploads/${relativePath.split('/').pop()}`;
+    }
+    return relativePath;
+  }
+
   urlValidator(): (control: AbstractControl) => ValidationErrors | null {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
@@ -183,7 +190,7 @@ export class EditProfileComponent implements OnInit {
     try {
       const response = await axios.post(url, formData);
       if (response.status === 200) {
-        this.modalMessage = 'Profile edit Successfully!';
+        this.modalMessage = 'Profile Updated Successfully!';
         this.showModal = true;
         
         this.sessionStorage.set('first_name', this.profileForm.controls.first_name.value);
@@ -223,13 +230,13 @@ export class EditProfileComponent implements OnInit {
   }
 
   closeModal(): void {
-    if (this.modalMessage === 'Profile edit Successfully!') {
+    if (this.modalMessage === 'Profile Updated Successfully!') {
       this.router.navigateByUrl('/profile');
     }
     this.showModal = false;
   }
 
-    close():void{
+  close():void{
     this.router.navigateByUrl('/profile');
   }
 }

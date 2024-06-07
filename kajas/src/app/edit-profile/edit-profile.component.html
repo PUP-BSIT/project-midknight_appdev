@@ -12,8 +12,7 @@
                             class="profile-pic-label">
                             <img 
                                 id="profile-pic-placeholder" 
-                                [src]="profileImageUrl || 
-                                    '../../assets/icons/placeholder_image.png'" 
+                                [src]="profileImageUrl" 
                                 alt="Profile Pic Placeholder">
                         </label>
                         <input 
@@ -137,8 +136,9 @@
                                 [disabled]="!profileForm.get('country').value" 
                                 required>
 
-                                <option value="" disabled selected>
-                                    {{ cityPlaceholder }}
+                                <option value="{{ cityPlaceholder }}" 
+                                    disabled selected>
+                                        {{ cityPlaceholder }}
                                 </option>
 
                                 @for(city of cities; track city.name) {
