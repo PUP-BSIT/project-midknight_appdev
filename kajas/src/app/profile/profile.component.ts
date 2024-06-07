@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
-
+import axios from 'axios';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -20,12 +20,30 @@ export class ProfileComponent implements OnInit {
   website = this.sessionStorage.get('website') || '';
   kajasLink = this.sessionStorage.get('kajas_link') || '';
 
+  artworks: any[] = [];
+  message: string = '';
+
   constructor(
     private sessionStorage: SessionStorageService, 
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    const id = this.sessionStorage.get('id');
+    console.log(id);
+    
+    const response = await axios.get(`http://localhost:4000/api/artworks/id?id=${id}`);
+    if (response.status === 200){
+      console.log(response.data.data);
+      
+      if (response.data.data && response.data.data.length > 0) {
+        this.artworks = response.data.data;
+      } else {
+        this.message = "No Artworks Yet...";
+      }
+    }
+
+  }
 
   getAbsoluteUrl(relativePath: string): string {
     if (relativePath.startsWith('..')) {
