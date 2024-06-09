@@ -142,15 +142,17 @@ export class EditProfileComponent implements OnInit {
   }
 
   onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
+    const input = event.target as HTMLInputElement;        
     if (input.files && input.files[0]) {
       const file = input.files[0];
       const reader = new FileReader();
+            
       reader.onload = (e: any) => {
         this.profileImageUrl = e.target.result;
         this.profileForm.patchValue({ profile: file });
       };
       reader.readAsDataURL(file);
+      
     }
   }
 
@@ -192,14 +194,14 @@ export class EditProfileComponent implements OnInit {
       if (response.status === 200) {
         this.modalMessage = 'Profile Updated Successfully!';
         this.showModal = true;
-        
-        this.sessionStorage.set('first_name', this.profileForm.controls.first_name.value);
-        this.sessionStorage.set('middle_name', this.profileForm.controls.middle_name.value);
-        this.sessionStorage.set('last_name', this.profileForm.controls.last_name.value);
+                        
+        this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
+        this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
+        this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
         this.sessionStorage.set('city', this.profileForm.controls.city.value);
         this.sessionStorage.set('country', this.profileForm.controls.country.value);
         this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
-        this.sessionStorage.set('profile', this.profileForm.controls.profile.value);
+        this.sessionStorage.set('profile', this.getAbsoluteUrl(response.data.updatedprofile));
         this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
         this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
         this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);

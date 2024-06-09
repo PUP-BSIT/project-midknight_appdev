@@ -55,7 +55,7 @@ const setupProfile = async (req, res) => {
       }
     });
 
-    res.status(200).json({ message: 'Success!' });
+    res.status(200).json({ updatedprofile: profile, message: 'Success!' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });

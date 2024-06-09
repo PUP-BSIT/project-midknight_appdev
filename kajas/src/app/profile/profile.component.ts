@@ -20,18 +20,21 @@ export class ProfileComponent implements OnInit {
   website = this.sessionStorage.get('website') || '';
   kajasLink = this.sessionStorage.get('kajas_link') || '';
 
+  
   artworks: any[] = [];
   message: string = '';
 
   constructor(
     private sessionStorage: SessionStorageService, 
     private router: Router
+    
   ) {}
 
   async ngOnInit(): Promise<void> {
     const id = this.sessionStorage.get('id');
     console.log(id);
     
+        
     const response = await axios.get(`http://localhost:4000/api/artworks/id?id=${id}`);
     if (response.status === 200){
       console.log(response.data.data);
