@@ -2,7 +2,7 @@
 <div class="profile-container">
   <div class="container">
     <div class="profile-picture">
-      <img [src]="profile" alt="Profile Picture" class="profile-picture" />
+      <img [src]="profile || '../../assets/default-profile.png'" alt="Profile Picture" class="profile-picture" />
     </div>
     <div class="profile-info">
       <h1>{{ firstName }} {{ lastName }}</h1>
@@ -43,12 +43,16 @@
   </div>
 </div>
 <div class="gallery-grid">
-  <div *ngIf="artworks.length > 0" class="gallery-images">
-    <div *ngFor="let artwork of artworks" class="gallery-item horizontal">
-      <img [src]="artwork.image_url" [alt]="artwork.title" />
+  @if(artworks.length > 0) {
+    <div class="gallery-images">
+      @for(artwork of artworks; track artwork.id) {
+        <div class="gallery-item horizontal">
+          <img [src]="artwork.image_url" [alt]="artwork.title" />
+        </div>
+      }
     </div>
-  </div>
-  <div *ngIf="artworks.length === 0">
+  }
+  @if(!artworks.length) {
     <p>{{ message }}</p>
-  </div>
+  }
 </div>

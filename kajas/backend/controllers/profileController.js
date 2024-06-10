@@ -2,6 +2,8 @@ const User = require('../models/User');
 const { updateUserInformation } = require('../models/UserInformation');
 const { getArtWorks } = require('../models/Artworks');
 const { query } = require('express');
+const path = require('path'); 
+
 const getProfile = (req, res) => {
   const { username } = req.params;
 
@@ -37,7 +39,7 @@ const getLocation = async (req, res) => {
 
 const setupProfile = async (req, res) => {
   try {
-    const profile = req.file ? req.file.path : null;
+    const profile = req.file ? path.basename(req.file.path) : null; // Store only the filename
     const { id, bio, kajas_link, country, city, facebook, linkedIn, instagram, website, firstName, middleName, lastName } = req.body;
 
     updateUserInformation(id, profile, bio, kajas_link, country, city, facebook, linkedIn, instagram, website, firstName, middleName, lastName, (error, result) => {
@@ -61,6 +63,7 @@ const setupProfile = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const getGallery = async (req, res) => {
   try {    
@@ -93,6 +96,5 @@ module.exports = {
   getProfile,
   getLocation,
   setupProfile,
-  getGallery,
-
+  getGallery
 };
