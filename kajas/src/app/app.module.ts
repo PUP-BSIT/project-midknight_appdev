@@ -35,7 +35,9 @@ import { AddArtworkComponent } from './add-artwork/add-artwork.component';
     ResetPasswordComponent,
     HeaderComponent,
     ProfileComponent,
-    SetupProfileComponent
+    SetupProfileComponent,
+    EditProfileComponent,
+    AddArtworkComponent
   ],
   imports: [
     BrowserModule,
