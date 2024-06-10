@@ -39,7 +39,7 @@ const getLocation = async (req, res) => {
 
 const setupProfile = async (req, res) => {
   try {
-    const profile = req.file ? path.basename(req.file.path) : null; // Store only the filename
+    const profile = req.file ? path.basename(req.file.path) : null;
     const { id, bio, kajas_link, country, city, facebook, linkedIn, instagram, website, firstName, middleName, lastName } = req.body;
 
     updateUserInformation(id, profile, bio, kajas_link, country, city, facebook, linkedIn, instagram, website, firstName, middleName, lastName, (error, result) => {
