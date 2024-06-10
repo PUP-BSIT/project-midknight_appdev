@@ -20,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SetupProfileComponent } from './setup-profile/setup-profile.component';
 import { LocationService } from '../services/location.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { AddArtworkComponent } from './add-artwork/add-artwork.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     HeaderComponent,
     ProfileComponent,
     SetupProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    AddArtworkComponent
   ],
   imports: [
     BrowserModule,
