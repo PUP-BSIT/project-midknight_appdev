@@ -180,7 +180,7 @@ export class SetupProfileComponent implements OnInit {
         this.sessionStorage.set('city', this.profileForm.controls.city.value);
         this.sessionStorage.set('country', this.profileForm.controls.country.value);
         this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
-        this.sessionStorage.set('profile', this.getAbsoluteUrl(response.data.updatedprofile));
+        this.sessionStorage.set('profile', response.data.updatedprofile);
         this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
         this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
         this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
@@ -218,9 +218,6 @@ export class SetupProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    if (relativePath.startsWith('..')) {
-      return `http://localhost:4000/uploads/${relativePath.split('/').pop()}`;
-    }
-    return relativePath;
-  }
+    return `http://localhost:4000/uploads/${relativePath}`;
+  }  
 }

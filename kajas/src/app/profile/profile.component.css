@@ -180,6 +180,8 @@
   display: flex;
   justify-content: center;
   overflow-y: hidden;
+  margin-top: 20px;
+  margin-bottom: 10%;
 }
 
 .gallery-images {
