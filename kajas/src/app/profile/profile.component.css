@@ -1,19 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-body {
-  background-color: #f1eee7;
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-}
-
 .profile-container {
-  padding-top: 80px;
-  padding-left: 40px;
-  padding-right: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40vh;
 }
 
 .container {
@@ -22,9 +12,10 @@ body {
   text-align: left;
   color: #f1eee7;
   background-color: #8e7c70;
-  padding: 40px;
-  width: 1000px;
-  height: 300px;
+  margin-top: 10%;
+  padding: 60px;
+  width: 60%;
+  height: 250px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -35,11 +26,17 @@ body {
 }
 
 .profile-picture img {
-  margin-left: 25px;
-  margin-right: 35px;
+  margin-left: 50px;
+  margin-right: 50px;
   width: 250px;
-  object-fit: fill;
+  max-height: 250px;
+  object-fit: cover;
   border-radius: 8px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-picture img:hover {
+  transform: scale(1.05); 
 }
 
 .profile-info {
@@ -75,6 +72,8 @@ body {
 
 .social-links a {
   color: #f1eee7;
+  margin-top: 5px;
+  margin-bottom: 15px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -93,11 +92,17 @@ body {
   transform: scale(1.2);
 }
 
+.social-links .hidden {
+  display: none;
+}
+
 .edit-profile {
   background-color: rgba(62, 62, 62, 0.5);
   color: #f1eee7;
   border: none;
-  padding: 5px 10px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  text-decoration: none;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
@@ -109,6 +114,12 @@ body {
   font-weight: 600;
   color: rgba(62, 62, 62, 62);
   background-color: #f1eee7;
+}
+
+.kajas-link {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.25em;
 }
 
 .gallery-container {
@@ -124,13 +135,13 @@ body {
   display: flex;
   text-align: left;
   color: #4d493e;
-  width: 1000px;
+  width: 60%;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .gallery-container h2 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: xx-large;
 }
 
 .gallery-header {
@@ -143,7 +154,7 @@ body {
 }
 
 .gallery-button {
-  padding-top: 20px;
+  padding-top: 15px;
   padding-left: 20px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -168,6 +179,9 @@ body {
 .gallery-grid {
   display: flex;
   justify-content: center;
+  overflow-y: hidden;
+  margin-top: 20px;
+  margin-bottom: 10%;
 }
 
 .gallery-images {
@@ -197,10 +211,13 @@ body {
   transform: scale(1.05);
 }
 
-@media only screen and (max-width: 768px) {
+@media screen and (min-width: 320px) and (max-width: 768px) {
   .container {
     flex-direction: column;
-    width: 90%;
+    margin-top: 20%;
+    margin-bottom: 5%;
+    padding: 30px;
+    width: 60%;
     height: auto;
     text-align: center;
   }
@@ -212,42 +229,53 @@ body {
   }
 
   .profile-info h1 {
-    font-size: x-large;
+    font-size: large;
   }
 
   .profile-info h2 {
-    font-size: small;
+    font-size: x-small;
+  }
+
+  .profile-info p {
+    font-size: x-small;
   }
 
   .social-links {
+    gap: 10px;
+    margin: 5px 0;
     justify-content: center;
+    text-align: center;
   }
 
   .social-links a img {
+    width: 10px;
     text-align: center;
   }
 
+  .kajas-link {
+    padding-top: 2.5px;
+    font-size: x-small;
+  }
+
   .edit-profile {
-    width: 30%;
+    width: 70%;
     text-align: center;
+    font-size: xx-small;
   }
 
   .gallery-container {
     width: 90%;
-    height: auto;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 20px;
-    padding-bottom: 8px;
+    padding: 0;
+    margin: 0;
   }
 
   .gallery-container h2 {
-    font-size: x-large;
+    font-size: large;
   }
 
   .gallery-button {
     padding-left: 3px;
-    padding-top: 13px;
+    padding-top: 8px;
   }
 
   .gallery-button img {
@@ -271,3 +299,83 @@ body {
     max-width: 100%;
   }
 }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+      margin-top: 10%;
+      margin-bottom: 5%;
+  }
+
+  .gallery-container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery {
+    display: flex;
+    text-align: left;
+    color: #4d493e;
+    width: 60%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .gallery-container h2 {
+    margin: 0;
+    font-size: x-large;
+  }
+  
+  .gallery-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .gallery-title {
+    padding: 5px;
+  }
+  
+  .gallery-button {
+    padding-top: 13px;
+    padding-left: 10px;
+  }
+  
+  .gallery-button img {
+    width: 15px;
+  }
+  
+  .gallery-button a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .gallery-grid {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .gallery-images {
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 1080px;
+  }
+  
+  .gallery-item {
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    border-radius: 8px;
+  }
+} 

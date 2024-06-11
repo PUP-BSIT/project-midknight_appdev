@@ -1,73 +1,58 @@
-<body>
-  <app-header></app-header>
-  <div class="profile-container">
-    <div class="container">
-      <div class="profile-picture">
-        <img
-          src="../../assets/default-profile.png"
-          alt="Profile Picture"
-          class="profile-picture"/>
-      </div>
-      <div class="profile-info">
-        <h1>John Doe</h1>
-        <h2>Glasgow, Scotland</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <div class="social-links">
-          <a href="#">
-            <img src="../../assets/icons/linkedin.png" alt="LinkedIn" />
-          </a>
-          <a href="#">
-            <img src="../../assets/icons/facebook.png" alt="Facebook" />
-          </a>
-          <a href="#">
-            <img src="../../assets/icons/instagram.png" alt="Instagram" />
-          </a>
-          <a href="#">
-            <img src="../../assets/icons/website.png" alt="Website" />
-          </a>
-          <a href="#">Share Profile</a>
-        </div>
-        <button class="edit-profile">Edit Profile</button>
-      </div>
+<app-header></app-header>
+<div class="profile-container">
+  <div class="container">
+    <div class="profile-picture">
+      <img [src]="profile || '../../assets/default-profile.png'" alt="Profile Picture" class="profile-picture" />
     </div>
-  </div>
-
-  <div class="gallery-container">
-    <div class="gallery">
-      <div class="gallery-title">
-        <h2>Gallery</h2>
-      </div>
-      <div class="gallery-button">
-        <a href="#">
-          <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
-          Edit
+    <div class="profile-info">
+      <h1>{{ firstName }} {{ lastName }}</h1>
+      <h2>{{ city }}, {{ country }}</h2>
+      <p>{{ bio }}</p>
+      <div class="social-links">
+        <a [attr.href]="linkedin" [class.hidden]="!linkedin" target="_blank">
+          <img src="../../assets/icons/linkedin.png" alt="LinkedIn" />
         </a>
+        <a [attr.href]="facebook" [class.hidden]="!facebook" target="_blank">
+          <img src="../../assets/icons/facebook.png" alt="Facebook" />
+        </a>
+        <a [attr.href]="instagram" [class.hidden]="!instagram" target="_blank">
+          <img src="../../assets/icons/instagram.png" alt="Instagram" />
+        </a>
+        <a [attr.href]="website" [class.hidden]="!website" target="_blank">
+          <img src="../../assets/icons/website.png" alt="Website" />
+        </a>
+        <a class="kajas-link" [href]="kajasLink" target="_blank"> 
+          Share Profile</a>
       </div>
+      <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>
     </div>
   </div>
-  <div class="gallery-grid">
+</div>
+
+<div class="gallery-container">
+  <div class="gallery">
+    <div class="gallery-title">
+      <h2>Gallery</h2>
+    </div>
+    <div class="gallery-button">
+      <a href="#">
+        <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
+        Edit
+      </a>
+    </div>
+  </div>
+</div>
+<div class="gallery-grid">
+  @if(artworks.length > 0) {
     <div class="gallery-images">
-      <div class="gallery-item horizontal">
-        <img src="../../assets/default-profile.png" alt="Image 1" />
-      </div>
-      <div class="gallery-item horizontal">
-        <img src="../../assets/default-profile.png" alt="Image 2" />
-      </div>
-      <div class="gallery-item horizontal">
-        <img src="../../assets/default-profile.png" alt="Image 3" />
-      </div>
-      <div class="gallery-item vertical">
-        <img src="../../assets/default-profile.png" alt="Image 4" />
-      </div>
-      <div class="gallery-item vertical">
-        <img src="../../assets/default-profile.png" alt="Image 5" />
-      </div>
-      <div class="gallery-item horizontal">
-        <img src="../../assets/default-profile.png" alt="Image 6" />
-      </div>
+      @for(artwork of artworks; track artwork.id) {
+        <div class="gallery-item horizontal">
+          <img [src]="artwork.image_url" [alt]="artwork.title" />
+        </div>
+      }
     </div>
-  </div>
-</body>
+  }
+  @if(!artworks.length) {
+    <p>{{ message }}</p>
+  }
+</div>

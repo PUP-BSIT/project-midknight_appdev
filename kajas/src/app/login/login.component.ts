@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   showModal = false;
   modalMessage = '';
   resizeSubscription: Subscription;
+  redirectUrl: string | null = null;
 
   constructor(
     private renderer: Renderer2,
@@ -93,13 +94,21 @@ export class LoginComponent implements OnInit, OnDestroy {
           async (response: any) => {
             this.modalMessage = 'Login Success! Welcome to Kajas!';
             this.showModal = true;
-            console.log(response);
             this.sessionStorage.set('id', response.user.user_id);
             this.sessionStorage.set('username', response.user.username);
             this.sessionStorage.set('email', response.user.email);
             this.sessionStorage.set('first_name', response.user.first_name);
             this.sessionStorage.set('middle_name', response.user.middle_name);
             this.sessionStorage.set('last_name', response.user.last_name);
+            this.sessionStorage.set('city', response.user.city);
+            this.sessionStorage.set('country', response.user.country);
+            this.sessionStorage.set('bio', response.user.bio);
+            this.sessionStorage.set('profile', response.user.profile);
+            this.sessionStorage.set('linkedin', response.user.linkedin);
+            this.sessionStorage.set('facebook', response.user.facebook);
+            this.sessionStorage.set('instagram', response.user.instagram);
+            this.sessionStorage.set('website', response.user.website);
+            this.sessionStorage.set('kajas_link', response.user.kajas_link);
   
             const url = "http://localhost:4000";
             const id = response.user.user_id;
@@ -108,12 +117,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               const axiosResponse = await axios.get(`${url}/api/location/id?id=${id}`);
               if (axiosResponse.status === 200) {
                 const isFirstTime = axiosResponse.data.isFirstTimeLogin;
-  
-                if (isFirstTime) {
-                  this.router.navigateByUrl('/setup-profile');
-                } else {
-                  this.router.navigateByUrl('/profile');
-                }
+                this.redirectUrl = isFirstTime ? '/setup-profile' : '/profile';
               }
             } catch (error) {
               console.error(error);
@@ -131,11 +135,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.showModal = true;
     }
   }
+
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
 
   closeModal(): void {
     this.showModal = false;
+    if (this.redirectUrl) {
+      this.router.navigateByUrl(this.redirectUrl);
+      this.redirectUrl = null; 
+    }
   }
 }

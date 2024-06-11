@@ -1,5 +1,6 @@
 import { Component, HostListener, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnDestroy {
   dropdownOpen = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private session: SessionStorageService) {}
 
   toggleDropdown(event: MouseEvent): void {
     event.stopPropagation();
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnDestroy {
 
   logout(event: MouseEvent): void {
     event.stopPropagation();
-    this.closeDropdown();
+    this.session.clear();    
+    this.closeDropdown();    
   }
 
   closeDropdown(): void {
