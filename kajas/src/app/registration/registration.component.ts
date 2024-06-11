@@ -74,6 +74,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setInitialStyles();
     this.resizeSubscription = fromEvent(window, 'resize').subscribe(() => this.applyBackground());
+    this.loadUsernames();
   }
 
   ngOnDestroy(): void {
@@ -109,6 +110,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   private applyBackground(): void {
     const backgroundUrl = window.innerWidth <= 425 ? '../../assets/signup_mbg.png' : '../../assets/signup_bg.png';
     this.renderer.setStyle(document.body, 'background', `url("${backgroundUrl}") center/cover no-repeat`);
+  }
+
+  private loadUsernames(): void {
+    this.userService.getUsernames().subscribe(
+      (usernames) => {
+        this.existingUsernames = usernames;
+      },
+      (error) => {
+        console.error('Error fetching usernames:', error);
+      }
+    );
   }
 
   private usernameValidator(control: AbstractControl): ValidationErrors | null {
