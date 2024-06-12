@@ -6,13 +6,20 @@
     <div class="search-field">
         <input type="text" class="search-input" placeholder="SEARCH" 
             (input)="onSearch($event.target.value)" (focus)="onSearchFocus()">
-        <div class="search-results" [ngClass]="{'show': searchResults.length > 0}">
-            <div *ngFor="let result of searchResults; trackBy: trackById" class="search-result-item" 
-                (click)="navigateToProfile(result.username)">
-                <img [src]="getAbsoluteUrl(result.profile) || '../../assets/default-profile.png'" 
-                    alt="Profile Picture" />
-                <span>{{ result.firstName }} {{ result.lastName }}</span>
-            </div>
+        <div class="search-results" 
+            [ngClass]="{'show': searchResults.length > 0}">
+            @if(searchResults.length > 0) {
+                @for(result of searchResults; track result.id) {
+                    <div class="search-result-item" 
+                        (click)="navigateToProfile(result.username)">
+                        <img [src]="getAbsoluteUrl(result.profile) ||
+                            '../../assets/default-profile.png'" 
+                            alt="Profile Picture" />
+                        <span>{{ result.firstName }} 
+                            {{ result.lastName }}</span>
+                    </div>
+                }
+            }
         </div>
     </div>    
 
