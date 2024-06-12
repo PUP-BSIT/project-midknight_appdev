@@ -158,3 +158,95 @@ button.save {
 }
 
 
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal {
+        margin-top: 20%;
+        margin-bottom: 10%;
+        max-width: 60%;
+        padding: 30px;
+    }
+
+    .modal-content {
+        position: initial;
+        width: 100%;
+        align-items: center;
+    }
+    
+    h1 {
+        font-size: medium;
+        margin-bottom: 12px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .left-column {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right-column {
+        margin: 0;
+        flex-direction: column;
+        font-size: x-small;
+    }
+
+    .image-placeholder {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .select-button {
+        margin-bottom: 16px;
+        max-width: 80%;
+        padding: 5px 8px;
+        font-size: xx-small;
+    }
+
+    input {
+        height: 23px;
+        width: 100%;
+        padding: 4px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        height: 60px;
+        width: 100%;
+    }
+
+    .form-actions {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .form-actions button {
+        font-size: small;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+} 
