@@ -136,3 +136,81 @@
 .close-button:hover {
     color: #F1EEE7;
 }
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal {
+        margin-top: 20%;
+        margin-bottom: 10%;
+        max-width: 60%;
+        padding: 30px;
+    }
+
+    .modal-content {
+        position: initial;
+        width: 100%;
+        align-items: center;
+    }
+    
+    h1 {
+        font-size: medium;
+        margin-bottom: 12px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .left-column {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right-column {
+        margin: 0;
+        flex-direction: column;
+        font-size: x-small;
+    }
+
+    .image-placeholder {
+        margin-top: 16px;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 8px;
+    }
+
+    .edit-button {
+        font-size: small;
+        width: 80%;
+        margin-top: 0;
+    }
+
+    .close-button {
+        top: 5px;
+        right: 5px;
+        background: none;
+        border: none;
+        font-size: 30px;
+        cursor: pointer;
+        color: #4D493E;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+} 
