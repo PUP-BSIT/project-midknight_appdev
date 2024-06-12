@@ -21,6 +21,7 @@ import { SetupProfileComponent } from './setup-profile/setup-profile.component';
 import { LocationService } from '../services/location.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AddArtworkComponent } from './add-artwork/add-artwork.component';
+import { SearchService } from '../services/search.service';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AddArtworkComponent } from './add-artwork/add-artwork.component';
   providers: [ 
     ModalService,
     UserService,
-    LocationService
+    LocationService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })
