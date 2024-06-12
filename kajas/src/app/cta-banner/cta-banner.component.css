@@ -1,0 +1,53 @@
+.banner-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3D3D3D;
+    padding: 5px;
+    width: 100%;
+    position: fixed;
+    bottom: 0; 
+    box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.message {
+    margin-left: 20%;
+}
+
+.message h1 {
+    color: #fff;
+    font-size: x-large;
+    margin-bottom: 0;
+}
+
+.message p {
+    color: #fff;
+    margin-top: 8px;
+    font-size: large;
+}
+
+.action-buttons {
+    display: flex;
+    margin-right: 20%;
+    gap: 16px;
+}
+
+.action-buttons button {
+    font-size: large;
+    padding: 10px 20px;
+    width: 180px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.log-in-button {
+    color: #fff;
+    background-color: #3D3D3D;
+    border: 1px solid #fff;
+}
+
+.sign-up-button {
+    color: #3D3D3D;
+    background-color: #fff;
+    border: 1px solid #fff;
+}
