@@ -121,6 +121,23 @@ const updateUsername = (id, username, callback) => {
   db.query(query, [username, id], callback);
 };
 
+const searchUsers = (query) => {
+  return new Promise((resolve, reject) => {
+    const searchQuery = `
+      SELECT u.username, ui.profile, ui.first_name AS firstName, ui.last_name AS lastName 
+      FROM user u
+      JOIN user_information ui ON u.user_information_id = ui.user_information_id
+      WHERE ui.first_name LIKE ? OR ui.last_name LIKE ?
+      LIMIT 5`;
+    db.query(searchQuery, [`${query}%`, `${query}%`], (error, results) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve(results);
+    });
+  });
+};
+
 
 module.exports = {
   createUser,
@@ -132,5 +149,6 @@ module.exports = {
   getUserProfile,
   getAllUsernames,
   getLocation,
-  updateUsername
+  updateUsername,
+  searchUsers
 };

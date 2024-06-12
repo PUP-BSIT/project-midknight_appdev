@@ -1,6 +1,7 @@
 import { Component, HostListener, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,31 @@ import { SessionStorageService } from 'angular-web-storage';
 })
 export class HeaderComponent implements OnDestroy {
   dropdownOpen = false;
+  searchResults: any[] = [];
+  searchFocused = false;
 
-  constructor(private router: Router, private session: SessionStorageService) {}
+  constructor(
+    private router: Router, 
+    private session: SessionStorageService,
+    private searchService: SearchService
+  ) {}
 
   toggleDropdown(event: MouseEvent): void {
     event.stopPropagation();
     this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (target && !target.closest('.dropdown-button') && !target.closest('.search-field')) {
+      this.closeDropdown();
+      this.clearSearchResults();
+    }
+  }
+
+  closeDropdown(): void {
+    this.dropdownOpen = false;
   }
 
   navigateToSettings(event: MouseEvent): void {
@@ -29,19 +49,41 @@ export class HeaderComponent implements OnDestroy {
     this.closeDropdown();    
   }
 
-  closeDropdown(): void {
-    this.dropdownOpen = false;
+  ngOnDestroy(): void {
+    this.closeDropdown();
   }
 
-  @HostListener('document:click', ['$event'])
-  handleClickOutside(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    if (target && !target.closest('.dropdown-button')) {
-      this.closeDropdown();
+  async onSearch(query: string): Promise<void> {
+    if (query.length < 1) {
+      this.searchResults = [];
+      return;
+    }
+
+    try {
+      this.searchResults = await this.searchService.searchUsers(query);
+    } catch (error) {
+      console.error('Error fetching search results', error);
+      this.searchResults = [];
     }
   }
 
-  ngOnDestroy(): void {
-    this.closeDropdown();
+  onSearchFocus(): void {
+    this.searchFocused = true;
+  }
+
+  clearSearchResults(): void {
+    this.searchResults = [];
+  }
+
+  navigateToProfile(username: string): void {
+    this.router.navigate([`/profile/${username}`]);
+  }
+
+  getAbsoluteUrl(relativePath: string): string {
+    return relativePath ? `http://localhost:4000/uploads/${relativePath}` : '../../assets/default-profile.png';
+  }
+
+  trackById(index: number, item: any): any {
+    return item.id;
   }
 }
