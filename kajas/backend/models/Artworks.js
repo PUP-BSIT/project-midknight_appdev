@@ -14,7 +14,17 @@ const getArtWorks = (id, callback) => {
 }
 
 const getArtworkByTitleAndId = (title, id, callback) => {
-  const query = 'SELECT artwork_id, user_id, title, description, date_created, image_url FROM artworks WHERE title = ? AND artwork_id = ?';
+  const query = `
+    SELECT 
+      a.artwork_id, a.user_id, a.title, a.description, a.date_created, a.image_url,
+      u.first_name, u.last_name
+    FROM 
+      artworks a
+    JOIN 
+      user_information u ON a.user_id = u.user_information_id
+    WHERE 
+      a.title = ? AND a.artwork_id = ?
+  `;
   db.query(query, [title, id], (error, results) => {
       if (error) {
           return callback(error);
@@ -25,6 +35,7 @@ const getArtworkByTitleAndId = (title, id, callback) => {
       callback(null, results[0]);
   });
 };
+
 
 
 module.exports = {
