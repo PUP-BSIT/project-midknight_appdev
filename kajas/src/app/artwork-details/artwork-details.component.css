@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
-
 :host {
     background-color: #f1eee7;
     font-family: "Montserrat", sans-serif;
 }
 
-.add-artwork {
+.artwork-details {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,36 +15,24 @@
     background-color: #d6c4b3;
     margin-top: 10%;
     margin-bottom: 5%;
-    padding:  60px;
+    padding: 60px;
     border-radius: 10px;
     width: 60%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
 .modal-content {
-    position: relative;
     border-radius: 10px;
-    width: 95%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-}
-
-h1 {
-    color: #4D493E;
-    font-size: xx-large;
-    margin: 0;
-    margin-bottom: 20px;
+    align-items: center;
 }
 
 .content {
     display: flex;
-}
-
-.divider {
-    border: none;
-    border-left: 1px solid #C1B59F;
-    height: auto;
-    margin: 0 20px;
+    width: 100%;
 }
 
 .left-column {
@@ -55,13 +41,6 @@ h1 {
     flex-direction: column;
     align-items: center;
     font-size: x-small;
-}
-
-.image-upload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
 }
 
 .image-placeholder {
@@ -76,78 +55,56 @@ h1 {
 }
 
 .image-placeholder img {
-    width: 70%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
 }
 
-.select-button {
-    margin-bottom: 32px;
-    background-color: #F1EEE7;
+.divider {
     border: none;
-    padding: 5px 20px;
-    color: #8E7C70;
-    border-radius: 5px;
-    cursor: pointer;
+    border-left: 1px solid #C1B59F;
+    height: auto;
+    margin: 0 20px;
 }
 
 .right-column {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-left: 8px;
+    gap: 10px;
+    margin-left: 20px;
     font-size: 0.9em;
 }
 
-.form-group {
+.details-group {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
-label {
-    color: #51493e;
-    margin-bottom: 4px;
+.username {
+    color: #4D493E;
+    font-size: xx-large;
+    margin-bottom: 23px;
 }
 
-input, textarea {
-    height: 23px;
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    background-color: #F1EEE7;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+.artwork-title {
+    color: #4D493E;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0;
 }
 
-textarea {
-    resize: none;
-    height: 200px;
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 16px;
-    background-color: #F1EEE7;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+.description {
+    margin-top: 8px;
+    color: #4D493E;
 }
 
-.form-actions {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-}
-
-button.cancel {
-    background-color: #8E7C70;
-}
-
-button.save {
+.edit-button {
     background-color: #3E3E3E;
-}
-
-.form-actions button {
     font-size: large;
     border: none;
     padding: 10px 20px;
@@ -155,8 +112,30 @@ button.save {
     color: #FFFEFC;
     border-radius: 8px;
     cursor: pointer;
+    align-self: center;
+    margin-top: 150px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.edit-button:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #4D493E;
+}
+
+.close-button:hover {
+    color: #F1EEE7;
+}
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .modal {
@@ -207,41 +186,26 @@ button.save {
     }
 
     .image-placeholder {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
+        margin-top: 16px;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 8px;
     }
 
-    .select-button {
-        margin-bottom: 16px;
-        max-width: 80%;
-        padding: 5px 8px;
-        font-size: xx-small;
-    }
-
-    input {
-        height: 23px;
-        width: 100%;
-        padding: 4px;
-        box-sizing: border-box;
-    }
-
-    textarea {
-        height: 60px;
-        width: 100%;
-    }
-
-    .form-actions {
-        flex-direction: row;
-        gap: 8px;
-    }
-
-    .form-actions button {
+    .edit-button {
         font-size: small;
+        width: 80%;
+        margin-top: 0;
+    }
+
+    .close-button {
+        top: 5px;
+        right: 5px;
+        background: none;
+        border: none;
+        font-size: 30px;
+        cursor: pointer;
+        color: #4D493E;
     }
 }
 
