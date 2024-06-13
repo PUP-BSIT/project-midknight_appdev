@@ -188,6 +188,7 @@
   padding-top: 40px;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
@@ -195,6 +196,9 @@
 }
 
 .gallery-item {
+  display: flex;
+  padding: 0;
+  margin: 0;
   justify-content: center;
   overflow: hidden;
   border-radius: 8px;
@@ -204,6 +208,8 @@
 
 .gallery-item img {
   width: 100%;
+  object-fit: cover;
+  height: 350px;
   border-radius: 8px;
 }
 
@@ -298,6 +304,10 @@
   .gallery-item.vertical {
     max-width: 100%;
   }
+
+  .gallery-item img {
+    height: 150px;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -377,5 +387,6 @@
   .gallery-item img {
     width: 100%;
     border-radius: 8px;
+    height: 250px;
   }
 } 

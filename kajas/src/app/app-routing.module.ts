@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'setup-profile', component: SetupProfileComponent, canActivate: [AuthGuard] },
   { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },,
   { path: 'add-artwork', component: AddArtworkComponent, canActivate: [AuthGuard] },
-  { path: 'artwork-details', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' },
 ];
 

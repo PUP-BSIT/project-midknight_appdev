@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
+import { ArtworkService } from '../../services/artwork.service';
 import axios from 'axios';
 
 @Component({
@@ -25,7 +26,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private sessionStorage: SessionStorageService, 
-    private router: Router
+    private router: Router,
+    private artworkService: ArtworkService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -46,5 +48,11 @@ export class ProfileComponent implements OnInit {
 
   getAbsoluteUrl(relativePath: string): string {
     return `http://localhost:4000/uploads/${relativePath}`;
+  }
+
+  viewArtworkDetails(artwork: any): void {
+    const artworkTitle = artwork.title.split(' ').join('-');
+    this.artworkService.setArtworkId(artwork.artwork_id);
+    this.router.navigate(['/artwork-details', artworkTitle]);
   }
 }

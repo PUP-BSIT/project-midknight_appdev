@@ -24,6 +24,7 @@ import { AddArtworkComponent } from './add-artwork/add-artwork.component';
 import { SearchService } from '../services/search.service';
 import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
+import { ArtworkService } from '../services/artwork.service';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { CtaBannerComponent } from './cta-banner/cta-banner.component';
     ModalService,
     UserService,
     LocationService,
-    SearchService
+    SearchService,
+    ArtworkService
   ],
   bootstrap: [AppComponent]
 })

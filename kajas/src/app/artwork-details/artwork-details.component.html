@@ -1,34 +1,34 @@
 <app-header></app-header> 
 <div class="artwork-details">
+  @if(artwork) {
     <div class="modal">
-        <div class="modal-content">
-            <div class="content">
-                <div class="left-column">
-                    <div class="image-upload">
-                        <div class="image-placeholder">
-                            <img 
-                                id="artwork-placeholder" 
-                                src="../../assets/icons/placeholder_image.png" 
-                                alt="Artwork Placeholder">
-                        </div>
-                    </div>
-                </div>
-                <hr class="divider">
-                <div class="right-column">
-                    <div class="details-group">
-                        <h1 class="artwork-title">Artwork Title</h1>
-                        <p class="username">by Artist</p>
-
-                        <label for="date">Date Created:</label>
-
-                        <p class="description">Lorem ipsum dolor sit amet, 
-                            consectetur adipiscing elit, sed do eiusmod tempor 
-                            incididunt ut labore et dolore magna aliqua.</p>
-                        <button class="edit-button">Edit Details</button>
-                    </div>         
-                </div>
+      <div class="modal-content">
+        <div class="content">
+          <div class="left-column">
+            <div class="image-upload">
+              <div class="image-placeholder">
+                <img 
+                  [src]="artwork.image_url ? getAbsoluteUrl(artwork.image_url) : 
+                      '../../assets/icons/placeholder_image.png'" 
+                  alt="Artwork Image">
+              </div>
             </div>
-            <button class="close-button">&times;</button>
+          </div>
+          <hr class="divider">
+          <div class="right-column">
+            <div class="details-group">
+              <h1 class="artwork-title">{{ artwork.title }}</h1>
+              <p class="username">by {{ artwork.first_name }} 
+                  {{ artwork.last_name }}</p>
+              <label for="date">Date Created: <span>{{ artwork.date_created |
+                  date: 'MMMM dd, yyyy' }}</span></label>
+              <p class="description">{{ artwork.description }}</p>
+              <button class="edit-button" (click)="editArtwork()">Edit Details</button>
+            </div>         
+          </div>
         </div>
+        <button class="close-button" (click)="closeDetails()">&times;</button>
+      </div>
     </div>
+  }
 </div>
