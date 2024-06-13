@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'signup', component: RegistrationComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'setup-profile', component: SetupProfileComponent, canActivate: [AuthGuard] },
-  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },,
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'add-artwork', component: AddArtworkComponent, canActivate: [AuthGuard] },
   { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' },
