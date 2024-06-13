@@ -22,6 +22,9 @@ import { LocationService } from '../services/location.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AddArtworkComponent } from './add-artwork/add-artwork.component';
 import { SearchService } from '../services/search.service';
+import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
+import { CtaBannerComponent } from './cta-banner/cta-banner.component';
+import { ArtworkService } from '../services/artwork.service';
 
 
 @NgModule({
@@ -38,7 +41,9 @@ import { SearchService } from '../services/search.service';
     ProfileComponent,
     SetupProfileComponent,
     EditProfileComponent,
-    AddArtworkComponent
+    AddArtworkComponent,
+    ArtworkDetailsComponent,
+    CtaBannerComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,8 @@ import { SearchService } from '../services/search.service';
     ModalService,
     UserService,
     LocationService,
-    SearchService
+    SearchService,
+    ArtworkService
   ],
   bootstrap: [AppComponent]
 })

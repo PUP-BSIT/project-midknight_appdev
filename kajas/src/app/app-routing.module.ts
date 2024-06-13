@@ -8,6 +8,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ProfileComponent } from './profile/profile.component';
 import { SetupProfileComponent } from './setup-profile/setup-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { AddArtworkComponent } from './add-artwork/add-artwork.component';
+import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'setup-profile', component: SetupProfileComponent, canActivate: [AuthGuard] },
   { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'add-artwork', component: AddArtworkComponent, canActivate: [AuthGuard] },
+  { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' },
 ];
 

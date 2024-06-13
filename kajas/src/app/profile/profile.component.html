@@ -44,11 +44,12 @@
   </div>
 </div>
 <div class="gallery-grid">
-  @if(artworks.length > 0) {
+  @if(artworks.length) {
     <div class="gallery-images">
       @for(artwork of artworks; track artwork.id) {
-        <div class="gallery-item horizontal">
-          <img [src]="artwork.image_url" [alt]="artwork.title" />
+        <div class="gallery-item">
+          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title"
+            (click)="viewArtworkDetails(artwork)" />
         </div>
       }
     </div>
