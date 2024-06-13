@@ -20,6 +20,11 @@
     width: 60%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal:hover {
+    transform: scale(1.02); 
 }
 
 .modal-content {
@@ -52,6 +57,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.image-placeholder:hover {
+    transform: scale(1.05); 
 }
 
 .image-placeholder img {
@@ -84,23 +94,25 @@
     gap: 10px;
 }
 
-.username {
+.artwork-title {
     color: #4D493E;
     font-size: xx-large;
-    margin-bottom: 23px;
+    margin-bottom: 5px;
 }
 
-.artwork-title {
+.username {
     color: #4D493E;
     font-size: 1.2em;
     font-style: italic;
     font-weight: bold;
     margin: 0;
+    margin-bottom: 5px;
 }
 
 .description {
     margin-top: 8px;
     color: #4D493E;
+    text-align: justify;
 }
 
 .edit-button {
@@ -130,11 +142,12 @@
     border: none;
     font-size: 40px;
     cursor: pointer;
-    color: #4D493E;
+    color: #aaa;
+    font-weight: bold;
 }
 
 .close-button:hover {
-    color: #F1EEE7;
+    color: black;
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
@@ -151,9 +164,8 @@
         align-items: center;
     }
     
-    h1 {
-        font-size: medium;
-        margin-bottom: 12px;
+    .artwork-title {
+        font-size: large;
     }
     
     .form-actions {
@@ -185,11 +197,27 @@
         font-size: x-small;
     }
 
+    .details-group {
+        gap: 8px;
+    }
+
     .image-placeholder {
         margin-top: 16px;
         width: 200px;
         height: 200px;
-        margin-bottom: 8px;
+        margin-bottom: 0;
+    }
+
+    .artwork-title {
+        margin-bottom: 0;
+    }
+
+    .username {
+        margin-bottom: 0;
+    }
+
+    .description {
+        margin-top: 0;
     }
 
     .edit-button {
@@ -201,16 +229,16 @@
     .close-button {
         top: 5px;
         right: 5px;
-        background: none;
-        border: none;
         font-size: 30px;
-        cursor: pointer;
-        color: #4D493E;
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .modal {
         margin-top: 10%;
+    }
+
+    .artwork-title {
+        margin-top: 20px;
     }
 } 
