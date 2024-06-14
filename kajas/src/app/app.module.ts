@@ -25,6 +25,7 @@ import { SearchService } from '../services/search.service';
 import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { ArtworkService } from '../services/artwork.service';
+import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { ArtworkService } from '../services/artwork.service';
     EditProfileComponent,
     AddArtworkComponent,
     ArtworkDetailsComponent,
-    CtaBannerComponent
+    CtaBannerComponent,
+    EditArtworkComponent
   ],
   imports: [
     BrowserModule,

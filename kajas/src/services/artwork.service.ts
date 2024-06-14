@@ -1,14 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ArtworkService {
-  private artworkId: string;
+  private apiUrl = 'http://localhost:4000/api/artwork';
+
+  constructor(private http: HttpClient) {}
 
   setArtworkId(id: string): void {
-    this.artworkId = id;
+    sessionStorage.setItem('artworkId', id);
   }
 
-  getArtworkId(): string {
-    return this.artworkId;
+  getArtworkId(): string | null {
+    return sessionStorage.getItem('artworkId');
+  }
+
+  getArtworkById(id: string) {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  updateArtwork(artwork: any) {
+    return this.http.put(`${this.apiUrl}/${artwork.id}`, artwork);
   }
 }
