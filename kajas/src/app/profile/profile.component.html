@@ -25,7 +25,7 @@
         <a class="kajas-link" [href]="kajasLink" target="_blank"> 
           Share Profile</a>
       </div>
-      <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>      
+      <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>
     </div>
   </div>
 </div>
@@ -47,8 +47,8 @@
       <div *ngFor="let artwork of artworks; trackBy: trackByFn" class="gallery-item">
         <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" (click)="viewArtworkDetails(artwork)" />
             
-        <div *ngIf="showDeleteButton" class="trashbin-overlay" (click)="deleteArtwork(artwork.artwork_id)"> <!--openDeleteModal(artwork) -->
-          <img width="50" height="50" src="https://img.icons8.com/ios/50/delete-trash.png" alt="delete-trash"/>
+        <div *ngIf="showDeleteButton" class="trashbin-overlay" (click)=openDeleteModal(artwork)> 
+          <img src="../../assets/icons/delete.png" alt="delete-trash"/>
         </div>
       </div>
     </div>
@@ -58,21 +58,16 @@
     <p>{{ message }}</p>
   }
 
-
 </div>
 <div>
   <a routerLink="/add-artwork" class="edit-profile">Showcase your Artwork</a>  
-
 </div>
 
- <!-- @if (showModal) {
-  <app-modal-message [message]="modalMessage" 
-                     (closeModal)="closeModal()" 
-                     (confirm)="deleteArtwork()" 
-                     (cancel)="cancelDelete()">
-    <div class="modal-buttons">
-      <button class="confirm-btn" (click)="deleteArtwork(selectedArtworkForDeletion.artwork_id)">Confirm</button>
-      <button class="cancel-btn" (click)="cancelDelete()">Cancel</button>
-    </div>
-  </app-modal-message>
-}  -->
+<div *ngIf="showModal">
+  <app-confirm-cancel-modal 
+    [message]="modalMessage" 
+    (confirmAction)="deleteArtwork(selectedArtworkForDeletion.artwork_id)" 
+    (cancelAction)="cancelDelete()"
+    (closeModal)="closeModal()">
+  </app-confirm-cancel-modal>
+</div>

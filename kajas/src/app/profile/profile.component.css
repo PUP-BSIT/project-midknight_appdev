@@ -157,6 +157,7 @@
   padding-top: 15px;
   padding-left: 20px;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
 }
 
 .gallery-button:hover {
@@ -219,6 +220,25 @@
 
 .gallery-item:hover {
   transform: scale(1.05);
+}
+
+.trashbin-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.trashbin-overlay img {
+  width: 30px;
+  height: 30px;
+}
+
+.trashbin-overlay:hover {
+  transform: scale(1.2);
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
@@ -321,8 +341,8 @@
   
 .trashbin-overlay {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
   border-radius: 50%;
@@ -473,29 +493,29 @@
   .gallery-item img {
     width: 100%;
     object-fit: cover;
-    height: 350px; /* Adjust height as needed */
+    height: 350px;
     border-radius: 8px;
     cursor: pointer;
   }
   
   .trashbin-overlay {
     position: absolute;
-    top: 10px; /* Adjust top position for alignment */
-    right: 10px; /* Adjust right position for alignment */
+    top: 10px; 
+    right: 10px; 
     background-color: rgba(255, 255, 255, 0.8);
     padding: 5px;
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out; /* Smooth hover transition */
+    transition: transform 0.3s ease-in-out; 
   }
   
   .trashbin-overlay img {
-    width: 16px; /* Adjust size of the trashbin icon */
-    height: 16px;
+    width: 20px;
+    height: 20px;
   }
   
   .trashbin-overlay:hover {
-    transform: scale(1.2); /* Scale up on hover */
+    transform: scale(1.2);
   }
   
   .modal {
@@ -548,30 +568,6 @@
   font-weight: 600;
   color: rgba(62, 62, 62, 62);
   background-color: #f1eee7;
-}
-
-.modal-buttons {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.confirm-btn,
-.cancel-btn {
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-.confirm-btn {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-}
-
-.cancel-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
 }
 }
 }

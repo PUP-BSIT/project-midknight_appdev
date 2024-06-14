@@ -22,26 +22,17 @@ export class ProfileComponent implements OnInit {
   website = this.sessionStorage.get('website') || '';
   kajasLink = this.sessionStorage.get('kajas_link') || '';
   artworks: any[] = [];
-  message: string = '';
-  showDeleteButton: boolean = false;
-  showModal: boolean = false;
-  // modalMessage: string = '';
-  // selectedArtworkForDeletion: any = null;
+  message = '';
+  showDeleteButton = false;
+  showModal = false;
+  modalMessage = '';
+  selectedArtworkForDeletion: any = null;
 
-  toggleDelete() {
-    
-    this.showDeleteButton = !this.showDeleteButton;
-  }
   constructor(
     private sessionStorage: SessionStorageService, 
     private router: Router,
     private artworkService: ArtworkService
   ) {}
-
-  
-  trackByFn(index: number, artwork: any): number {
-    return artwork.id; 
-  }
 
   async ngOnInit(): Promise<void> {
     const id = this.sessionStorage.get('id');
@@ -67,6 +58,7 @@ export class ProfileComponent implements OnInit {
       if (response.status === 200) {
                 
         this.artworks = this.artworks.filter(artwork => artwork.artwork_id !== artworkId);
+        this.showModal = false;
       } else {
         alert(`Failed to delete artwork with ID ${artworkId}.`);
       }
@@ -76,30 +68,36 @@ export class ProfileComponent implements OnInit {
     }
   }
   
+  toggleDelete() {
+    this.showDeleteButton = !this.showDeleteButton;
+  }
+
+  trackByFn(index: number, artwork: any): number {
+    return artwork.id; 
+  }
   
   getAbsoluteUrl(relativePath: string): string {
     return `http://localhost:4000/uploads/${relativePath}`;
   }
-
+  
   viewArtworkDetails(artwork: any): void {
     const artworkTitle = artwork.title.split(' ').join('-');
     this.artworkService.setArtworkId(artwork.artwork_id);
     this.router.navigate(['/artwork-details', artworkTitle]);
   }
 
-  // openDeleteModal(artwork: any): void {
-  //   this.selectedArtworkForDeletion = artwork;
-  //   this.modalMessage = `Are you sure you want to delete '${artwork.title}'?`;
-  //   this.showModal = true;
-  // }
+  openDeleteModal(artwork: any): void {
+    this.selectedArtworkForDeletion = artwork;
+    this.modalMessage = `Are you sure you want to delete '${artwork.title}'?`;
+    this.showModal = true;
+  }
 
-  // cancelDelete(): void {
-  //   this.showModal = false;
-  //   this.selectedArtworkForDeletion = null;
-  // }
+  cancelDelete(): void {
+    this.showModal = false;
+    this.selectedArtworkForDeletion = null;
+  }
 
-  // closeModal(): void {
-  //   this.showModal = false;
-  // }
+  closeModal(): void {
+    this.showModal = false;
+  }
 }
-
