@@ -116,6 +116,30 @@
   background-color: #f1eee7;
 }
 
+.add-artwork-button{
+  padding: 10px;
+}
+
+.add-artwork{
+  display: flex;
+  background-color: rgba(62, 62, 62);
+  color: #f1eee7;
+  border: none;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.add-artwork:hover{
+  transform: scale(1.05);
+  font-weight: 600;
+  color: #f1eee7;
+  background-color: #8e7c70;
+}
+
 .kajas-link {
   text-decoration: underline;
   text-decoration-thickness: 0.1em;
