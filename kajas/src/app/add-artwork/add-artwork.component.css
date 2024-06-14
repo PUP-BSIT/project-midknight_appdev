@@ -22,7 +22,6 @@
     width: 60%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
 }
 
 .modal:hover {
@@ -293,8 +292,8 @@ button.save:hover {
 
 @media screen and (min-width: 425px) and (max-width: 767px) {
     .close {
-        top: 2%;
-        right: 5%;
+        top: 20%;
+        right: 20%;
         font-size: 32px;
     }
 }  
