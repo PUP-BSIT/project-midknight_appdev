@@ -22,6 +22,7 @@
     width: 60%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
 }
 
 .modal:hover {
@@ -180,6 +181,19 @@ button.save:hover {
     cursor: pointer;
 }
 
+.close {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    color: #aaa;
+    font-size: 64px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+}
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .modal {
@@ -269,10 +283,30 @@ button.save:hover {
     .form-actions button {
         font-size: small;
     }
+
+    .close {
+        top: 15%;
+        right: 15%;
+        font-size: 32px;
+    }
 }
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+    .close {
+        top: 2%;
+        right: 5%;
+        font-size: 32px;
+    }
+}  
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .modal {
         margin-top: 10%;
+    }
+
+    .close {
+        top: 32%;
+        right: 20%;
+        font-size: 50px;
     }
 } 
