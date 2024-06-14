@@ -195,9 +195,12 @@
   width: 1080px;
 }
 
+
 .gallery-item {
+  position: relative;
   display: flex;
   padding: 0;
+  z-index: 1;
   margin: 0;
   justify-content: center;
   overflow: hidden;
@@ -211,6 +214,7 @@
   object-fit: cover;
   height: 350px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .gallery-item:hover {
@@ -308,8 +312,88 @@
   .gallery-item img {
     height: 150px;
   }
+
+  .gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+.trashbin-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
+.trashbin-overlay img {
+  width: 20px;
+  height: 20px;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.showcase-artwork {
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  background-color: rgba(62, 62, 62, 0.5);
+  color: #f1eee7;
+  border: none;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.showcase-artwork:hover {
+  transform: scale(1.05);
+  font-weight: 600;
+  color: rgba(62, 62, 62, 62);
+  background-color: #f1eee7;
+}
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .container {
       margin-top: 10%;
@@ -377,6 +461,8 @@
   }
   
   .gallery-item {
+    position: relative;
+    display: flex;
     justify-content: center;
     overflow: hidden;
     border-radius: 8px;
@@ -386,7 +472,106 @@
   
   .gallery-item img {
     width: 100%;
+    object-fit: cover;
+    height: 350px; /* Adjust height as needed */
     border-radius: 8px;
-    height: 250px;
+    cursor: pointer;
   }
-} 
+  
+  .trashbin-overlay {
+    position: absolute;
+    top: 10px; /* Adjust top position for alignment */
+    right: 10px; /* Adjust right position for alignment */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out; /* Smooth hover transition */
+  }
+  
+  .trashbin-overlay img {
+    width: 16px; /* Adjust size of the trashbin icon */
+    height: 16px;
+  }
+  
+  .trashbin-overlay:hover {
+    transform: scale(1.2); /* Scale up on hover */
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .modal-buttons {
+    margin-top: 10px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+.showcase-artwork {
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  background-color: rgba(62, 62, 62, 0.5);
+  color: #f1eee7;
+  border: none;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.showcase-artwork:hover {
+  transform: scale(1.05);
+  font-weight: 600;
+  color: rgba(62, 62, 62, 62);
+  background-color: #f1eee7;
+}
+
+.modal-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.confirm-btn,
+.cancel-btn {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+}
+}

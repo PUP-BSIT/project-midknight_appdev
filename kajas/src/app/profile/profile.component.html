@@ -25,7 +25,7 @@
         <a class="kajas-link" [href]="kajasLink" target="_blank"> 
           Share Profile</a>
       </div>
-      <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>
+      <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>      
     </div>
   </div>
 </div>
@@ -35,26 +35,44 @@
     <div class="gallery-title">
       <h2>Gallery</h2>
     </div>
-    <div class="gallery-button">
-      <a href="#">
-        <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
-        Edit
-      </a>
-    </div>
+    <a class="gallery-button" (click)="toggleDelete()">
+      <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
+      Edit
+    </a>                
   </div>
 </div>
 <div class="gallery-grid">
   @if(artworks.length) {
-    <div class="gallery-images">
-      @for(artwork of artworks; track artwork.id) {
-        <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title"
-            (click)="viewArtworkDetails(artwork)" />
+    <div *ngIf="artworks.length" class="gallery-images">
+      <div *ngFor="let artwork of artworks; trackBy: trackByFn" class="gallery-item">
+        <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" (click)="viewArtworkDetails(artwork)" />
+            
+        <div *ngIf="showDeleteButton" class="trashbin-overlay" (click)="deleteArtwork(artwork.artwork_id)"> <!--openDeleteModal(artwork) -->
+          <img width="50" height="50" src="https://img.icons8.com/ios/50/delete-trash.png" alt="delete-trash"/>
         </div>
-      }
+      </div>
     </div>
+    
   }
   @if(!artworks.length) {
     <p>{{ message }}</p>
   }
+
+
 </div>
+<div>
+  <a routerLink="/add-artwork" class="edit-profile">Showcase your Artwork</a>  
+
+</div>
+
+ <!-- @if (showModal) {
+  <app-modal-message [message]="modalMessage" 
+                     (closeModal)="closeModal()" 
+                     (confirm)="deleteArtwork()" 
+                     (cancel)="cancelDelete()">
+    <div class="modal-buttons">
+      <button class="confirm-btn" (click)="deleteArtwork(selectedArtworkForDeletion.artwork_id)">Confirm</button>
+      <button class="cancel-btn" (click)="cancelDelete()">Cancel</button>
+    </div>
+  </app-modal-message>
+}  -->
