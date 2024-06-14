@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { updateUserInformation } = require('../models/UserInformation');
-const { getArtWorks } = require('../models/Artworks');
+const { getArtworkByTitleAndId, getArtWorks } = require('../models/Artworks');
 const { query } = require('express');
 const path = require('path'); 
 
@@ -92,9 +92,26 @@ const getGallery = async (req, res) => {
   }
 }
 
+const getArtworkDetailsByTitleAndId = (req, res) => {
+  const { title, id } = req.params;
+  const formattedTitle = title.split('-').join(' ');
+
+  getArtworkByTitleAndId(formattedTitle, id, (error, result) => {
+      if (error) {
+          console.error('Error fetching artwork details:', error);
+          return res.status(500).json({ message: 'Internal server error' });
+      }
+      if (!result) {
+          return res.status(404).json({ message: 'Artwork not found' });
+      }
+      res.status(200).json(result);
+  });
+};
+
 module.exports = {
   getProfile,
   getLocation,
   setupProfile,
-  getGallery
+  getGallery,
+  getArtworkDetailsByTitleAndId
 };
