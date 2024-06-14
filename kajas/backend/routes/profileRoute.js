@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { getProfile, getLocation, setupProfile, getGallery, getArtworkDetailsByTitleAndId } = require('../controllers/profileController');
+const { getProfile, getLocation, setupProfile, getGallery, getArtworkDetailsByTitleAndId, deleteAnArtwork } = require('../controllers/profileController');
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -20,11 +20,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
 router.get('/profile/:username', getProfile);
 router.get('/location/id', getLocation);
 router.post('/setProfile/', upload.single('profile'), setupProfile);
 router.get('/artworks/id', getGallery);
 router.get('/artwork/title/:title/id/:id', getArtworkDetailsByTitleAndId);
-
+router.post('/artwork/delete/:artwork_id', deleteAnArtwork)
 
 module.exports = router;

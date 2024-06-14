@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 const getArtWorks = (id, callback) => {    
-    const query = `SELECT * FROM artworks WHERE user_id = ?`    
+    const query = `SELECT * FROM artworks WHERE user_id = ? AND status = 1`    
     db.query(query, [id], (err, results) => {
         if (err) {
             return callback(err, null);
@@ -36,9 +36,18 @@ const getArtworkByTitleAndId = (title, id, callback) => {
   });
 };
 
-
+const removeArtwork = (artwork_id, callback) => {
+  const query = "UPDATE artworks SET status = 0 WHERE artwork_id = ?";
+  db.query(query, [artwork_id], (error, results) => {
+    if (error) {
+      return callback(error);
+    }
+    return callback(null, 'Artwork deleted successfully');
+  });
+};
 
 module.exports = {
     getArtWorks,
-    getArtworkByTitleAndId
+    getArtworkByTitleAndId,
+    removeArtwork
 };
