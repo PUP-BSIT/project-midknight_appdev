@@ -6,12 +6,23 @@
             <div class="content">
                 <div class="left-column">
                     <div class="image-upload">
-                        <div class="image-placeholder">
-                            <img 
-                                id="artwork-placeholder" 
-                                [src]="imageUrl || '../../assets/icons/placeholder_image.png'" 
-                                alt="Artwork Placeholder">
-                            <input type="file" (change)="onFileSelected($event)">
+                        <div class="artwork-pic-group">
+                            <label 
+                                for="artwork-pic" 
+                                class="artwork-pic-label">
+                                <img 
+                                    id="artwork-placeholder" 
+                                    [src]="imageUrl ||
+                                    '../../assets/icons/placeholder_image.png'"  
+                                    alt="Artwork Placeholder">
+                            </label>
+                            <input 
+                                type="file" 
+                                id="artwork-pic" 
+                                class="artwork-pic-input" 
+                                accept="image/*"
+                                (change)="onFileSelected($event)">
+
                         </div>
                     </div>
                 </div>

@@ -69,26 +69,39 @@ h1 {
     gap: 10px;
 }
 
-.image-placeholder {
-    width: 400px;
-    height: 400px;
-    background-color: #8E7C70;
-    border-radius: 10px;
+.artwork-pic-group {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.image-placeholder:hover {
+.artwork-pic-group:hover {
     transform: scale(1.05); 
 }
 
-.image-placeholder img {
-    width: 70%;
+.artwork-pic-label {
+    width: 350px;
+    height: 400px;
+    background-color: #8E7C70;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.artwork-pic-label img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.artwork-pic-input {
+    display: none;
 }
 
 .select-button {
@@ -180,6 +193,51 @@ button.save:hover {
     cursor: pointer;
 }
 
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.7em;
+    position: absolute;
+    top: -10px; 
+    right: -15px;
+    width: 80%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+  
+.error-message::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f8d7da transparent transparent transparent;
+}
+  
+.form-group .error-message {
+    position: absolute;
+    top: -10px; 
+    right: -15px;
+    width: 80%;
+}
+
+input[type="text"].ng-touched.ng-invalid {
+    border: 1px solid #721c24;
+}
+  
+.form-group input.ng-touched.ng-invalid ~ .error-message,
+.form-group input.ng-dirty.ng-invalid ~ .error-message {
+    opacity: 0.8;
+    visibility: visible;
+}
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .modal {
@@ -230,9 +288,9 @@ button.save:hover {
         font-size: x-small;
     }
 
-    .image-placeholder {
-        width: 200px;
-        height: 200px;
+    .artwork-pic-label {
+        width: 120px;
+        height: 150px;
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
@@ -268,6 +326,24 @@ button.save:hover {
 
     .form-actions button {
         font-size: small;
+    }
+
+    .error-message {
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.3em;
+        top: 0px; 
+        width: 70%;
+    }
+      
+    .error-message::before {
+        bottom: -10px;
+        left: 10px;
+        border-width: 5px;
+    }
+      
+    .form-group .error-message {
+        top: 0px;
     }
 }
 
