@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { updateUserInformation } = require('../models/UserInformation');
-const { getArtworkByTitleAndId, getArtWorks } = require('../models/Artworks');
+const { getArtworkByTitleAndId, getArtWorks, removeArtwork } = require('../models/Artworks');
 const { query } = require('express');
 const path = require('path'); 
 
@@ -108,10 +108,26 @@ const getArtworkDetailsByTitleAndId = (req, res) => {
   });
 };
 
+const deleteAnArtwork = (req, res) => {
+  const {artwork_id} = req.params
+
+  console.log(artwork_id);
+  removeArtwork(artwork_id, (error, result) => {
+    if (error) {
+      console.error('Error deleting artwork:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+
+    res.status(200).json(result)
+  })
+
+}
+
 module.exports = {
   getProfile,
   getLocation,
   setupProfile,
   getGallery,
-  getArtworkDetailsByTitleAndId
+  getArtworkDetailsByTitleAndId,
+  deleteAnArtwork
 };

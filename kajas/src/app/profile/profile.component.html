@@ -35,12 +35,10 @@
     <div class="gallery-title">
       <h2>Gallery</h2>
     </div>
-    <div class="gallery-button">
-      <a href="#">
-        <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
-        Edit
-      </a>
-    </div>
+    <a class="gallery-button" (click)="toggleDelete()">
+      <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
+      Edit
+    </a>                
   </div>
 </div>
 <div class="gallery-grid">
@@ -48,8 +46,14 @@
     <div class="gallery-images">
       @for(artwork of artworks; track artwork.id) {
         <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title"
+          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
             (click)="viewArtworkDetails(artwork)" />
+              
+          @if(showDeleteButton) {
+            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
+              <img src="../../assets/icons/delete.png" alt="delete-trash"/>
+            </div>
+          }
         </div>
       }
     </div>
@@ -62,3 +66,23 @@
     <a routerLink="/add-artwork" class="add-artwork">Add New Artwork</a>
   </div>
 </div>
+
+<div class="add-artwork-container">
+  <a routerLink="/add-artwork" class="add-artwork">Showcase an Artwork!</a>  
+</div>
+
+@if(showConfirmModal) {
+  <app-confirm-cancel-modal 
+    [message]="modalMessage" 
+    (confirmAction)="deleteArtwork(selectedArtworkForDeletion.artwork_id)" 
+    (cancelAction)="cancelDelete()"
+    (closeModal)="closeModal()">
+  </app-confirm-cancel-modal>
+}
+
+@if(showMessageModal) {
+  <app-modal-message 
+    [message]="modalMessage" 
+    (closeModal)="closeMessageModal()">
+  </app-modal-message>
+}

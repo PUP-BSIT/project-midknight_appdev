@@ -25,6 +25,7 @@ import { SearchService } from '../services/search.service';
 import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { ArtworkService } from '../services/artwork.service';
+import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
 import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 
 
@@ -44,8 +45,7 @@ import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
     EditProfileComponent,
     AddArtworkComponent,
     ArtworkDetailsComponent,
-    CtaBannerComponent,
-    EditArtworkComponent
+    CtaBannerComponent
   ],
   imports: [
     BrowserModule,
