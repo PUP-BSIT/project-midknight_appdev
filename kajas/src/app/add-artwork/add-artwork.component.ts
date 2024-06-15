@@ -12,9 +12,13 @@ import { SessionStorageService } from 'angular-web-storage';
 })
 export class AddArtworkComponent implements OnInit {
   artworkForm: FormGroup;
-  artworkImageUrl: string | ArrayBuffer | null = '';
   showModal = false;
   modalMessage = '';
+  artworkImageUrl: string | ArrayBuffer | null = '';
+
+  artworkTitlePlaceholder = this.sessionStorage.get('title') || '';
+  artworkDatePlaceholder = this.sessionStorage.get('date_created') || '';
+  artworkDescriptionPlaceholder = this.sessionStorage.get('description') || '';
 
   constructor(
     private fb: FormBuilder,
@@ -23,10 +27,19 @@ export class AddArtworkComponent implements OnInit {
     private sessionStorage: SessionStorageService
   ) {
     this.artworkForm = this.fb.group({
-      user_id: [''], 
-      title: ['', Validators.required],
-      date: ['', Validators.required],
-      details: ['', Validators.maxLength(250)],
+      id: [this.sessionStorage.get('id')], 
+      artwork: [''],
+      title: [this.sessionStorage.get('title'), {
+        validators: [
+          Validators.required
+        ]
+      }],
+      date_created: ['', Validators.required],
+      details: ['', {
+        validators: [
+          Validators.maxLength(250)
+        ]
+      }],
       image: ['']
     });
   }
@@ -55,38 +68,40 @@ export class AddArtworkComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    console.log('onSubmit called');
-  
+    const url = "http://localhost:4000/api/addArtwork";
+    const artworkFormData = new FormData();
+
     if (this.artworkForm.invalid) {
-      this.artworkForm.markAllAsTouched();
-      this.modalMessage = 'Please fill out the form accurately and completely.';
-      this.showModal = true;
-      return;
-    }
-  
-    const formData = new FormData();
-    Object.keys(this.artworkForm.controls).forEach(key => {
-      const control = this.artworkForm.get(key);
-      if (control && control.value !== null && control.value !== undefined) {
-        formData.append(key, control.value);
-      }
-    });
-  
-    console.log('Submitting form data:', formData); 
-  
-    try {
-      const response = await axios.post('http://localhost:4000/api/addArtwork', formData);
-      console.log('Response from server:', response); 
-      if (response.status === 200) {
-        this.modalMessage = 'Artwork Added Successfully!';
+        this.artworkForm.markAllAsTouched();
+        this.modalMessage = 'Please fill out the form accurately and completely.';
         this.showModal = true;
-      }
-    } catch (error) {
-      console.error('Error occurred while submitting the artwork:', error);
-      this.modalMessage = 'An error occurred while submitting the artwork.';
-      this.showModal = true;
+        return;
     }
-  }
+
+    Object.keys(this.artworkForm.controls).forEach(key => {
+        const control = this.artworkForm.get(key);
+        if (control && control.value !== null && control.value !== undefined) {
+            if (key === 'image' && control.value instanceof File) {
+              artworkFormData.append(key, control.value);
+            } else {
+              artworkFormData.append(key, control.value);
+            }
+        }
+    });
+
+    try {
+        const response = await axios.post(url, artworkFormData);
+        if (response.status === 200) {
+            this.modalMessage = 'Artwork Added Successfully!';
+            this.showModal = true;
+
+            this.sessionStorage.set('description', this.artworkForm.controls.description.value);
+            this.sessionStorage.set('artwork', response.data.updatedartwork);
+        }
+    } catch (error) {
+      console.error('Error submitting the artwork:', error);
+    }
+}
 
   closeModal(): void {
     if (this.modalMessage === 'Artwork Added Successfully!') {

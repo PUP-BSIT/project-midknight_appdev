@@ -38,9 +38,10 @@ const getArtworkByTitleAndId = (title, id, callback) => {
 
 const addArtwork = (artwork, callback) => {
     const query = `INSERT INTO artworks (user_id, title, description, date_created, image_url) VALUES (?, ?, ?, ?, ?)`;
-    const values = [artwork.user_id, artwork.title, artwork.details, artwork.date, artwork.image_url];
+    const values = [artwork.user_id, artwork.title, artwork.description, artwork.date_created, artwork.image_url];
     db.query(query, values, (error, results) => {
         if (error) {
+            console.error('Error inserting artwork:', error);
             return callback(error);
         }
         callback(null, results.insertId);
