@@ -15,7 +15,7 @@ const port = 4000;
 
 app.use(cors());
 app.use(bodyParser.json()); 
-app.use('/uploads', express.static(path.join(__dirname, '.', 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/api', authRoutes);
 app.use(emailRoute);
 app.use('/api/users', userRoutes);

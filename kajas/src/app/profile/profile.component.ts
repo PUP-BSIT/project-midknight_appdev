@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
           artwork_id: item.artwork_id,
           date_created: item.date_created,
           description: item.description,
-          image_url: this.getAbsoluteUrl(item.image_url),
+          image_url: item.image_url,
           title: item.title,
           user_id: item.user_id,
         }));                                
