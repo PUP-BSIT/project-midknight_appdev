@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { updateUserInformation } = require('../models/UserInformation');
-const { getArtworkByTitleAndId, getArtWorks, removeArtwork } = require('../models/Artworks');
+const { getArtworkByTitleAndId, getArtWorks, removeArtwork, addArtWork } = require('../models/Artworks');
 const { query } = require('express');
 const path = require('path'); 
 
@@ -111,7 +111,6 @@ const getArtworkDetailsByTitleAndId = (req, res) => {
 const deleteAnArtwork = (req, res) => {
   const {artwork_id} = req.params
 
-  console.log(artwork_id);
   removeArtwork(artwork_id, (error, result) => {
     if (error) {
       console.error('Error deleting artwork:', error);
@@ -123,11 +122,29 @@ const deleteAnArtwork = (req, res) => {
 
 }
 
+const submitArtwork = (req, res) => {
+  const { title, date, details, userId } = req.body;
+  const imageUrl = req.file ? path.basename(req.file.path) : null;
+  console.log(imageUrl);
+  if (!title || !date || !details || !imageUrl) {
+      return res.status(400).json({ message: 'All fields are required' });
+  }
+  addArtWork(userId, title, details, date, imageUrl, (error, result) => {
+    if (error) {
+      console.error('Error inserting artwork:', err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+    res.status(200).json({ message: 'Artwork added successfully' });
+  })
+}
+
+
 module.exports = {
   getProfile,
   getLocation,
   setupProfile,
   getGallery,
   getArtworkDetailsByTitleAndId,
-  deleteAnArtwork
+  deleteAnArtwork,
+  submitArtwork
 };

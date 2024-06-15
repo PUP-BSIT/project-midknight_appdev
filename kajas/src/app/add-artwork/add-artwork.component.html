@@ -3,62 +3,43 @@
     <div class="modal">
         <div class="modal-content">
             <h1>Add New Artwork</h1>
-            <form [formGroup]="artworkForm" (ngSubmit)="onSubmit()">
-                <div class="content">
-                    <div class="left-column">
-                        <div class="image-upload">
-                            <div class="image-placeholder">
-                                <label
-                                    for="artwork-pic" 
-                                    class="artwork-pic-label">
-                                <img 
-                                    id="artwork-placeholder" 
-                                    [src]="artworkImageUrl || '../../assets/icons/placeholder_image.png'" 
-                                    alt="Artwork Placeholder">
-                                </label> 
-                                <input class="select-button"
-                                    type="file" 
-                                    id="profile-pic" 
-                                    class="profile-pic-input" 
-                                    accept="image/*"
-                                    (change)="onFileSelected($event)">
-                            </div>
+            <div class="content">
+                <div class="left-column">
+                    <div class="image-upload">
+                        <div class="image-placeholder">
+                            <img 
+                                id="artwork-placeholder" 
+                                src="../../assets/icons/placeholder_image.png" 
+                                alt="Artwork Placeholder">
+                            <button 
+                                class="select-button">
+                                Select from computer
+                            </button>
                         </div>
+                        
                     </div>
-                    <hr class="divider">
-                    <div class="right-column">
-                        <div class="form-group">
-                            <label for="title">Artwork Title:</label>
-                            <input 
-                                type="text" 
-                                id="title" 
-                                formControlName="title" 
-                                placeholder="{{ artworkTitlePlaceholder }}"
-                                required>
-                            @if(artworkForm.get('title').invalid && 
-                            artworkForm.get('title').touched) {
-                                <div class="error-message">
-                                    {{ getErrorMessage('title') }}
-                                </div>
-                            }
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Date Created:</label>
-                            <input type="date" id="date" name="date" formControlName="date">
-                        </div>
-                        <div class="form-group">
-                            <label for="details">Artwork Details:</label>       
-                                <textarea 
-                                    id="bio" 
-                                    maxlength="250" 
-                                    placeholder="Describe your artwork here..." 
-                                    formControlName="description">
-                                </textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="cancel" (click)="close()">Cancel</button>
-                            <button type="submit" class="save">Save</button>
-                        </div>
+                </div>
+                <hr class="divider">
+                <div class="right-column">
+                    <div class="form-group">
+                        <label for="title">Artwork Title:</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date Created:</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Artwork Details:</label>
+                        <textarea 
+                            id="details" 
+                            name="details" 
+                            rows="4" 
+                            placeholder="Add description for your piece..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="cancel">Cancel</button>
+                        <button class="save">Save</button>
                     </div>
                 </div>
             </form>
