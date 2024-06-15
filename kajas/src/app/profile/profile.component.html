@@ -43,31 +43,42 @@
 </div>
 <div class="gallery-grid">
   @if(artworks.length) {
-    <div *ngIf="artworks.length" class="gallery-images">
-      <div *ngFor="let artwork of artworks; trackBy: trackByFn" class="gallery-item">
-        <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" (click)="viewArtworkDetails(artwork)" />
-            
-        <div *ngIf="showDeleteButton" class="trashbin-overlay" (click)=openDeleteModal(artwork)> 
-          <img src="../../assets/icons/delete.png" alt="delete-trash"/>
+    <div class="gallery-images">
+      @for(artwork of artworks; track artwork.id) {
+        <div class="gallery-item">
+          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
+            (click)="viewArtworkDetails(artwork)" />
+              
+          @if(showDeleteButton) {
+            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
+              <img src="../../assets/icons/delete.png" alt="delete-trash"/>
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
-    
   }
   @if(!artworks.length) {
     <p>{{ message }}</p>
   }
-
-</div>
-<div>
-  <a routerLink="/add-artwork" class="edit-profile">Showcase your Artwork</a>  
 </div>
 
-<div *ngIf="showModal">
+<div class="add-artwork-container">
+  <a routerLink="/add-artwork" class="add-artwork">Showcase an Artwork!</a>  
+</div>
+
+@if(showConfirmModal) {
   <app-confirm-cancel-modal 
     [message]="modalMessage" 
     (confirmAction)="deleteArtwork(selectedArtworkForDeletion.artwork_id)" 
     (cancelAction)="cancelDelete()"
     (closeModal)="closeModal()">
   </app-confirm-cancel-modal>
-</div>
+}
+
+@if(showMessageModal) {
+  <app-modal-message 
+    [message]="modalMessage" 
+    (closeModal)="closeMessageModal()">
+  </app-modal-message>
+}

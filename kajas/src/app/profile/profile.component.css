@@ -96,12 +96,12 @@
   display: none;
 }
 
-.edit-profile {
-  background-color: rgba(62, 62, 62, 0.5);
-  color: #f1eee7;
+.edit-profile, .add-artwork {
+  display: inline-block; 
+  background-color: #3E3E3E;
+  color: #fff;
   border: none;
   padding: 10px 15px;
-  margin-top: 10px;
   text-decoration: none;
   border-radius: 5px;
   cursor: pointer;
@@ -109,11 +109,9 @@
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.edit-profile:hover {
-  transform: scale(1.05);
-  font-weight: 600;
-  color: rgba(62, 62, 62, 62);
-  background-color: #f1eee7;
+.edit-profile:hover, .add-artwork:hover {
+  background-color: #555;
+  transform: translateY(-5px);
 }
 
 .kajas-link {
@@ -154,8 +152,10 @@
 }
 
 .gallery-button {
-  padding-top: 15px;
+  padding-top: 10px;
   padding-left: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-size: larger;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
 }
@@ -182,7 +182,6 @@
   justify-content: center;
   overflow-y: hidden;
   margin-top: 20px;
-  margin-bottom: 10%;
 }
 
 .gallery-images {
@@ -230,15 +229,31 @@
   padding: 5px;
   border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .trashbin-overlay img {
   width: 30px;
   height: 30px;
+  object-fit:fill;
 }
 
 .trashbin-overlay:hover {
   transform: scale(1.2);
+}
+
+.add-artwork {
+  padding: 20px 35px;
+  width: 20%;
+  font-size: larger;
+}
+
+.add-artwork-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
@@ -287,10 +302,15 @@
     font-size: x-small;
   }
 
-  .edit-profile {
+  .edit-profile, .add-artwork {
     width: 70%;
     text-align: center;
     font-size: xx-small;
+  }
+
+  .add-artwork {
+    width: 35%;
+    padding: 10px 25px;
   }
 
   .gallery-container {
@@ -306,6 +326,7 @@
   .gallery-button {
     padding-left: 3px;
     padding-top: 8px;
+    font-size: small;
   }
 
   .gallery-button img {
@@ -317,7 +338,7 @@
   }
 
   .gallery-images {
-    padding-top: 8px;
+    padding-top: 4px;
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -327,6 +348,10 @@
 
   .gallery-item.vertical {
     max-width: 100%;
+  }
+
+  .gallery-item {
+    width: 45%;
   }
 
   .gallery-item img {
@@ -339,81 +364,23 @@
     gap: 20px;
   }
   
-.trashbin-overlay {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
+  .trashbin-overlay {
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    height: 15px;
+  }
+
+  .trashbin-overlay img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .close {
+    font-size: 28px;
+  }
 }
 
-.trashbin-overlay img {
-  width: 20px;
-  height: 20px;
-}
-
-.modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 400px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.showcase-artwork {
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-  background-color: rgba(62, 62, 62, 0.5);
-  color: #f1eee7;
-  border: none;
-  padding: 10px 15px;
-  text-decoration: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.showcase-artwork:hover {
-  transform: scale(1.05);
-  font-weight: 600;
-  color: rgba(62, 62, 62, 62);
-  background-color: #f1eee7;
-}
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .container {
       margin-top: 10%;
@@ -471,7 +438,6 @@
   }
   
   .gallery-images {
-    padding-top: 40px;
     padding-left: 40px;
     padding-right: 40px;
     display: grid;
@@ -485,9 +451,7 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
-    border-radius: 8px;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: auto;
   }
   
   .gallery-item img {
@@ -495,79 +459,22 @@
     object-fit: cover;
     height: 350px;
     border-radius: 8px;
-    cursor: pointer;
+    height: 250px;
+  }
+
+  .add-artwork {
+    font-size: small;
   }
   
   .trashbin-overlay {
-    position: absolute;
     top: 10px; 
-    right: 10px; 
-    background-color: rgba(255, 255, 255, 0.8);
+    right: 10px;
     padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out; 
+    height: 20px;
   }
   
   .trashbin-overlay img {
     width: 20px;
     height: 20px;
   }
-  
-  .trashbin-overlay:hover {
-    transform: scale(1.2);
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .modal-buttons {
-    margin-top: 10px;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-.showcase-artwork {
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-  background-color: rgba(62, 62, 62, 0.5);
-  color: #f1eee7;
-  border: none;
-  padding: 10px 15px;
-  text-decoration: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.showcase-artwork:hover {
-  transform: scale(1.05);
-  font-weight: 600;
-  color: rgba(62, 62, 62, 62);
-  background-color: #f1eee7;
-}
-}
 }

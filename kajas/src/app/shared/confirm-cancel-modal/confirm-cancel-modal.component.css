@@ -38,13 +38,14 @@ p {
 
 .modal-buttons {
   display: flex;
-  gap: 10px;
+  width: 100%;
+  gap: 10%;
   margin-top: 20px;
 }
 
 button {
   padding: 10px;
-  width: 100px;
+  width: 80%;
   background-color: #3E3E3E;
   color: #FFF;
   font-size: medium;
@@ -60,15 +61,15 @@ button:hover {
 }
 
 .confirm-btn {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+  background-color: #e43647;
+}
+
+.confirm-btn:hover {
+  background-color: #f66d7a;
 }
 
 .cancel-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
+  background-color: #3E3E3E;
 }
 
 @keyframes fadeIn {
@@ -102,5 +103,9 @@ button:hover {
   button {
     padding: 5px;
     font-size: xx-small;
+  }
+
+  .modal-buttons {
+    margin-top: 0;
   }
 }
