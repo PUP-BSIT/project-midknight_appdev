@@ -46,7 +46,7 @@
     <div class="gallery-images">
       @for(artwork of artworks; track artwork.id) {
         <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
+          <img [src]="artwork.image_url" [alt]="artwork.title" 
             (click)="viewArtworkDetails(artwork)" />
               
           @if(showDeleteButton) {

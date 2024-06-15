@@ -1,4 +1,4 @@
-<app-header></app-header> 
+<app-header></app-header>
 <div class="add-artwork">
     <div class="modal">
         <div class="modal-content">
@@ -9,37 +9,34 @@
                         <div class="image-placeholder">
                             <img 
                                 id="artwork-placeholder" 
-                                src="../../assets/icons/placeholder_image.png" 
+                                [src]="imageUrl || '../../assets/icons/placeholder_image.png'" 
                                 alt="Artwork Placeholder">
-                            <button 
-                                class="select-button">
-                                Select from computer
-                            </button>
+                            <input type="file" (change)="onFileSelected($event)">
                         </div>
-                        
                     </div>
                 </div>
                 <hr class="divider">
                 <div class="right-column">
                     <div class="form-group">
                         <label for="title">Artwork Title:</label>
-                        <input type="text" id="title" name="title">
+                        <input type="text" id="title" [(ngModel)]="title" name="title">
                     </div>
                     <div class="form-group">
                         <label for="date">Date Created:</label>
-                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" [(ngModel)]="date" name="date">
                     </div>
                     <div class="form-group">
                         <label for="details">Artwork Details:</label>
                         <textarea 
                             id="details" 
+                            [(ngModel)]="details" 
                             name="details" 
                             rows="4" 
                             placeholder="Add description for your piece..."></textarea>
                     </div>
                     <div class="form-actions">
-                        <button class="cancel">Cancel</button>
-                        <button class="save">Save</button>
+                        <button class="cancel" (click)="cancel()">Cancel</button>
+                        <button class="save" (click)="save()">Save</button>
                     </div>
                 </div>
             </div>

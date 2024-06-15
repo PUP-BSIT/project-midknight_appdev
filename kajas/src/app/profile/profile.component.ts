@@ -44,7 +44,16 @@ export class ProfileComponent implements OnInit {
     const response = await axios.get(`http://localhost:4000/api/artworks/id?id=${id}`);
     if (response.status === 200){
       if (response.data.data && response.data.data.length > 0) {
-        this.artworks = response.data.data;
+        
+        this.artworks = response.data.data.map(item => ({
+          status: item.status,
+          artwork_id: item.artwork_id,
+          date_created: item.date_created,
+          description: item.description,
+          image_url: this.getAbsoluteUrl(item.image_url),
+          title: item.title,
+          user_id: item.user_id,
+        }));                                
       } else {
         this.message = "No Artworks Yet...";
       }

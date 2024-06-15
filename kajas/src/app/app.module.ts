@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'; 
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -27,7 +26,6 @@ import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { ArtworkService } from '../services/artwork.service';
 import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +48,7 @@ import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confi
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule, 
     AppRoutingModule,
     HttpClientModule
   ],

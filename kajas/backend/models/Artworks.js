@@ -46,8 +46,21 @@ const removeArtwork = (artwork_id, callback) => {
   });
 };
 
+const addArtWork = (userId, title, details, date, imageUrl, callback) => {
+  const query = `INSERT INTO artworks (user_id, title, description, date_created, image_url, status) VALUES (?, ?, ?, ?, ?, 1)`;
+  db.query(query, [userId, title, details, date, imageUrl], (err, result) => {
+    if (err) {
+      console.error('Error inserting artwork:', err);
+      return callback(err);
+    }
+    return callback(null, 'Artwork deleted successfully');  
+    
+  });
+}
+
 module.exports = {
     getArtWorks,
     getArtworkByTitleAndId,
-    removeArtwork
+    removeArtwork,
+    addArtWork
 };
