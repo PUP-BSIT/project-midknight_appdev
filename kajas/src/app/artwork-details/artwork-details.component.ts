@@ -38,11 +38,7 @@ export class ArtworkDetailsComponent implements OnInit {
   }
 
   editArtwork(): void {
-    if (this.artwork && this.artwork.artwork_id) {
-      this.router.navigate(['/edit-artwork', this.artwork.artwork_id]);
-    } else {
-      console.error('Artwork ID is missing or invalid');
-    }
+    this.router.navigate(['/edit-artwork', { id: this.artwork.id }]);
   }
 
   closeDetails(): void {

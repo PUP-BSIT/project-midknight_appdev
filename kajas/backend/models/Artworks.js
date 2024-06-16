@@ -36,6 +36,17 @@ const getArtworkByTitleAndId = (title, id, callback) => {
   });
 };
 
+const addArtwork = (artwork, callback) => {
+  const query = `INSERT INTO artworks (user_id, title, description, date_created, image_url) VALUES (?, ?, ?, ?, ?)`;
+  const values = [artwork.user_id, artwork.title, artwork.description, artwork.date_created, artwork.image_url];
+  db.query(query, values, (error, results) => {
+      if (error) {
+          return callback(error);
+      }
+      callback(null, results.insertId);
+  });
+};
+
 const removeArtwork = (artwork_id, callback) => {
   const query = "UPDATE artworks SET status = 0 WHERE artwork_id = ?";
   db.query(query, [artwork_id], (error, results) => {
@@ -61,6 +72,5 @@ const addArtWork = (userId, title, details, date, imageUrl, callback) => {
 module.exports = {
     getArtWorks,
     getArtworkByTitleAndId,
-    removeArtwork,
-    addArtWork
+    removeArtwork
 };

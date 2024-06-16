@@ -5,7 +5,7 @@
     font-family: "Montserrat", sans-serif;
 }
 
-.edit-artwork {
+.add-artwork {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,39 +69,26 @@ h1 {
     gap: 10px;
 }
 
-.artwork-pic-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 5px;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.artwork-pic-group:hover {
-    transform: scale(1.05); 
-}
-
-.artwork-pic-label {
-    width: 350px;
+.image-placeholder {
+    width: 400px;
     height: 400px;
     background-color: #8E7C70;
     border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 0;
+    justify-content: center;
+    flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.artwork-pic-label img {
-    width: 100%;
+.image-placeholder:hover {
+    transform: scale(1.05); 
+}
+
+.image-placeholder img {
+    width: 70%;
     height: 100%;
     object-fit: cover;
-}
-
-.artwork-pic-input {
-    display: none;
 }
 
 .select-button {
@@ -127,7 +114,6 @@ h1 {
 .form-group {
     display: flex;
     flex-direction: column;
-    position: relative; 
 }
 
 label {
@@ -190,49 +176,22 @@ button.save:hover {
     padding: 10px 20px;
     width: 50%;
     color: #FFFEFC;
-    text-wrap: nowrap;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    font-size: 0.7em;
+.close {
     position: absolute;
-    width: 70%;
-    top: -5px;
-    right: -15px;
-    box-sizing: border-box;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 1;
-    pointer-events: none;
-}
-  
-.error-message::before {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 10px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: #f8d7da transparent transparent transparent;
+    top: -20px;
+    right: -10px;
+    color: #aaa;
+    font-size: 64px;
+    font-weight: bold;
 }
 
-input[type="text"].ng-touched.ng-invalid,
-input[type="date"].ng-touched.ng-invalid {
-    border: 1px solid #721c24;
-}
-  
-.form-group input.ng-touched.ng-invalid ~ .error-message,
-.form-group input.ng-dirty.ng-invalid ~ .error-message {
-    opacity: 0.8;
-    visibility: visible;
+.close:hover,
+.close:focus {
+    color: black;
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
@@ -284,9 +243,9 @@ input[type="date"].ng-touched.ng-invalid {
         font-size: x-small;
     }
 
-    .artwork-pic-label {
-        width: 120px;
-        height: 150px;
+    .image-placeholder {
+        width: 200px;
+        height: 200px;
         margin-bottom: 20px;
         display: flex;
         justify-content: center;
@@ -317,34 +276,36 @@ input[type="date"].ng-touched.ng-invalid {
 
     .form-actions {
         flex-direction: row;
-        gap: 0;
+        gap: 8px;
     }
 
     .form-actions button {
         font-size: small;
-        margin: 10px;
     }
 
-    .error-message {
-        padding: 5px;
-        font-size: 0.3em;
-        right: -5px;
-        width: 70%;
-    }
-      
-    .error-message::before {
-        bottom: -10px;
-        left: 10px;
-        border-width: 5px;
-    }
-      
-    .form-group .error-message {
-        top: 0px;
+    .close {
+        top: 15%;
+        right: 15%;
+        font-size: 32px;
     }
 }
+
+@media screen and (min-width: 425px) and (max-width: 767px) {
+    .close {
+        top: 20%;
+        right: 20%;
+        font-size: 32px;
+    }
+}  
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .modal {
         margin-top: 10%;
+    }
+
+    .close {
+        top: 32%;
+        right: 20%;
+        font-size: 50px;
     }
 } 
