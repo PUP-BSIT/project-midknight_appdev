@@ -6,8 +6,9 @@
     padding: 5px;
     width: 100%;
     position: fixed;
-    bottom: 0; 
+    bottom: -5px; 
     box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1111;
 }
 
 .message {
@@ -44,39 +45,78 @@
     color: #fff;
     background-color: #3D3D3D;
     border: 1px solid #fff;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.log-in-button:hover {
+    color: #fff;
+    background-color: #555;
+    transform: translateY(-5px);
 }
 
 .sign-up-button {
     color: #3D3D3D;
     background-color: #fff;
     border: 1px solid #fff;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+.sign-up-button:hover {
+    transform: translateY(-5px);
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
     .message {
-        margin-left: 4px;
+        margin-left: 3%;
     }
     
     .message h1 {
-        color: #fff;
         font-size: small;
         margin-bottom: 0;
     }
     
     .message p {
-        color: #fff;
         font-size: x-small;
         margin-top: 8px;
     }
     
     .action-buttons {
-        margin-right: 8px;
-        gap: 4px;
+        margin-right: 3%;
+        gap: 5px;
     }
     
     .action-buttons button {
-        font-size: xx-small;
+        font-size: 0.5em;
+        text-wrap: nowrap;
         padding: 4px 16px;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .message {
+        margin-left: 15%;
+    }
+    
+    .message h1 {
+        font-size: large;
+        margin-bottom: 0;
+    }
+    
+    .message p {
+        font-size: small;
+        margin-top: 8px;
+    }
+    
+    .action-buttons {
+        margin-right: 15%;
+        gap: 15px;
+    }
+    
+    .action-buttons button {
+        font-size: small;
+        text-wrap: nowrap;
+        padding: 8px 16px;
         width: 100%;
     }
 }
