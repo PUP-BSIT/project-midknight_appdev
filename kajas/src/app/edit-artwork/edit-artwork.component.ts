@@ -1,76 +1,144 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ArtworkService } from '../../services/artwork.service';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-edit-artwork',
   templateUrl: './edit-artwork.component.html',
-  styleUrls: ['./edit-artwork.component.css']
+  styleUrls: ['./edit-artwork.component.css'],
 })
 export class EditArtworkComponent implements OnInit {
-  editArtworkForm: FormGroup;
-  artworkImageUrl: string | ArrayBuffer | null = '';
-  artworkData: any; 
+  artworkForm: FormGroup;
+  imageUrl: string | null = null;
+  showModal = false;
+  modalMessage = '';
+  artwork: any;
 
-  constructor(private fb: FormBuilder, private artworkService: ArtworkService, private router: Router, private http: HttpClient) {
-    this.editArtworkForm = this.fb.group({
+  titlePlaceholder = '';
+  dateCreatedPlaceholder = '';
+  descriptionPlaceholder = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
+    private sessionStorage: SessionStorageService
+  ) {
+    this.artworkForm = this.fb.group({
       title: ['', Validators.required],
-      description: ['', Validators.required],
       date: ['', Validators.required],
+      details: [''],
     });
   }
 
   ngOnInit(): void {
-    const artworkId = this.artworkService.getArtworkId();
-    this.http.get<any>(`/api/artwork/${artworkId}`).subscribe((data) => {
-      this.artworkData = data;
-      this.editArtworkForm.patchValue({
-        title: this.artworkData.title,
-        description: this.artworkData.description,
-        date: this.artworkData.date,
-      });
-    });
+    this.loadArtworkData();
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.artworkImageUrl = e.target.result;
-        this.editArtworkForm.patchValue({ image: file });
-      };
-      reader.readAsDataURL(file);
+  loadArtworkData(): void {
+    const artworkId = this.route.snapshot.paramMap.get('id');
+    const userId = this.sessionStorage.get('id');
+
+    if (artworkId && userId) {
+      const url = `http://localhost:4000/api/artwork/${artworkId}/${userId}`;
+      this.http.get(url).subscribe(
+        (response: any) => {
+          this.artwork = response;
+          this.artworkForm.patchValue({
+            title: this.artwork.title,
+            date: this.formatDate(this.artwork.date_created),
+            details: this.artwork.description,
+          });
+          this.imageUrl = this.artwork.image_url;
+          this.updatePlaceholders();
+        },
+        (error) => {
+          console.error('Error fetching artwork data:', error);
+        }
+      );
+    } else {
+      console.error('artworkId or userId is missing');
     }
   }
 
-  onSubmit(): void {
-  if (this.editArtworkForm.valid) {
-    const formData = new FormData();
-    Object.keys(this.editArtworkForm.controls).forEach(key => {
-      const control = this.editArtworkForm.get(key);
-      if (control && control.value !== null && control.value !== undefined) {
-        formData.append(key, control.value);
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+  updatePlaceholders(): void {
+    this.titlePlaceholder = this.artworkForm.get('title')?.value || '';
+    this.dateCreatedPlaceholder = this.artworkForm.get('date')?.value || '';
+    this.descriptionPlaceholder = this.artworkForm.get('details')?.value || '';
+  }
+
+  async save(): Promise<void> {
+    const artworkId = this.route.snapshot.paramMap.get('id');
+    const url = `http://localhost:4000/api/artwork/${artworkId}`;
+
+    if (this.artworkForm.invalid) {
+      this.artworkForm.markAllAsTouched();
+      this.modalMessage = 'Please fill out the form accurately and completely.';
+      this.showModal = true;
+      return;
+    }
+
+    const updatedFields: { [key: string]: any } = {};
+    Object.keys(this.artworkForm.controls).forEach((key) => {
+      const control = this.artworkForm.get(key);
+      if (control && control.value !== this.artwork[key]) {
+        updatedFields[key] = control.value;
       }
     });
 
-    this.http.post('/api/editArtwork', formData).subscribe(response => {
-      console.log('Artwork updated successfully:', response);
-      this.router.navigateByUrl('/profile'); //change later
-    }, error => {
+    try {
+      const response = await this.http.put(url, updatedFields).toPromise();
+      if (response) {
+        this.modalMessage = 'Artwork updated successfully!';
+        this.showModal = true;
+        this.updatePlaceholders();
+      } else {
+        this.modalMessage = 'There was an error updating your artwork. Please try again.';
+        this.showModal = true;
+      }
+    } catch (error) {
       console.error('Error updating artwork:', error);
-    });
-  } else {
-    console.log('Form has validation errors');
+      this.modalMessage = 'There was an error updating your artwork. Please try again.';
+      this.showModal = true;
+    }
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.artworkForm.get(controlName);
+    if (control && control.errors) {
+      if (control.errors.required) {
+        return `${this.capitalizeFirstLetter(controlName)} is required.`;
+      }
+    }
+    return '';
+  }
+
+  private capitalizeFirstLetter(string: string): string {
+    return (
+      string.charAt(0).toUpperCase() +
+      string.slice(1).replace(/([A-Z])/g, ' $1')
+    );
+  }
+
+  cancel(): void {
+    this.router.navigate(['/profile']);
+  }
+
+  closeModal(): void {
+    if (this.modalMessage === 'Artwork updated successfully!') {
+      this.router.navigateByUrl('/profile');
+    }
+    this.showModal = false;
   }
 }
-
-  close(): void {
-    this.router.navigateByUrl('/profile');
-  }
-}
-
-

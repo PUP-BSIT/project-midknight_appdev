@@ -341,30 +341,10 @@ input[type="date"].ng-touched.ng-invalid {
     .form-group .error-message {
         top: 0px;
     }
-
-    .close {
-        top: 15%;
-        right: 15%;
-        font-size: 32px;
-    }
 }
-
-@media screen and (min-width: 425px) and (max-width: 767px) {
-    .close {
-        top: 20%;
-        right: 20%;
-        font-size: 32px;
-    }
-}  
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .modal {
         margin-top: 10%;
-    }
-
-    .close {
-        top: 32%;
-        right: 20%;
-        font-size: 50px;
     }
 } 
