@@ -43,14 +43,16 @@ import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
     EditProfileComponent,
     AddArtworkComponent,
     ArtworkDetailsComponent,
-    CtaBannerComponent
+    CtaBannerComponent,
+    ConfirmCancelModalComponent,
+    EditArtworkComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule, 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [ 
     ModalService,
