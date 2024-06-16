@@ -82,6 +82,9 @@ const updateArtwork = (artworkId, updatedFields, callback) => {
     if (err) {
       return callback(err);
     }
+    if (results.affectedRows === 0) {
+      return callback(new Error("No rows were updated"));
+    }
     return callback(null, results);
   });
 };

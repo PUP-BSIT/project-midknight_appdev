@@ -16,13 +16,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/addArtwork", upload.single("image"), (req, res) => {
-  console.log("Received request to add artwork:", req.body);
-  console.log("File info:", req.file);
-
-  if (!req.file) {
-    return res.status(400).json({ message: "Image file is required" });
-  }
-
   const artwork = {
     user_id: req.body.user_id,
     title: req.body.title,
@@ -31,11 +24,8 @@ router.post("/addArtwork", upload.single("image"), (req, res) => {
     image_url: req.file.path,
   };
 
-  console.log("Artwork object to be inserted:", artwork);
-
   artworkController.addArtwork(artwork, (error, artworkId) => {
     if (error) {
-      console.error("Error adding artwork:", error);
       return res.status(500).json({ message: "Error adding artwork", error });
     }
     res.status(200).json({ message: "Artwork added successfully", artworkId });
@@ -68,7 +58,7 @@ router.put("/artwork/:artworkId", (req, res) => {
     if (err) {
       return res
         .status(500)
-        .json({ message: "Internal server error", error: err });
+        .json({ message: "Internal server error", error: err.message });
     }
     res.status(200).json({ message: "Artwork updated successfully", result });
   });

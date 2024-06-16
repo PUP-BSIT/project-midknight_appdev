@@ -15,7 +15,6 @@ export class EditArtworkComponent implements OnInit {
   showModal = false;
   modalMessage = '';
   artwork: any;
-
   titlePlaceholder = '';
   dateCreatedPlaceholder = '';
   descriptionPlaceholder = '';
@@ -93,9 +92,21 @@ export class EditArtworkComponent implements OnInit {
     Object.keys(this.artworkForm.controls).forEach((key) => {
       const control = this.artworkForm.get(key);
       if (control && control.value !== this.artwork[key]) {
-        updatedFields[key] = control.value;
+        if (key === 'date') {
+          updatedFields['date_created'] = control.value;
+        } else if (key === 'details') {
+          updatedFields['description'] = control.value;
+        } else {
+          updatedFields[key] = control.value;
+        }
       }
     });
+
+    if (Object.keys(updatedFields).length === 0) {
+      this.modalMessage = 'No changes detected.';
+      this.showModal = true;
+      return;
+    }
 
     try {
       const response = await this.http.put(url, updatedFields).toPromise();
@@ -104,12 +115,12 @@ export class EditArtworkComponent implements OnInit {
         this.showModal = true;
         this.updatePlaceholders();
       } else {
-        this.modalMessage = 'There was an error updating your artwork. Please try again.';
-        this.showModal = true;
+        throw new Error('No response from server');
       }
     } catch (error) {
       console.error('Error updating artwork:', error);
-      this.modalMessage = 'There was an error updating your artwork. Please try again.';
+      this.modalMessage =
+        'There was an error updating your artwork. Please try again.';
       this.showModal = true;
     }
   }
