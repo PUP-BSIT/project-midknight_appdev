@@ -127,6 +127,7 @@ h1 {
 .form-group {
     display: flex;
     flex-direction: column;
+    position: relative; 
 }
 
 label {
@@ -201,9 +202,9 @@ button.save:hover {
     border-radius: 5px;
     font-size: 0.7em;
     position: absolute;
-    top: -10px; 
+    width: 70%;
+    top: -5px;
     right: -15px;
-    width: 80%;
     box-sizing: border-box;
     opacity: 0;
     visibility: hidden;
@@ -220,13 +221,6 @@ button.save:hover {
     border-width: 10px;
     border-style: solid;
     border-color: #f8d7da transparent transparent transparent;
-}
-  
-.form-group .error-message {
-    position: absolute;
-    top: -10px; 
-    right: -15px;
-    width: 80%;
 }
 
 input[type="text"].ng-touched.ng-invalid,
@@ -331,9 +325,8 @@ input[type="date"].ng-touched.ng-invalid {
 
     .error-message {
         padding: 5px;
-        border-radius: 5px;
         font-size: 0.3em;
-        top: 0px; 
+        right: -5px;
         width: 70%;
     }
       

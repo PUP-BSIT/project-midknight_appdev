@@ -125,7 +125,6 @@ const deleteAnArtwork = (req, res) => {
 const submitArtwork = (req, res) => {
   const { title, date, details, userId } = req.body;
   const imageUrl = req.file ? path.basename(req.file.path) : null;
-  console.log(imageUrl);
   if (!title || !date || !details || !imageUrl) {
       return res.status(400).json({ message: 'All fields are required' });
   }
