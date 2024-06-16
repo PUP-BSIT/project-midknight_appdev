@@ -25,6 +25,7 @@ import { ArtworkDetailsComponent } from './artwork-details/artwork-details.compo
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { ArtworkService } from '../services/artwork.service';
 import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
+import { CtaHeaderComponent } from './cta-header/cta-header.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confi
     AddArtworkComponent,
     ArtworkDetailsComponent,
     CtaBannerComponent,
-    ConfirmCancelModalComponent
+    ConfirmCancelModalComponent,
+    CtaHeaderComponent
   ],
   imports: [
     BrowserModule,

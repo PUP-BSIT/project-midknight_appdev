@@ -1,41 +1,39 @@
-.banner-container {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.tab-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: #3D3D3D;
+    justify-content: center;
+    background-color: #9b8a81;
     padding: 5px;
     width: 100%;
+    margin: 0;
     position: fixed;
-    bottom: -5px; 
-    box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1111; 
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    top: 0;           
+    left: 0;       
+    z-index: 1000;   
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.banner-container.hidden {
-    opacity: 0;
-    transform: translateY(100%);
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    width: 25%;
 }
 
-.message {
-    margin-left: 20%;
+.logo img {
+    width: 30%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.message h1 {
-    color: #fff;
-    font-size: x-large;
-    margin-bottom: 0;
+.logo img:hover {
+    transform: translateY(-5px);
 }
 
-.message p {
-    color: #fff;
-    margin-top: 8px;
-    font-size: large;
-}
 
 .action-buttons {
     display: flex;
-    margin-right: 20%;
+    margin-left: 20%;
     gap: 16px;
 }
 
@@ -71,39 +69,20 @@
     transform: translateY(-5px);
 }
 
-.close-button {
-    position: absolute;
-    top: 10%;
-    right: 5%;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.close-button:hover {
-    color: black;
-}
-
 @media screen and (min-width: 320px) and (max-width: 767px) {
-    .message {
-        margin-left: 3%;
+    .tab-container {
+        padding: 0;
+    }
+
+    .logo {
+        width: 20%;
     }
     
-    .message h1 {
-        font-size: small;
-        margin-bottom: 0;
+    .logo img {
+        width: 100%;
     }
-    
-    .message p {
-        font-size: x-small;
-        margin-top: 8px;
-    }
-    
+
     .action-buttons {
-        margin-right: 3%;
         gap: 5px;
     }
     
@@ -113,31 +92,16 @@
         padding: 4px 16px;
         width: 100%;
     }
-    
-    .close-button {
-        top: 5%;
-        right: 2.5%;
-        font-size: 0.8rem;
-    }
 }
 
+
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-    .message {
-        margin-left: 15%;
+    .logo {
+        width: 30%;
     }
-    
-    .message h1 {
-        font-size: large;
-        margin-bottom: 0;
-    }
-    
-    .message p {
-        font-size: small;
-        margin-top: 8px;
-    }
-    
+
     .action-buttons {
-        margin-right: 15%;
+        margin-left: 15%;
         gap: 15px;
     }
     
