@@ -3,54 +3,85 @@
     <div class="modal">
         <div class="modal-content">
             <h1>Add New Artwork</h1>
-            <div class="content">
-                <div class="left-column">
-                    <div class="image-upload">
-                        <div class="artwork-pic-group">
-                            <label 
-                                for="artwork-pic" 
-                                class="artwork-pic-label">
-                                <img 
-                                    id="artwork-placeholder" 
-                                    [src]="imageUrl ||
-                                    '../../assets/icons/placeholder_image.png'"  
-                                    alt="Artwork Placeholder">
-                            </label>
+            <form [formGroup]="artworkForm" (ngSubmit)="save()">
+                <div class="content">
+                    <div class="left-column">
+                        <div class="form-group">
+                            <div class="image-upload">
+                                <div class="artwork-pic-group">
+                                    <label 
+                                        for="artwork-pic" 
+                                        class="artwork-pic-label">
+                                        <img id="artwork-placeholder"
+                                            [src]="imageUrl || 
+                                            '../../assets/icons/placeholder_image.png'" 
+                                            alt="Artwork Placeholder">
+                                    </label>
+                                    <input 
+                                        type="file" 
+                                        id="artwork-pic" 
+                                        class="artwork-pic-input" 
+                                        accept="image/*" 
+                                        (change)="onFileSelected($event)">
+                                    @if(artworkForm.get('imageUrl').invalid && 
+                                        artworkForm.get('imageUrl').touched) {
+                                        <div class="error-message">
+                                            {{ getErrorMessage('imageUrl') }}
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="right-column">
+                        <div class="form-group">
+                            <label for="title">Artwork Title:</label>
                             <input 
-                                type="file" 
-                                id="artwork-pic" 
-                                class="artwork-pic-input" 
-                                accept="image/*"
-                                (change)="onFileSelected($event)">
-
+                                type="text" 
+                                id="title" 
+                                formControlName="title">
+                            @if(artworkForm.get('title').invalid && 
+                                artworkForm.get('title').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('title') }}
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date Created:</label>
+                            <input type="date" id="date" formControlName="date">
+                            @if(artworkForm.get('date').invalid && 
+                                artworkForm.get('date').touched) {
+                                <div class="error-message">
+                                    {{ getErrorMessage('date') }}
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Artwork Details:</label>
+                            <textarea 
+                                id="details" 
+                                rows="4" 
+                                formControlName="details" 
+                                placeholder="Add description for your piece...">
+                            </textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel" 
+                                (click)="cancel()">Cancel</button>
+                            <button type="submit" class="save">
+                                Add Artwork</button>
                         </div>
                     </div>
                 </div>
-                <hr class="divider">
-                <div class="right-column">
-                    <div class="form-group">
-                        <label for="title">Artwork Title:</label>
-                        <input type="text" id="title" [(ngModel)]="title" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Date Created:</label>
-                        <input type="date" id="date" [(ngModel)]="date" name="date">
-                    </div>
-                    <div class="form-group">
-                        <label for="details">Artwork Details:</label>
-                        <textarea 
-                            id="details" 
-                            [(ngModel)]="details" 
-                            name="details" 
-                            rows="4" 
-                            placeholder="Add description for your piece..."></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button class="cancel" (click)="cancel()">Cancel</button>
-                        <button class="save" (click)="save()">Save</button>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+@if (showModal) {
+    <app-modal-message [message]="modalMessage" 
+      (closeModal)="closeModal()">
+    </app-modal-message>
+}

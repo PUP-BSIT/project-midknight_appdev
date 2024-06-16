@@ -229,7 +229,8 @@ button.save:hover {
     width: 80%;
 }
 
-input[type="text"].ng-touched.ng-invalid {
+input[type="text"].ng-touched.ng-invalid,
+input[type="date"].ng-touched.ng-invalid {
     border: 1px solid #721c24;
 }
   

@@ -35,6 +35,6 @@ router.post('/setProfile/', upload.single('profile'), setupProfile);
 router.get('/artworks/id', getGallery);
 router.get('/artwork/title/:title/id/:id', getArtworkDetailsByTitleAndId);
 router.post('/artwork/delete/:artwork_id', deleteAnArtwork);
-router.post('/artwork/submit', upload.single('image'), submitArtwork);
+router.post('/artwork/submit', upload.single('imageUrl'), submitArtwork);
 
 module.exports = router;
