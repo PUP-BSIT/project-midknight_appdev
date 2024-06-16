@@ -1,47 +1,79 @@
 <app-header></app-header>
-<div class="add-artwork">
-    <div class="modal">
-        <div class="modal-content">
-            <h1>Edit Artwork</h1>
-            <form [formGroup]="editArtworkForm" (ngSubmit)="onSubmit()">
-                <div class="content">
-                    <div class="left-column">
-                        <div class="image-upload">
-                            <div class="image-placeholder">
-                                <img 
-                                    id="artwork-placeholder" 
-                                    [src]="artworkImageUrl || '../../assets/icons/placeholder_image.png'" 
-                                    alt="Artwork Placeholder">
-                                <input class="select-button"
-                                    type="file" 
-                                    id="profile-pic" 
-                                    class="profile-pic-input" 
-                                    accept="image/*"
-                                    (change)="onFileSelected($event)">
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="divider">
-                    <div class="right-column">
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" id="title" formControlName="title" placeholder="Previous Title" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="date">Date</label>
-                            <input type="date" id="date" formControlName="date" placeholder="Previous Date" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description" formControlName="description" placeholder="Previous Description" required></textarea>
-                          </div>
-                        <div class="form-actions">
-                            <button type="button" class="cancel" (click)="close()">Cancel</button>
-                            <button type="submit" class="save">Save</button>
-                        </div>
-                    </div>
+
+<div class="edit-artwork">
+  <div class="modal">
+    <div class="modal-content">
+      <h1>Edit Artwork</h1>
+      <form [formGroup]="artworkForm" (ngSubmit)="save()">
+        <div class="content">
+          <div class="left-column">
+            <div class="form-group">
+              <div class="image-upload">
+                <div class="artwork-pic-group">
+                  <label class="artwork-pic-label">
+                    <img
+                      id="artwork-placeholder"
+                      [src]="imageUrl || '../../assets/icons/placeholder_image.png'"
+                      alt="Artwork Placeholder"
+                    />
+                  </label>
                 </div>
-            </form>
+              </div>
+            </div>
+          </div>
+          <hr class="divider" />
+          <div class="right-column">
+            <div class="form-group">
+              <label for="title">Artwork Title:</label>
+              <input
+                type="text"
+                id="title"
+                formControlName="title"
+                [attr.placeholder]="titlePlaceholder"
+              />
+              @if(artworkForm.get('title').invalid &&
+              artworkForm.get('title').touched) {
+              <div class="error-message">{{ getErrorMessage("title") }}</div>
+              }
+            </div>
+            <div class="form-group">
+              <label for="date">Date Created:</label>
+              <input
+                type="date"
+                id="date"
+                formControlName="date"
+                [attr.placeholder]="dateCreatedPlaceholder"
+              />
+              @if(artworkForm.get('date').invalid &&
+              artworkForm.get('date').touched) {
+              <div class="error-message">{{ getErrorMessage("date") }}</div>
+              }
+            </div>
+            <div class="form-group">
+              <label for="details">Artwork Details:</label>
+              <textarea
+                id="details"
+                rows="4"
+                formControlName="details"
+                [attr.placeholder]="descriptionPlaceholder"
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="cancel" (click)="cancel()">
+                Cancel
+              </button>
+              <button type="submit" class="save">Save Artwork</button>
+            </div>
+          </div>
         </div>
+      </form>
+
+      @if (showModal) {
+      <app-modal-message
+        [message]="modalMessage"
+        (closeModal)="closeModal()"
+      ></app-modal-message>
+      }
     </div>
+  </div>
 </div>
