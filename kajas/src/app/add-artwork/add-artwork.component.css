@@ -190,6 +190,7 @@ button.save:hover {
     padding: 10px 20px;
     width: 50%;
     color: #FFFEFC;
+    text-wrap: nowrap;
     border-radius: 8px;
     cursor: pointer;
 }
@@ -316,11 +317,12 @@ input[type="date"].ng-touched.ng-invalid {
 
     .form-actions {
         flex-direction: row;
-        gap: 8px;
+        gap: 0;
     }
 
     .form-actions button {
         font-size: small;
+        margin: 10px;
     }
 
     .error-message {
