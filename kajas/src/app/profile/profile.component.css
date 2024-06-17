@@ -114,6 +114,13 @@
   transform: translateY(-5px);
 }
 
+.add-artwork:hover{
+  font-weight: 600;
+  color: #f1eee7;
+  background-color: #8e7c70;
+  transform: translateY(-5px);
+}
+
 .kajas-link {
   text-decoration: underline;
   text-decoration-thickness: 0.1em;

@@ -25,6 +25,7 @@ import { ArtworkDetailsComponent } from './artwork-details/artwork-details.compo
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { ArtworkService } from '../services/artwork.service';
 import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
+import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 import { CtaHeaderComponent } from './cta-header/cta-header.component';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { CtaHeaderComponent } from './cta-header/cta-header.component';
     ArtworkDetailsComponent,
     CtaBannerComponent,
     ConfirmCancelModalComponent,
+    EditArtworkComponent,
     CtaHeaderComponent
   ],
   imports: [
@@ -52,7 +54,7 @@ import { CtaHeaderComponent } from './cta-header/cta-header.component';
     ReactiveFormsModule,
     FormsModule, 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [ 
     ModalService,
