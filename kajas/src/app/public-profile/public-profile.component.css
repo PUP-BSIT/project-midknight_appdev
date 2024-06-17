@@ -1,0 +1,487 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: #f1eee7;
+  background-color: #8e7c70;
+  margin-top: 10%;
+  padding: 60px;
+  width: 60%;
+  height: 250px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container:hover {
+  transform: scale(1.05);
+}
+
+.profile-picture img {
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 250px;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-picture img:hover {
+  transform: scale(1.05); 
+}
+
+.profile-info {
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.profile-info h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.profile-info h2 {
+  color: #f1eee7;
+  margin: 5px 0;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.profile-info p {
+  font-size: 0.9em;
+  color: #f1eee7;
+}
+
+.social-links {
+  margin: 20px, 0, 20px, 0;
+  display: flex;
+  gap: 20px;
+  margin: 10px 0;
+  color: #f1eee7;
+}
+
+.social-links a {
+  color: #f1eee7;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
+  color: #f1eee7;
+  font-weight: 600;
+}
+
+.social-links a img {
+  width: 20px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-links a img:hover {
+  transform: scale(1.2);
+}
+
+.social-links .hidden {
+  display: none;
+}
+
+.edit-profile, .add-artwork {
+  display: inline-block; 
+  background-color: #3E3E3E;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.edit-profile:hover, .add-artwork:hover {
+  background-color: #555;
+  transform: translateY(-5px);
+}
+
+.add-artwork:hover{
+  font-weight: 600;
+  color: #f1eee7;
+  background-color: #8e7c70;
+  transform: translateY(-5px);
+}
+
+.kajas-link {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.25em;
+}
+
+.gallery-container {
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery {
+  display: flex;
+  text-align: left;
+  color: #4d493e;
+  width: 60%;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gallery-container h2 {
+  margin: 0;
+  font-size: xx-large;
+}
+
+.gallery-header {
+  display: flex;
+  align-items: center;
+}
+
+.gallery-title {
+  padding: 5px;
+}
+
+.gallery-button {
+  padding-top: 10px;
+  padding-left: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-size: larger;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.gallery-button:hover {
+  transform: scale(1.2);
+  font-weight: 600;
+}
+
+.gallery-button img {
+  width: 20px;
+}
+
+.gallery-button a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #8e7c70;
+  text-decoration: none;
+}
+
+.gallery-grid {
+  display: flex;
+  justify-content: center;
+  overflow-y: hidden;
+  margin-top: 20px;
+}
+
+.gallery-images {
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 1080px;
+}
+
+
+.gallery-item {
+  position: relative;
+  display: flex;
+  padding: 0;
+  z-index: 1;
+  margin: 0;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+  width: 100%;
+  object-fit: cover;
+  height: 350px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.trashbin-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.trashbin-overlay img {
+  width: 30px;
+  height: 30px;
+  object-fit:fill;
+}
+
+.trashbin-overlay:hover {
+  transform: scale(1.2);
+}
+
+.add-artwork {
+  padding: 20px 35px;
+  width: 20%;
+  font-size: larger;
+}
+
+.add-artwork-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin-top: 20%;
+    margin-bottom: 5%;
+    padding: 30px;
+    width: 60%;
+    height: auto;
+    text-align: center;
+  }
+
+  .profile-picture img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+  }
+
+  .profile-info h1 {
+    font-size: large;
+  }
+
+  .profile-info h2 {
+    font-size: x-small;
+  }
+
+  .profile-info p {
+    font-size: x-small;
+  }
+
+  .social-links {
+    gap: 10px;
+    margin: 5px 0;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .social-links a img {
+    width: 10px;
+    text-align: center;
+  }
+
+  .kajas-link {
+    padding-top: 2.5px;
+    font-size: x-small;
+  }
+
+  .edit-profile, .add-artwork {
+    width: 70%;
+    text-align: center;
+    font-size: xx-small;
+  }
+
+  .add-artwork {
+    width: 35%;
+    padding: 10px 25px;
+  }
+
+  .gallery-container {
+    width: 90%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .gallery-container h2 {
+    font-size: large;
+  }
+
+  .gallery-button {
+    padding-left: 3px;
+    padding-top: 8px;
+    font-size: small;
+  }
+
+  .gallery-button img {
+    width: 12px;
+  }
+
+  .gallery-button a {
+    font-size: small;
+  }
+
+  .gallery-images {
+    padding-top: 4px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-item.horizontal {
+    max-width: 100%;
+  }
+
+  .gallery-item.vertical {
+    max-width: 100%;
+  }
+
+  .gallery-item {
+    width: 45%;
+  }
+
+  .gallery-item img {
+    height: 150px;
+  }
+
+  .gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .trashbin-overlay {
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    height: 15px;
+  }
+
+  .trashbin-overlay img {
+    width: 15px;
+    height: 15px;
+  }
+
+  .close {
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+      margin-top: 10%;
+      margin-bottom: 5%;
+  }
+
+  .gallery-container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery {
+    display: flex;
+    text-align: left;
+    color: #4d493e;
+    width: 60%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .gallery-container h2 {
+    margin: 0;
+    font-size: x-large;
+  }
+  
+  .gallery-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .gallery-title {
+    padding: 5px;
+  }
+  
+  .gallery-button {
+    padding-top: 13px;
+    padding-left: 10px;
+  }
+  
+  .gallery-button img {
+    width: 15px;
+  }
+  
+  .gallery-button a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .gallery-grid {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .gallery-images {
+    padding-left: 40px;
+    padding-right: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 1080px;
+  }
+  
+  .gallery-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: auto;
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    object-fit: cover;
+    height: 350px;
+    border-radius: 8px;
+    height: 250px;
+  }
+
+  .add-artwork {
+    font-size: small;
+  }
+  
+  .trashbin-overlay {
+    top: 10px; 
+    right: 10px;
+    padding: 5px;
+    height: 20px;
+  }
+  
+  .trashbin-overlay img {
+    width: 20px;
+    height: 20px;
+  }
+}

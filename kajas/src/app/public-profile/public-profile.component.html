@@ -1,0 +1,65 @@
+<app-cta-banner></app-cta-banner>
+<app-cta-header></app-cta-header>
+
+<div class="profile-container">
+  <div class="container">
+    <div class="profile-picture">
+        <img [src]="profile || '../../assets/default-profile.png'" 
+        alt="Profile Picture" class="profile-picture" />
+    </div>
+    <div class="profile-info">
+      <h1>{{ firstName }} {{ lastName }}</h1>
+      <h2>{{ city }}, {{ country }}</h2>
+      <p>{{ bio }}</p>
+      <div class="social-links">
+        <a [attr.href]="linkedin" [class.hidden]="!linkedin" target="_blank">
+          <img src="../../assets/icons/linkedin.png" alt="LinkedIn" />
+        </a>
+        <a [attr.href]="facebook" [class.hidden]="!facebook" target="_blank">
+          <img src="../../assets/icons/facebook.png" alt="Facebook" />
+        </a>
+        <a [attr.href]="instagram" [class.hidden]="!instagram" target="_blank">
+          <img src="../../assets/icons/instagram.png" alt="Instagram" />
+        </a>
+        <a [attr.href]="website" [class.hidden]="!website" target="_blank">
+          <img src="../../assets/icons/website.png" alt="Website" />
+        </a>
+        <a class="kajas-link" [href]="kajasLink" target="_blank"> 
+          Share Profile</a>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<div class="gallery-container">
+  <div class="gallery">
+    <div class="gallery-title">
+      <h2>Gallery</h2>
+    </div>              
+  </div>
+</div>
+<div class="gallery-grid">
+  @if(artworks.length) {
+    <div class="gallery-images">
+      @for(artwork of artworks; track artwork.id) {
+        <div class="gallery-item">
+          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
+            (click)="viewArtworkDetails(artwork)" />
+                        
+        </div>
+      }
+    </div>
+  }
+  @if(!artworks.length) {
+    <p>{{ message }}</p>
+  }
+</div>
+
+
+@if(showMessageModal) {
+  <app-modal-message 
+    [message]="modalMessage" 
+    (closeModal)="closeMessageModal()">
+  </app-modal-message>
+}
+
