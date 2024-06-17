@@ -13,7 +13,8 @@
                   <label class="artwork-pic-label">
                     <img
                       id="artwork-placeholder"
-                      [src]="imageUrl || '../../assets/icons/placeholder_image.png'"
+                      [src]="getAbsoluteUrl(imageUrl) || 
+                        '../../assets/icons/placeholder_image.png'"
                       alt="Artwork Placeholder"
                     />
                   </label>

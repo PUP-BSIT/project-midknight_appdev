@@ -39,7 +39,9 @@ export class ArtworkDetailsComponent implements OnInit {
 
   editArtwork(): void {
     if (this.artwork && this.artwork.artwork_id) {
-      this.router.navigate(['/edit-artwork', this.artwork.artwork_id]);
+      const artworkTitle = this.artwork.title.split(' ').join('-');
+      this.artworkService.setArtworkId(this.artwork.artwork_id);
+      this.router.navigate(['/edit-artwork', artworkTitle]);
     } else {
       console.error('Artwork ID is missing or invalid');
     }

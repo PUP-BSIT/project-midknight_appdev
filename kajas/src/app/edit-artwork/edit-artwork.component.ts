@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
+import { ArtworkService } from '../../services/artwork.service';
 
 @Component({
   selector: 'app-edit-artwork',
@@ -24,7 +25,8 @@ export class EditArtworkComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private sessionStorage: SessionStorageService
+    private sessionStorage: SessionStorageService,
+    private artworkService: ArtworkService
   ) {
     this.artworkForm = this.fb.group({
       title: ['', Validators.required],
@@ -38,11 +40,11 @@ export class EditArtworkComponent implements OnInit {
   }
 
   loadArtworkData(): void {
-    const artworkId = this.route.snapshot.paramMap.get('id');
-    const userId = this.sessionStorage.get('id');
+    const artworkTitle = this.route.snapshot.paramMap.get('title');
+    const artworkId = this.artworkService.getArtworkId();
 
-    if (artworkId && userId) {
-      const url = `http://localhost:4000/api/artwork/${artworkId}/${userId}`;
+    if (artworkTitle && artworkId) {
+      const url = `http://localhost:4000/api/artwork/title/${artworkTitle}/id/${artworkId}`;
       this.http.get(url).subscribe(
         (response: any) => {
           this.artwork = response;
@@ -77,8 +79,12 @@ export class EditArtworkComponent implements OnInit {
     this.descriptionPlaceholder = this.artworkForm.get('details')?.value || '';
   }
 
+  getAbsoluteUrl(relativePath: string): string {
+    return `http://localhost:4000/uploads/${relativePath}`;
+  }
+
   async save(): Promise<void> {
-    const artworkId = this.route.snapshot.paramMap.get('id');
+    const artworkId = this.artworkService.getArtworkId();
     const url = `http://localhost:4000/api/artwork/${artworkId}`;
 
     if (this.artworkForm.invalid) {
