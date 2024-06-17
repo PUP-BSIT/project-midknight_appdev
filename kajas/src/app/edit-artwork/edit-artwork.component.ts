@@ -86,34 +86,38 @@ export class EditArtworkComponent implements OnInit {
   async save(): Promise<void> {
     const artworkId = this.artworkService.getArtworkId();
     const url = `http://localhost:4000/api/artwork/${artworkId}`;
-
+  
     if (this.artworkForm.invalid) {
       this.artworkForm.markAllAsTouched();
       this.modalMessage = 'Please fill out the form accurately and completely.';
       this.showModal = true;
       return;
     }
-
+  
     const updatedFields: { [key: string]: any } = {};
     Object.keys(this.artworkForm.controls).forEach((key) => {
       const control = this.artworkForm.get(key);
-      if (control && control.value !== this.artwork[key]) {
-        if (key === 'date') {
-          updatedFields['date_created'] = control.value;
-        } else if (key === 'details') {
-          updatedFields['description'] = control.value;
-        } else {
-          updatedFields[key] = control.value;
+      if (control) {
+        if (key === 'details' && !control.value) {
+          updatedFields['description'] = 'Description from the artist not provided.';
+        } else if (control.value !== this.artwork[key]) {
+          if (key === 'date') {
+            updatedFields['date_created'] = control.value;
+          } else if (key === 'details') {
+            updatedFields['description'] = control.value;
+          } else {
+            updatedFields[key] = control.value;
+          }
         }
       }
     });
-
+  
     if (Object.keys(updatedFields).length === 0) {
       this.modalMessage = 'No changes detected.';
       this.showModal = true;
       return;
     }
-
+  
     try {
       const response = await this.http.put(url, updatedFields).toPromise();
       if (response) {
@@ -130,6 +134,7 @@ export class EditArtworkComponent implements OnInit {
       this.showModal = true;
     }
   }
+  
 
   getErrorMessage(controlName: string): string {
     const control = this.artworkForm.get(controlName);
