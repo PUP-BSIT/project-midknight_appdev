@@ -43,7 +43,7 @@ const getLocation = async (req, res) => {
 
 const setupProfile = async (req, res) => {
   try {
-    const profile = req.file ? path.basename(req.file.path) : null;
+    const profile = req.file ? path.basename(req.file.path) : req.body.profile;
     const {
       id,
       bio,
