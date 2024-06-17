@@ -459,8 +459,12 @@ input[type="text"].ng-touched.ng-invalid {
 }   
 
 @media screen and (min-width: 767px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+
     .close {
-        top: 32%;
+        top: 17%;
         right: 20%;
         font-size: 50px;
     }

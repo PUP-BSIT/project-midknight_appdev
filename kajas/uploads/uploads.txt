@@ -1,1 +1,0 @@
-this folder contains the image/s the user will be uploading.

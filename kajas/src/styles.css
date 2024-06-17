@@ -8,3 +8,7 @@ html, body {
     scrollbar-color: #3E3E3E #d6c4b3; 
     scrollbar-width: thin; 
 }
+
+body {
+    overflow-y: hidden;
+}

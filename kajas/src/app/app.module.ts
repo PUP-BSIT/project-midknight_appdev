@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'; 
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -25,7 +24,9 @@ import { SearchService } from '../services/search.service';
 import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
 import { CtaBannerComponent } from './cta-banner/cta-banner.component';
 import { ArtworkService } from '../services/artwork.service';
-
+import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
+import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
+import { CtaHeaderComponent } from './cta-header/cta-header.component';
 
 @NgModule({
   declarations: [
@@ -43,13 +44,17 @@ import { ArtworkService } from '../services/artwork.service';
     EditProfileComponent,
     AddArtworkComponent,
     ArtworkDetailsComponent,
-    CtaBannerComponent
+    CtaBannerComponent,
+    ConfirmCancelModalComponent,
+    EditArtworkComponent,
+    CtaHeaderComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule, 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [ 
     ModalService,

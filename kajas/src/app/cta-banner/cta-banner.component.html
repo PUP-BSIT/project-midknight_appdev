@@ -1,11 +1,13 @@
-<div class="banner-container">
+<div class="banner-container" [ngClass]="{'hidden': !isBannerVisible}">
     <div class="message">
         <h1>Unleash Your Creativity!</h1>
         <p>Showcase Your Artwork on Kajas</p>
     </div>
 
     <div class="action-buttons">
-        <button class="log-in-button">Log In</button>
-        <button class="sign-up-button">Sign Up</button>
-    </div> 
+        <button routerLink="/login" class="log-in-button">Log In</button>
+        <button routerLink="/signup" class="sign-up-button">Sign Up</button>
+    </div>
+
+    <button class="close-button" (click)="closeBanner()">×</button>
 </div>

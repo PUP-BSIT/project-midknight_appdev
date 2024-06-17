@@ -167,31 +167,35 @@ export class EditProfileComponent implements OnInit {
   async onSubmit(): Promise<void> {
     const url = "http://localhost:4000/api/setProfile";
     const formData = new FormData();
-
+  
     if (this.profileForm.invalid) {
       this.profileForm.markAllAsTouched();
       this.modalMessage = 'Please fill out the form accurately and completely.';
       this.showModal = true;
       return;
     }
-
+  
     Object.keys(this.profileForm.controls).forEach(key => {
       const control = this.profileForm.get(key);
       if (control && control.value !== null && control.value !== undefined) {
         if (key === 'profile' && control.value instanceof File) {
           formData.append(key, control.value);
-        } else {
+        } else if (key !== 'profile') {
           formData.append(key, control.value);
         }
       }
     });
-        
+  
+    if (!(this.profileForm.controls['profile'].value instanceof File)) {
+      formData.append('profile', this.profileForm.controls['profile'].value);
+    }
+  
     try {
       const response = await axios.post(url, formData);
       if (response.status === 200) {
         this.modalMessage = 'Profile Updated Successfully!';
         this.showModal = true;
-                        
+  
         this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
         this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
         this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
