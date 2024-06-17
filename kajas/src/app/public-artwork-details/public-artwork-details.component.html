@@ -1,0 +1,36 @@
+<app-cta-banner></app-cta-banner>
+<app-cta-header></app-cta-header>
+
+<div class="artwork-details">
+  @if(artwork) {
+    <div class="modal">
+      <div class="modal-content">
+        <div class="content">
+          <div class="left-column">
+            <div class="image-upload">
+              <div class="image-placeholder">
+                <img 
+                  [src]="artwork.image_url ? getAbsoluteUrl(artwork.image_url) : 
+                      '../../assets/icons/placeholder_image.png'" 
+                  alt="Artwork Image">
+              </div>
+            </div>
+          </div>
+          <hr class="divider">
+          <div class="right-column">
+            <div class="details-group">
+              <h1 class="artwork-title">{{ artwork.title }}</h1>
+              <p class="username">by {{ artwork.first_name }} 
+                  {{ artwork.last_name }}</p>
+              <label for="date">Date Created: <span>{{ artwork.date_created |
+                  date: 'MMMM dd, yyyy' }}</span></label>
+              <p class="description">{{ artwork.description }}</p>
+              
+            </div>         
+          </div>
+        </div>
+        <button class="close-button" (click)="closeDetails()">&times;</button>
+      </div>
+    </div>
+  }
+</div>
