@@ -24,10 +24,22 @@ export class AddArtworkComponent {
     private sessionStorage: SessionStorageService
   ) {
     this.artworkForm = this.fb.group({
-      title: ['', Validators.required],
-      date: ['', Validators.required],
+      title: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      date: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
       details: [''],  
-      imageUrl: [null, Validators.required]
+      imageUrl: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
     });
   }
 

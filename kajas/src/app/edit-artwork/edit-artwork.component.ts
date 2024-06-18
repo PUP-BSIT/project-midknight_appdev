@@ -29,8 +29,16 @@ export class EditArtworkComponent implements OnInit {
     private artworkService: ArtworkService
   ) {
     this.artworkForm = this.fb.group({
-      title: ['', Validators.required],
-      date: ['', Validators.required],
+      title: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
+      date: ['', {
+        validators: [
+          Validators.required
+        ]
+      }],
       details: [''],
     });
   }
