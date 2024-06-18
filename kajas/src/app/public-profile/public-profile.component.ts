@@ -50,17 +50,17 @@ export class PublicProfileComponent implements OnInit {
     const response = await axios.get(`http://localhost:4000/api/profile/${username}`);
     if (response.status === 200) {
       console.log(response);
-      this.firstName = response.data.first_name;
-      this.lastName = response.data.lastName;
-      this.country = response.data.country;
-      this.city = response.data.city;
-      this.bio = response.data.bio;
-      this.profile = this.getAbsoluteUrl(response.data.profile);
-      this.linkedin = response.data.linkedin;
-      this.facebook = response.data.facebook;
-      this.instagram = response.data.instagram;
-      this.website = response.data.website;
-      this.kajasLink = response.data.kajasLink;
+      this.firstName = response.data.first_name      
+      this.lastName = response.data.last_name
+      this.country = response.data.country
+      this.city = response.data.city
+      this.bio = response.data.bio
+      this.profile = this.getAbsoluteUrl(response.data.profile)
+      this.linkedin = response.data.linkedin
+      this.facebook = response.data.facebook
+      this.instagram = response.data.instagram
+      this.website = response.data.website
+      this.kajasLink = response.data.kajasLink
       this.artworks = response.data.artworks.map(item => ({
         status: item.status,
         artwork_id: item.artwork_id,

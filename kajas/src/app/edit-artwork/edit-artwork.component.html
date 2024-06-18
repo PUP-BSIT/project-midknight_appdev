@@ -15,8 +15,7 @@
                       id="artwork-placeholder"
                       [src]="getAbsoluteUrl(imageUrl) || 
                         '../../assets/icons/placeholder_image.png'"
-                      alt="Artwork Placeholder"
-                    />
+                      alt="Artwork Placeholder"/>
                   </label>
                 </div>
               </div>
@@ -30,12 +29,11 @@
                 type="text"
                 id="title"
                 formControlName="title"
-                [attr.placeholder]="titlePlaceholder"
-              />
+                [attr.placeholder]="titlePlaceholder"/>
               @if(artworkForm.get('title').invalid &&
-              artworkForm.get('title').touched) {
-              <div class="error-message">{{ getErrorMessage("title") }}</div>
-              }
+                artworkForm.get('title').touched) {
+                 <div class="error-message">{{ getErrorMessage("title") }}</div>
+                }
             </div>
             <div class="form-group">
               <label for="date">Date Created:</label>
@@ -43,12 +41,11 @@
                 type="date"
                 id="date"
                 formControlName="date"
-                [attr.placeholder]="dateCreatedPlaceholder"
-              />
+                [attr.placeholder]="dateCreatedPlaceholder"/>
               @if(artworkForm.get('date').invalid &&
-              artworkForm.get('date').touched) {
-              <div class="error-message">{{ getErrorMessage("date") }}</div>
-              }
+                artworkForm.get('date').touched) {
+                  <div class="error-message">{{ getErrorMessage("date") }}</div>
+                }
             </div>
             <div class="form-group">
               <label for="details">Artwork Details:</label>
@@ -56,8 +53,7 @@
                 id="details"
                 rows="4"
                 formControlName="details"
-                [attr.placeholder]="descriptionPlaceholder"
-              ></textarea>
+                [attr.placeholder]="descriptionPlaceholder"></textarea>
             </div>
             <div class="form-actions">
               <button type="button" class="cancel" (click)="cancel()">
@@ -75,6 +71,5 @@
 @if (showModal) {
   <app-modal-message
     [message]="modalMessage"
-    (closeModal)="closeModal()"
-  ></app-modal-message>
+    (closeModal)="closeModal()"></app-modal-message>
 }
