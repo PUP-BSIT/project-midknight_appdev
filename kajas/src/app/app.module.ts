@@ -29,6 +29,9 @@ import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 import { CtaHeaderComponent } from './cta-header/cta-header.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ChangeEmailComponent } from './settings/change-email/change-email.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { HelpAndSupportComponent } from './settings/help-and-support/help-and-support.component';
+import { DeactivateAccountComponent } from './settings/deactivate-account/deactivate-account.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { ChangeEmailComponent } from './settings/change-email/change-email.compo
     EditArtworkComponent,
     CtaHeaderComponent,
     SettingsComponent,
-    ChangeEmailComponent
+    ChangeEmailComponent,
+    ChangePasswordComponent,
+    HelpAndSupportComponent,
+    DeactivateAccountComponent
   ],
   imports: [
     BrowserModule,
