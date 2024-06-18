@@ -7,7 +7,7 @@ const createUserInformation = (firstName, middleName, lastName, callback) => {
 };
 
 const updateUserInformation = (id, profile, bio, kajasLink, country, city, facebook, linkedin, instagram, website, firstName, middleName, lastName, callback) => {
-  const fullKajasLink = `kajas.site/${kajasLink}`;
+  const fullKajasLink = `kajas.site/profile/username${kajasLink}`;
   const query = `
     UPDATE user_information 
     SET profile = ?, bio = ?, kajas_link = ?, country = ?, city = ?, facebook = ?, linkedin = ?, instagram = ?, website = ?, first_name = ?, middle_name = ?, last_name = ? 

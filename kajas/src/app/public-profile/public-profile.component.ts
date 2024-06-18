@@ -28,31 +28,39 @@ export class PublicProfileComponent implements OnInit {
   showMessageModal = false; 
   modalMessage = '';
   selectedArtworkForDeletion: any = null;
+  sessionStorageId: string | null = '';
 
   constructor(
-    private sessionStorage: SessionStorageService, 
+    public sessionStorage: SessionStorageService, 
     private router: Router,
     private route: ActivatedRoute, 
     private artworkService: ArtworkService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const username = this.route.snapshot.paramMap.get('username')
+    const username = this.route.snapshot.paramMap.get('username');
+    this.sessionStorageId = this.sessionStorage.get('id');
+  
+    if (this.sessionStorageId) {
+      this.showMessageModal = false;
+    } else {
+      this.showMessageModal = false;
+    }
 
-    const response = await axios.get(`http://localhost:4000/api/profile/${username}`)
+    const response = await axios.get(`http://localhost:4000/api/profile/${username}`);
     if (response.status === 200) {
       console.log(response);
-      this.firstName = response.data.first_name      
-      this.lastName = response.data.lastName
-      this.country = response.data.country
-      this.city = response.data.city
-      this.bio = response.data.bio
-      this.profile = this.getAbsoluteUrl(response.data.profile)
-      this.linkedin = response.data.linkedin
-      this.facebook = response.data.facebook
-      this.instagram = response.data.instagram
-      this.website = response.data.website
-      this.kajasLink = response.data.kajasLink
+      this.firstName = response.data.first_name;
+      this.lastName = response.data.lastName;
+      this.country = response.data.country;
+      this.city = response.data.city;
+      this.bio = response.data.bio;
+      this.profile = this.getAbsoluteUrl(response.data.profile);
+      this.linkedin = response.data.linkedin;
+      this.facebook = response.data.facebook;
+      this.instagram = response.data.instagram;
+      this.website = response.data.website;
+      this.kajasLink = response.data.kajasLink;
       this.artworks = response.data.artworks.map(item => ({
         status: item.status,
         artwork_id: item.artwork_id,
@@ -62,9 +70,9 @@ export class PublicProfileComponent implements OnInit {
         title: item.title,
         user_id: item.user_id,
       }));
-    }   
+    }
   }
-  
+
   trackByFn(index: number, artwork: any): number {
     return artwork.id; 
   }
@@ -74,10 +82,10 @@ export class PublicProfileComponent implements OnInit {
   }
 
   viewArtworkDetails(artwork) {
-    const username = this.route.snapshot.paramMap.get('username')
+    const username = this.route.snapshot.paramMap.get('username');
     const artworkTitle = artwork.title.split(' ').join('-');
     this.artworkService.setArtworkId(artwork.artwork_id);
-    this.router.navigate([`${username}/artwork-details`, artworkTitle],);
+    this.router.navigate([`${username}/artwork-details`, artworkTitle]);
   }
 
   closeModal() {

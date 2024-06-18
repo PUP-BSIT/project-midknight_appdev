@@ -1,5 +1,10 @@
-<app-cta-banner></app-cta-banner>
-<app-cta-header></app-cta-header>
+@if(sessionStorage.get('id')) {
+  <app-header></app-header>
+}
+@if(!sessionStorage.get('id')) {
+  <app-cta-banner></app-cta-banner>
+  <app-cta-header></app-cta-header>
+}
 
 <div class="profile-container">
   <div class="container">
@@ -45,7 +50,7 @@
         <div class="gallery-item">
           <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
             (click)="viewArtworkDetails(artwork)" />
-                        
+
         </div>
       }
     </div>
@@ -62,4 +67,3 @@
     (closeModal)="closeMessageModal()">
   </app-modal-message>
 }
-

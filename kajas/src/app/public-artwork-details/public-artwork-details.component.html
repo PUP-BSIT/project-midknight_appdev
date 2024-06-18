@@ -1,5 +1,10 @@
-<app-cta-banner></app-cta-banner>
-<app-cta-header></app-cta-header>
+@if(sessionStorage.get('id')) {
+  <app-header></app-header>
+}
+@if(!sessionStorage.get('id')) {
+  <app-cta-banner></app-cta-banner>
+  <app-cta-header></app-cta-header>
+}
 
 <div class="artwork-details">
   @if(artwork) {
