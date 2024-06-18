@@ -76,8 +76,13 @@ export class HeaderComponent implements OnDestroy {
   }
 
   navigateToProfile(username: string): void {
-    this.router.navigate([`/profile/${username}`]);
-  }
+    const storedUsername = this.session.get('username');
+    if (username === storedUsername) {
+      window.location.href = `/profile`;
+    } else {
+      window.location.href = `/profile/${username}`;
+    }
+  }  
 
   getAbsoluteUrl(relativePath: string): string {
     return relativePath ? `http://localhost:4000/uploads/${relativePath}` : '../../assets/default-profile.png';

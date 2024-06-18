@@ -49,7 +49,6 @@ export class PublicProfileComponent implements OnInit {
 
     const response = await axios.get(`http://localhost:4000/api/profile/${username}`);
     if (response.status === 200) {
-      console.log(response);
       this.firstName = response.data.first_name      
       this.lastName = response.data.last_name
       this.country = response.data.country
