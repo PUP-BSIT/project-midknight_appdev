@@ -1,0 +1,244 @@
+:host {
+    background-color: #f1eee7;
+    font-family: "Montserrat", sans-serif;
+}
+
+.artwork-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+}
+
+.modal {
+    background-color: #d6c4b3;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    padding: 60px;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal:hover {
+    transform: scale(1.02); 
+}
+
+.modal-content {
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+}
+
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: x-small;
+}
+
+.image-placeholder {
+    width: 400px;
+    height: 400px;
+    background-color: #8E7C70;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.image-placeholder:hover {
+    transform: scale(1.05); 
+}
+
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.divider {
+    border: none;
+    border-left: 1px solid #C1B59F;
+    height: auto;
+    margin: 0 20px;
+}
+
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 20px;
+    font-size: 0.9em;
+}
+
+.details-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.artwork-title {
+    color: #4D493E;
+    font-size: xx-large;
+    margin-bottom: 5px;
+}
+
+.username {
+    color: #4D493E;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.description {
+    margin-top: 8px;
+    color: #4D493E;
+    text-align: justify;
+}
+
+.edit-button {
+    background-color: #3E3E3E;
+    font-size: large;
+    border: none;
+    padding: 10px 20px;
+    width: 50%;
+    color: #FFFEFC;
+    border-radius: 8px;
+    cursor: pointer;
+    align-self: center;
+    margin-top: auto;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.edit-button:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.close-button:hover {
+    color: black;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal {
+        margin-top: 20%;
+        margin-bottom: 10%;
+        max-width: 60%;
+        padding: 30px;
+    }
+
+    .modal-content {
+        position: initial;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .artwork-title {
+        font-size: large;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .left-column {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right-column {
+        margin: 0;
+        flex-direction: column;
+        font-size: x-small;
+    }
+
+    .details-group {
+        gap: 8px;
+    }
+
+    .image-placeholder {
+        margin-top: 16px;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 0;
+    }
+
+    .artwork-title {
+        margin-bottom: 0;
+    }
+
+    .username {
+        margin-bottom: 0;
+    }
+
+    .description {
+        margin-top: 0;
+    }
+
+    .edit-button {
+        font-size: small;
+        width: 80%;
+        margin-top: auto;
+    }
+
+    .close-button {
+        top: 5px;
+        right: 5px;
+        font-size: 30px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+
+    .artwork-title {
+        margin-top: 20px;
+    }
+} 
