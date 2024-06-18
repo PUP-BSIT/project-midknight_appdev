@@ -89,14 +89,7 @@ const getUserProfile = (username, callback) => {
       }
       userProfile.artworks = artworks;
 
-      const socialLinksQuery = 'SELECT platform, url FROM social_links WHERE user_information_id = ?';
-      db.query(socialLinksQuery, [userProfile.user_information_id], (err, socialLinks) => {
-        if (err) {
-          return callback(err, null);
-        }
-        userProfile.social_links = socialLinks;
-        callback(null, userProfile);
-      });
+      callback(null, userProfile);      
     });
   });
 };
