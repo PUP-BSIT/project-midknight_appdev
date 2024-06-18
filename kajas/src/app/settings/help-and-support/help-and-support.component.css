@@ -1,0 +1,89 @@
+.help-container {
+    margin-left: 23px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+h1 {
+    color: #4D493E;
+    font-size: xx-large;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #8E7C70;
+    font-size: 16px;
+    margin-bottom: 23px;
+}
+
+.contents {
+    display: flex;
+    gap: 8px;
+}
+
+.left-column {
+    flex: 1;
+}
+
+.right-column {
+    flex: 1;
+}
+
+form label {
+    display: flex;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.upload-pic-label {
+    height: 200px;
+    width: 300px;
+    background-color: #8E7C70;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.upload-pic-label img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+}
+
+textarea {
+    display: flex;
+    resize: none;
+    height: 150px;
+    width: 95%;
+    padding: 5px;
+    margin-top: 5px;
+    background-color: #F1EEE7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: Montserrat, sans-serif;
+}
+
+.submit-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+
+.submit-button button {
+    margin-top: 8px;
+    width: 100%;
+    padding: 8px;
+    background-color: #3E3E3E;
+    color: #FFF;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
