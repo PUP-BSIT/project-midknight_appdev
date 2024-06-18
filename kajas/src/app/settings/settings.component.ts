@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
-  selectedTab: string;
+  selectedTab: string = 'change-email';
 
   selectTab(tab: string) {
     this.selectedTab = tab;
