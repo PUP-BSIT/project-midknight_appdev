@@ -43,7 +43,7 @@ export class PublicProfileComponent implements OnInit {
     if (response.status === 200) {
       console.log(response);
       this.firstName = response.data.first_name      
-      this.lastName = response.data.lastName
+      this.lastName = response.data.last_name
       this.country = response.data.country
       this.city = response.data.city
       this.bio = response.data.bio
