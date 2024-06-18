@@ -27,6 +27,8 @@ import { ArtworkService } from '../services/artwork.service';
 import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
 import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 import { CtaHeaderComponent } from './cta-header/cta-header.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ChangeEmailComponent } from './settings/change-email/change-email.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { CtaHeaderComponent } from './cta-header/cta-header.component';
     CtaBannerComponent,
     ConfirmCancelModalComponent,
     EditArtworkComponent,
-    CtaHeaderComponent
+    CtaHeaderComponent,
+    SettingsComponent,
+    ChangeEmailComponent
   ],
   imports: [
     BrowserModule,
