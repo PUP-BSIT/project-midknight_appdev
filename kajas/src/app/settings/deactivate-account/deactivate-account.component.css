@@ -21,6 +21,7 @@ form label {
     display: flex;
     font-size: 12px;
 }
+
 form input {
     height: 16px;
     width: 50%;
@@ -36,6 +37,24 @@ input ::placeholder {
     color: grey;
     opacity: 1;
     font-family: Montserrat, sans-serif;
+}
+
+.password-container {
+    position: relative;
+    width: 50%;
+}
+
+.password-container input {
+    width: 100%;
+}
+
+img.toggle-password {
+    position: absolute;
+    right: 0;
+    top: 43%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
 }
 
 .deactivate-button {

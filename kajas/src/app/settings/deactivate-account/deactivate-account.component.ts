@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './deactivate-account.component.css'
 })
 export class DeactivateAccountComponent {
+  hidePassword = true;
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
 
 }
