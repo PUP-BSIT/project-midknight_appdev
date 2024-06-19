@@ -33,7 +33,7 @@ form input {
     border-radius: 8px;
 }
 
-input ::placeholder {
+input::placeholder {
     color: grey;
     opacity: 1;
     font-family: Montserrat, sans-serif;
@@ -61,7 +61,7 @@ img.toggle-password {
     margin-top: 23px;
     width: 30%;
     padding: 8px;
-    background-color: #790808;
+    background-color: #e43647;
     color: #FFF;
     font-size: 16px;
     border: none;
@@ -71,6 +71,6 @@ img.toggle-password {
 }
 
 .deactivate-button:hover {
-    background-color: #592323;
+    background-color: #790808;
     transform: translateY(-5px);
 }

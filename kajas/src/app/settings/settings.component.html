@@ -2,42 +2,48 @@
 <div class="settings-container">
     <div class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" (click)="close()">&times;</span>
             <div class="left-column">
                 <h1>Settings</h1>
                 <ul class="tabs">
                     <li 
                         class="tab-link" 
+                        [class.selected]="selectedTab === 'change-email'"
                         (click)="selectTab('change-email')">
                         Change Email
                     </li>
 
                     <li 
                         class="tab-link" 
+                        [class.selected]="selectedTab === 'change-password'"
                         (click)="selectTab('change-password')">
                         Change Password
                     </li>
 
                     <li 
                         class="tab-link" 
+                        [class.selected]="selectedTab === 'help-and-support'"
                         (click)="selectTab('help-and-support')">
                         Help & Support
                     </li>
 
                     <li 
                         class="tab-link" 
+                        [class.selected]="selectedTab === 'terms-conditions'"
                         (click)="selectTab('terms-conditions')">
                         Terms & Conditions
                     </li>
 
                     <li 
                         class="tab-link" 
+                        [class.selected]="selectedTab === 'privacy-policy'"
                         (click)="selectTab('privacy-policy')">
                         Privacy Policy
                     </li>
 
                     <li 
                         class="tab-link" 
+                        [class.selected]="selectedTab === 'deactivate-account'"
                         (click)="selectTab('deactivate-account')">
                         Deactivate Account
                     </li>

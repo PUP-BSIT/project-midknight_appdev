@@ -2,23 +2,24 @@
     <h1>Deactivate Account</h1>
     <p>To deactivate your account, please enter your password. 
         You can recover your account within 30 days if you change your mind.</p>
-        <form>
-            <label for="confirm-password">Confirm Password:</label>
-            <div class="password-container">
-                <input 
-                    [type]="hidePassword ? 'password' : 'text'" 
-                    id="confirm_password" 
-                    name="password" 
-                    placeholder="Enter your password"
-                    required>
-                <img
-                    src="../../assets/icons/{{ hidePassword ? 'unsee' : 'see' }}.png"
-                    alt="Toggle Password Visibility"
-                    class="toggle-password"
-                    (click)="togglePasswordVisibility()"/>
-            </div>
-        </form>
+    <form>
+        <label for="confirm-password">Confirm Password:</label>
+        <div class="password-container">
+            <input 
+                [type]="hidePassword ? 'password' : 'text'" 
+                id="confirm_password" 
+                name="password" 
+                placeholder="Enter your password"
+                required>
+            <img
+                src="../../assets/icons/{{ hidePassword ?
+                    'unsee' : 'see' }}.png"
+                alt="Toggle Password Visibility"
+                class="toggle-password"
+                (click)="togglePasswordVisibility()"/>
+        </div>
         <button class="deactivate-button">
             Deactivate Account
         </button>
+    </form>
 </div>

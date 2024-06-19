@@ -27,14 +27,15 @@
                 placeholder="Enter your password"
                 required>
             <img
-                src="../../assets/icons/{{ hidePassword ? 'unsee' : 'see' }}.png"
+                src="../../assets/icons/{{ hidePassword ?
+                    'unsee' : 'see' }}.png"
                 alt="Toggle Password Visibility"
                 class="toggle-password"
                 (click)="togglePasswordVisibility()"/>
         </div>
-    </form>
 
-    <button class="change-email-button">
-        Change Email
-    </button>
+        <button class="change-email-button">
+            Change Email
+        </button>
+    </form>
 </div>

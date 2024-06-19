@@ -12,6 +12,11 @@
     padding:  60px;
     border-radius: 10px;
     width: 60%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal:hover {
+    transform: scale(1.02); 
 }
 
 h1 {
@@ -72,7 +77,8 @@ h1 {
     margin-bottom: 8px;
 }
 
-.tabs .tab-link:hover {
+.tabs .tab-link:hover,
+.tabs .tab-link.selected {
     color: #fff;
     background-color: #8C7B75;
 }

@@ -28,8 +28,8 @@
     <div class="dropdown-button" (click)="toggleDropdown($event)">
         <img src="../../assets/icons/dropbox.png" alt="drop down">
         <div class="dropdown-content" [ngClass]="{'show': dropdownOpen}">
-            <a href="#" (click)="navigateToSettings($event)">Settings</a>
-            <a href="#" (click)="logout($event)">Log Out</a>
+            <a (click)="navigateToSettings($event)">Settings</a>
+            <a (click)="logout($event)">Log Out</a>
         </div>
     </div>
 </div>
