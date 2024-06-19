@@ -11,6 +11,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AddArtworkComponent } from './add-artwork/add-artwork.component';
 import { ArtworkDetailsComponent } from './artwork-details/artwork-details.component';
 import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
+import { SettingsComponent } from './settings/settings.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'add-artwork', component: AddArtworkComponent, canActivate: [AuthGuard] },
   { path: 'edit-artwork/:title', component: EditArtworkComponent, canActivate: [AuthGuard] },
   { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'profile/:username', component: PublicProfileComponent},
   { path: ':username/artwork-details/:title', component: PublicArtworkDetailsComponent},
   { path: '**', redirectTo: '/login' },

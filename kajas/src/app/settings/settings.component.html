@@ -1,0 +1,74 @@
+<app-header></app-header>
+<div class="settings-container">
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="left-column">
+                <h1>Settings</h1>
+                <ul class="tabs">
+                    <li 
+                        class="tab-link" 
+                        (click)="selectTab('change-email')">
+                        Change Email
+                    </li>
+
+                    <li 
+                        class="tab-link" 
+                        (click)="selectTab('change-password')">
+                        Change Password
+                    </li>
+
+                    <li 
+                        class="tab-link" 
+                        (click)="selectTab('help-and-support')">
+                        Help & Support
+                    </li>
+
+                    <li 
+                        class="tab-link" 
+                        (click)="selectTab('terms-conditions')">
+                        Terms & Conditions
+                    </li>
+
+                    <li 
+                        class="tab-link" 
+                        (click)="selectTab('privacy-policy')">
+                        Privacy Policy
+                    </li>
+
+                    <li 
+                        class="tab-link" 
+                        (click)="selectTab('deactivate-account')">
+                        Deactivate Account
+                    </li>
+                </ul>
+            </div>
+            <hr class="divider">
+            <div class="right-column">
+                @if (selectedTab === 'change-email') {
+                    <app-change-email></app-change-email>
+                }
+
+                @if (selectedTab === 'change-password') {
+                    <app-change-password></app-change-password>
+                }
+
+                @if (selectedTab === 'help-and-support') {
+                    <app-help-and-support></app-help-and-support>
+                }
+
+                @if (selectedTab === 'terms-conditions') {
+                    <app-terms-conditions></app-terms-conditions>
+                }
+
+                @if (selectedTab === 'privacy-policy') {
+                    <app-privacy-policy></app-privacy-policy>
+                }
+
+                @if (selectedTab === 'deactivate-account') {
+                    <app-deactivate-account></app-deactivate-account>
+                }
+            </div>
+        </div>
+    </div>
+</div>

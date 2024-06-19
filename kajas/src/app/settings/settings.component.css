@@ -1,0 +1,128 @@
+.settings-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.modal {
+    background-color: #d6c4b3;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    padding:  60px;
+    border-radius: 10px;
+    width: 60%;
+}
+
+h1 {
+    color: #4D493E;
+    font-size: xx-large;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.modal-content {
+    display: flex;
+    position: relative;
+    height: 100%;
+}
+
+.close {
+    position: absolute;
+    top: -50px;
+    right: -30px;
+    color: #aaa;
+    font-size: 48px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+}
+
+.left-column {
+    color: #4D493E;
+    padding: 16px 0 16px 16px;
+    width: 25%;
+    overflow-y: auto;
+}
+
+.divider {
+    border: none;
+    border-left: 5px solid #8C7B75;
+    height: auto;
+    margin: 0 20px 0 0;
+}
+
+.right-column {
+    width: 75%;
+    overflow-y: auto;
+}
+
+.tabs {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tabs .tab-link {
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.tabs .tab-link:hover {
+    color: #fff;
+    background-color: #8C7B75;
+}
+
+.tab-content {
+    display: none;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.7em;
+    position: absolute;
+    top: -30px; 
+    right: 10%;
+    width: 70%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.error-message::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f8d7da transparent transparent transparent;
+}
+
+.form-group .error-message {
+    position: absolute;
+    top: -35px; 
+    right: 10%;
+    width: 70%;
+}
+
+input[type="email"].ng-touched.ng-invalid {
+    border: 1px solid #721c24;
+}
+
+.form-group input.ng-touched.ng-invalid ~ .error-message,
+.form-group input.ng-dirty.ng-invalid ~ .error-message {
+    opacity: 0.8;
+    visibility: visible;
+}

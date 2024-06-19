@@ -1,0 +1,76 @@
+.change-email-container {
+    margin-left: 23px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+h1 {
+    color: #4D493E;
+    font-size: xx-large;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #8E7C70;
+    font-size: 16px;
+    margin-bottom: 23px;
+}
+
+form label {
+    display: flex;
+    font-size: 12px;
+}
+
+form input {
+    height: 16px;
+    width: 50%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    background-color: #F1EEE7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input ::placeholder {
+    color: grey;
+    opacity: 1;
+    font-family: Montserrat, sans-serif;
+}
+
+.password-container {
+    position: relative;
+    width: 50%;
+}
+
+.password-container input {
+    width: 100%;
+}
+
+img.toggle-password {
+    position: absolute;
+    right: 0;
+    top: 43%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+}
+
+.change-email-button {
+    margin-top: 23px;
+    width: 20%;
+    padding: 8px;
+    background-color: #3E3E3E;
+    color: #FFF;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.change-email-button:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}

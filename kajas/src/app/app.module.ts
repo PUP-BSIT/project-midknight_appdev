@@ -27,6 +27,11 @@ import { ArtworkService } from '../services/artwork.service';
 import { ConfirmCancelModalComponent } from './shared/confirm-cancel-modal/confirm-cancel-modal.component';
 import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 import { CtaHeaderComponent } from './cta-header/cta-header.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ChangeEmailComponent } from './settings/change-email/change-email.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { HelpAndSupportComponent } from './settings/help-and-support/help-and-support.component';
+import { DeactivateAccountComponent } from './settings/deactivate-account/deactivate-account.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
 @NgModule({
@@ -51,6 +56,11 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
     CtaHeaderComponent,
     PublicProfileComponent,
     PublicArtworkDetailsComponent,
+    SettingsComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent,
+    HelpAndSupportComponent,
+    DeactivateAccountComponent
   ],
   imports: [
     BrowserModule,
