@@ -34,7 +34,6 @@ import { HelpAndSupportComponent } from './settings/help-and-support/help-and-su
 import { DeactivateAccountComponent } from './settings/deactivate-account/deactivate-account.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +55,7 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
     EditArtworkComponent,
     CtaHeaderComponent,
     PublicProfileComponent,
-    PublicArtworkDetailsComponent,,
+    PublicArtworkDetailsComponent,
     SettingsComponent,
     ChangeEmailComponent,
     ChangePasswordComponent,
