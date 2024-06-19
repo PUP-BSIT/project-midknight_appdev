@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './change-email.component.css'
 })
 export class ChangeEmailComponent {
+  hidePassword = true;
 
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
 }

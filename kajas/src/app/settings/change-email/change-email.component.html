@@ -19,12 +19,19 @@
             required>
         
         <label for="password">Password:</label>
-        <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            placeholder="Enter your password"
-            required>  
+        <div class="password-container">
+            <input 
+                [type]="hidePassword ? 'password' : 'text'" 
+                id="password" 
+                name="password" 
+                placeholder="Enter your password"
+                required>
+            <img
+                src="../../assets/icons/{{ hidePassword ? 'unsee' : 'see' }}.png"
+                alt="Toggle Password Visibility"
+                class="toggle-password"
+                (click)="togglePasswordVisibility()"/>
+        </div>
     </form>
 
     <button class="change-email-button">
