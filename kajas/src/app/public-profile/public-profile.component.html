@@ -1,8 +1,15 @@
-<app-header></app-header>
+@if(sessionStorage.get('id')) {
+  <app-header></app-header>
+}
+@if(!sessionStorage.get('id')) {
+  <app-cta-banner></app-cta-banner>
+  <app-cta-header></app-cta-header>
+}
+
 <div class="profile-container">
   <div class="container">
     <div class="profile-picture">
-      <img [src]="profile || '../../assets/default-profile.png'" 
+        <img [src]="profile || '../../assets/default-profile.png'" 
         alt="Profile Picture" class="profile-picture" />
     </div>
     <div class="profile-info">
@@ -24,8 +31,7 @@
         </a>
         <a class="kajas-link" [href]="kajasLink" target="_blank"> 
           Share Profile</a>
-      </div>
-      <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>
+      </div>      
     </div>
   </div>
 </div>
@@ -34,11 +40,7 @@
   <div class="gallery">
     <div class="gallery-title">
       <h2>Gallery</h2>
-    </div>
-    <a class="gallery-button" (click)="toggleDelete()">
-      <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
-      Edit
-    </a>                
+    </div>              
   </div>
 </div>
 <div class="gallery-grid">
@@ -48,12 +50,7 @@
         <div class="gallery-item">
           <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
             (click)="viewArtworkDetails(artwork)" />
-              
-          @if(showDeleteButton) {
-            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
-              <img src="../../assets/icons/delete.png" alt="delete-trash"/>
-            </div>
-          }
+
         </div>
       }
     </div>
@@ -63,18 +60,6 @@
   }
 </div>
 
-<div class="add-artwork-container">
-  <a routerLink="/add-artwork" class="add-artwork">Showcase an Artwork!</a>  
-</div>
-
-@if(showConfirmModal) {
-  <app-confirm-cancel-modal 
-    [message]="modalMessage" 
-    (confirmAction)="deleteArtwork(selectedArtworkForDeletion.artwork_id)" 
-    (cancelAction)="cancelDelete()"
-    (closeModal)="closeModal()">
-  </app-confirm-cancel-modal>
-}
 
 @if(showMessageModal) {
   <app-modal-message 
@@ -82,4 +67,3 @@
     (closeModal)="closeMessageModal()">
   </app-modal-message>
 }
-

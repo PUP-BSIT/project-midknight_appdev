@@ -58,6 +58,8 @@ const addArtWork = (userId, title, details, date, imageUrl, callback) => {
   });
 }
 
+
+
 module.exports = {
     getArtWorks,
     getArtworkByTitleAndId,

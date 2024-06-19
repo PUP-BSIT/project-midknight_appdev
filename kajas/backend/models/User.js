@@ -66,7 +66,8 @@ const getAllUsernames = () => {
 
 const getUserProfile = (username, callback) => {
   const query = `
-    SELECT u.user_id, u.username, u.email, ui.profile, ui.bio, ui.first_name, ui.middle_name, ui.last_name, ui.country, ui.city, ui.kajas_link
+    SELECT u.user_id, u.username, u.email, ui.profile, ui.bio, ui.first_name, ui.middle_name, ui.last_name, ui.country, ui.city, ui.kajas_link,
+    ui.facebook, ui.linkedin, ui.instagram, ui.website
     FROM user u
     JOIN user_information ui ON u.user_information_id = ui.user_information_id
     WHERE u.username = ?
@@ -81,21 +82,14 @@ const getUserProfile = (username, callback) => {
     }
     const userProfile = results[0];
 
-    const artworksQuery = 'SELECT * FROM artworks WHERE user_id = ?';
+    const artworksQuery = 'SELECT * FROM artworks WHERE user_id = ? AND status = 1';
     db.query(artworksQuery, [userProfile.user_id], (err, artworks) => {
       if (err) {
         return callback(err, null);
       }
       userProfile.artworks = artworks;
 
-      const socialLinksQuery = 'SELECT platform, url FROM social_links WHERE user_information_id = ?';
-      db.query(socialLinksQuery, [userProfile.user_information_id], (err, socialLinks) => {
-        if (err) {
-          return callback(err, null);
-        }
-        userProfile.social_links = socialLinks;
-        callback(null, userProfile);
-      });
+      callback(null, userProfile);      
     });
   });
 };
