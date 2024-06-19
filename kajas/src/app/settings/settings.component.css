@@ -8,6 +8,8 @@
 .modal {
     background-color: #d6c4b3;
     margin-top: 10%;
+    max-height: 80vh;
+    overflow: hidden;
     margin-bottom: 5%;
     padding:  60px;
     border-radius: 10px;
@@ -29,7 +31,6 @@ h1 {
 .modal-content {
     display: flex;
     position: relative;
-    height: 100%;
 }
 
 .close {
@@ -64,6 +65,9 @@ h1 {
 .right-column {
     width: 75%;
     overflow-y: auto;
+    max-height: calc(80vh - 25vh);
+    scrollbar-color: #3E3E3E #d6c4b3; 
+    scrollbar-width: thin; 
 }
 
 .tabs {

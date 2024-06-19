@@ -34,6 +34,8 @@ import { HelpAndSupportComponent } from './settings/help-and-support/help-and-su
 import { DeactivateAccountComponent } from './settings/deactivate-account/deactivate-account.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
+import { TermsAndConditionsComponent } from './shared/terms-and-conditions/terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +62,9 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
     ChangeEmailComponent,
     ChangePasswordComponent,
     HelpAndSupportComponent,
-    DeactivateAccountComponent
+    DeactivateAccountComponent,
+    TermsAndConditionsComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,
