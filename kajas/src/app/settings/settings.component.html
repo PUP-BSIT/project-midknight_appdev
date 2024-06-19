@@ -45,23 +45,30 @@
             </div>
             <hr class="divider">
             <div class="right-column">
-                <app-change-email 
-                    *ngIf="selectedTab === 'change-email'">
-                </app-change-email>
+                @if (selectedTab === 'change-email') {
+                    <app-change-email></app-change-email>
+                }
 
-                <app-change-password 
-                    *ngIf="selectedTab === 'change-password'">
-                </app-change-password>
+                @if (selectedTab === 'change-password') {
+                    <app-change-password></app-change-password>
+                }
 
-                <app-help-and-support
-                *ngIf="selectedTab === 'help-and-support'">
-                </app-help-and-support>
+                @if (selectedTab === 'help-and-support') {
+                    <app-help-and-support></app-help-and-support>
+                }
 
-                <app-deactivate-account 
-                    *ngIf="selectedTab === 'deactivate-account'">
-                </app-deactivate-account>
+                @if (selectedTab === 'terms-conditions') {
+                    <app-terms-conditions></app-terms-conditions>
+                }
+
+                @if (selectedTab === 'privacy-policy') {
+                    <app-privacy-policy></app-privacy-policy>
+                }
+
+                @if (selectedTab === 'deactivate-account') {
+                    <app-deactivate-account></app-deactivate-account>
+                }
             </div>
         </div>
     </div>
 </div>
-
