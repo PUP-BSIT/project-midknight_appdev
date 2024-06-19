@@ -23,7 +23,23 @@ h1 {
 
 .modal-content {
     display: flex;
+    position: relative;
     height: 100%;
+}
+
+.close {
+    position: absolute;
+    top: -50px;
+    right: -30px;
+    color: #aaa;
+    font-size: 48px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
 }
 
 .left-column {
