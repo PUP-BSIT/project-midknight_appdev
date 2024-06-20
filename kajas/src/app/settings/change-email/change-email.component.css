@@ -27,7 +27,7 @@ form input {
     width: 50%;
     padding: 8px;
     margin-top: 8px;
-    margin-bottom: 18px;
+    margin-bottom: 8px;
     background-color: #F1EEE7;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -41,17 +41,17 @@ input ::placeholder {
 
 .password-container {
     position: relative;
-    width: 50%;
+    width: 100%;
 }
 
 .password-container input {
-    width: 100%;
+    width: 50%;
 }
 
 img.toggle-password {
     position: absolute;
-    right: 0;
-    top: 43%;
+    right: 50%;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     width: 20px;
@@ -73,4 +73,70 @@ img.toggle-password {
 .change-email-button:hover {
     background-color: #555;
     transform: translateY(-5px);
+}
+
+form .form-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 5px; 
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.7em;
+    position: absolute;
+    top: -30px; 
+    right: 30%;
+    width: 50%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+  
+.error-message::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f8d7da transparent transparent transparent;
+}
+
+input[type="email"].ng-touched.ng-invalid,
+input[type="password"].ng-touched.ng-invalid {
+    border: 1px solid #721c24;
+}
+  
+.form-group input.ng-touched.ng-invalid ~ .error-message,
+.form-group input.ng-dirty.ng-invalid ~ .error-message {
+    opacity: 0.8;
+    visibility: visible;
+}
+
+@media only screen and (max-width: 768px) {
+    .error-message {
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.3em;
+        top: -20px; 
+        width: 70%;
+    }
+      
+    .error-message::before {
+        bottom: -10px;
+        left: 10px;
+        border-width: 5px;
+    }
+      
+    .form-group .error-message {
+        top: -20px;
+    }
 }

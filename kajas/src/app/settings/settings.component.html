@@ -52,15 +52,21 @@
             <hr class="divider">
             <div class="right-column">
                 @if (selectedTab === 'change-email') {
-                    <app-change-email></app-change-email>
+                    <app-change-email 
+                        (showModalEvent)="showModalMessage($event)">
+                    </app-change-email>
                 }
 
                 @if (selectedTab === 'change-password') {
-                    <app-change-password></app-change-password>
+                    <app-change-password
+                        (showModalEvent)="showModalMessage($event)">
+                    </app-change-password>
                 }
 
                 @if (selectedTab === 'help-and-support') {
-                    <app-help-and-support></app-help-and-support>
+                    <app-help-and-support
+                        (showModalEvent)="showModalMessage($event)">
+                    </app-help-and-support>
                 }
 
                 @if (selectedTab === 'terms-conditions') {
@@ -72,9 +78,16 @@
                 }
 
                 @if (selectedTab === 'deactivate-account') {
-                    <app-deactivate-account></app-deactivate-account>
+                    <app-deactivate-account
+                        (showModalEvent)="showModalMessage($event)">
+                    </app-deactivate-account>
                 }
             </div>
         </div>
     </div>
 </div>
+
+@if (showModal) {
+    <app-modal-message [message]="modalMessage" 
+      (closeModal)="closeModal()"></app-modal-message>
+}

@@ -2,13 +2,13 @@
     <h1>Deactivate Account</h1>
     <p>To deactivate your account, please enter your password. 
         You can recover your account within 30 days if you change your mind.</p>
-    <form>
+    <form [formGroup]="deactivateForm" (ngSubmit)="onSubmit()">
         <label for="confirm-password">Confirm Password:</label>
-        <div class="password-container">
+        <div class="form-group password-container">
             <input 
                 [type]="hidePassword ? 'password' : 'text'" 
                 id="confirm_password" 
-                name="password" 
+                formControlName="password" 
                 placeholder="Enter your password"
                 required>
             <img
@@ -17,6 +17,12 @@
                 alt="Toggle Password Visibility"
                 class="toggle-password"
                 (click)="togglePasswordVisibility()"/>
+            @if(deactivateForm.get('password').touched && 
+                deactivateForm.get('password').invalid) {
+                    <div class="error-message"> 
+                        {{ getErrorMessage('password') }}
+                    </div>
+            }
         </div>
         <button class="deactivate-button">
             Deactivate Account

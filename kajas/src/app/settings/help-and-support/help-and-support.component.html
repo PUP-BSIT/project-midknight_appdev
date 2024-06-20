@@ -3,8 +3,8 @@
     <p>Here to offer assistance and support whenever you need it.</p>
 
     <div class="contents">
-        <form>
-            <div class="left-column">           
+        <form [formGroup]="helpForm" (ngSubmit)="onSubmit()">
+            <div class="form-group left-column">           
                 <label for="image-upload">Upload an Image:</label>
                 <label 
                     for="upload-pic" 
@@ -18,11 +18,21 @@
 
             <div class="right-column">
                 <label for="message">What issues are you having?</label>
-                <textarea
-                    class="message"
-                    id="message" 
-                    rows="4"
-                    placeholder="Please enter a message..."></textarea> 
+                <div class="form-group">
+                    <textarea
+                        class="message"
+                        id="message" 
+                        formControlName="message"
+                        rows="4"
+                        placeholder="Please enter a message..."></textarea> 
+                    @if(helpForm.get('message').touched && 
+                        helpForm.get('message').invalid) {
+                            <div class="error-message"> 
+                                {{ getErrorMessage('message') }}
+                            </div>
+                    }
+                </div>
+                
                 <div class="submit-button">
                     <button>
                         Submit

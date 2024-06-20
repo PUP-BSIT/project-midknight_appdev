@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent {
   selectedTab: string = 'change-email';
+  showModal = false;
+  modalMessage = '';
 
   constructor(
     private router: Router
@@ -17,7 +19,16 @@ export class SettingsComponent {
     this.selectedTab = tab;
   }
 
+  showModalMessage(message: string): void {
+    this.modalMessage = message;
+    this.showModal = true;
+  }
+
   close():void{
     this.router.navigateByUrl('/profile');
   }
+
+  closeModal(): void {
+    this.showModal = false;
+  }  
 }
