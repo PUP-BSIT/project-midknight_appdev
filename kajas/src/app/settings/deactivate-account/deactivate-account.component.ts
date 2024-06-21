@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalService } from '../../../services/modal.service'; 
+import { UserService } from '../../../services/user.service';
+import { ModalService } from '../../../services/modal.service';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-deactivate-account',
@@ -17,14 +19,12 @@ export class DeactivateAccountComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private modalService: ModalService 
+    private modalService: ModalService,
+    private userService: UserService,
+    private sessionStorage: SessionStorageService
   ) {
     this.deactivateForm = this.fb.group({
-      password: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -38,8 +38,20 @@ export class DeactivateAccountComponent {
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
-    
-    console.log('Form submitted successfully!');
+
+    const password = this.deactivateForm.get('password')?.value;
+    const userId = this.sessionStorage.get('id');
+
+    this.userService.deactivateAccount(userId, password).subscribe(
+      response => {
+        console.log('Account deactivated successfully!', response);
+        this.router.navigate(['/']); 
+      },
+      error => {
+        console.error('Error deactivating account:', error);
+        this.showModalEvent.emit('Error deactivating account: ' + error.error.message);
+      }
+    );
   }
 
   getErrorMessage(controlName: string): string {
