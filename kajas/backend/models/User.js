@@ -263,6 +263,16 @@ const updateUserEmail = (userId, newEmail) => {
   });
 };
 
+const deactivateUser = (userId, callback) => {
+  const query = "UPDATE user SET is_active = 0 WHERE user_id = ?";
+  db.query(query, [userId], callback);
+};
+
+const reactivateUser = (userId, callback) => {
+  const query = "UPDATE user SET is_active = 1 WHERE user_id = ?";
+  db.query(query, [userId], callback);
+};
+
 module.exports = {
   createUser,
   verifyUser,
@@ -279,5 +289,7 @@ module.exports = {
   changePassword,
   findById,
   comparePassword,
-  updateUserEmail 
+  updateUserEmail,
+  deactivateUser,
+  reactivateUser
 };

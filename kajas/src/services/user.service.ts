@@ -11,4 +11,12 @@ export class UserService {
   getUsernames(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/usernames`);
   }
+
+  deactivateAccount(userId: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/deactivate`, { userId, password });
+  }
+
+  reactivateAccount(userId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reactivate`, { userId });
+  }
 }
