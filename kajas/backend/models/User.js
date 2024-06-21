@@ -198,6 +198,71 @@ const changePassword = async (email, currentPassword, newPassword) => {
   });
 };
 
+const findById = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `
+      SELECT u.user_id, u.username, u.email, ui.profile, ui.bio, ui.first_name, ui.middle_name, ui.last_name, ui.country, ui.city, ui.kajas_link,
+      ui.facebook, ui.linkedin, ui.instagram, ui.website
+      FROM user u
+      JOIN user_information ui ON u.user_information_id = ui.user_information_id
+      WHERE u.user_id = ?
+    `;
+    db.query(query, [id], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      if (results.length === 0) {
+        return resolve(null);
+      }
+      const userProfile = results[0];
+
+      const artworksQuery = 'SELECT * FROM artworks WHERE user_id = ? AND status = 1';
+      db.query(artworksQuery, [userProfile.user_id], (err, artworks) => {
+        if (err) {
+          return reject(err);
+        }
+        userProfile.artworks = artworks;
+        resolve(userProfile);      
+      });
+    });
+  });
+};
+
+const comparePassword = (userId, candidatePassword) => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT password FROM user WHERE user_id = ?";
+    db.query(query, [userId], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+
+      if (results.length === 0) {
+        return reject(new Error('User not found'));
+      }
+
+      const user = results[0];
+      bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(isMatch);
+      });
+    });
+  });
+};
+
+const updateUserEmail = (userId, newEmail) => {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE user SET email = ? WHERE user_id = ?";
+    db.query(query, [newEmail, userId], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(results);
+    });
+  });
+};
+
 module.exports = {
   createUser,
   verifyUser,
@@ -211,5 +276,8 @@ module.exports = {
   updateUsername,
   searchUsers,
   getUserProfileById,
-  changePassword
+  changePassword,
+  findById,
+  comparePassword,
+  updateUserEmail 
 };

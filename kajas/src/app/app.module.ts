@@ -36,6 +36,7 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
 import { TermsAndConditionsComponent } from './shared/terms-and-conditions/terms-and-conditions.component';
 import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
+import { EmailService } from '../services/email.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +79,8 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
     UserService,
     LocationService,
     SearchService,
-    ArtworkService
+    ArtworkService,
+    EmailService
   ],
   bootstrap: [AppComponent]
 })

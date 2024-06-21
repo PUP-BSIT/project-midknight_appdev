@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service'; 
+import { EmailService } from '../../../services/email.service';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-change-email',
@@ -19,7 +21,9 @@ export class ChangeEmailComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private modalService: ModalService 
+    private modalService: ModalService,
+    private emailService: EmailService,
+    private sessionStorage: SessionStorageService
   ) {
     this.changeEmailForm = this.fb.group({
       email: ['', {
@@ -55,8 +59,28 @@ export class ChangeEmailComponent {
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
-    
-    console.log('Form submitted successfully!');
+
+    const userId = this.sessionStorage.get('id');
+    const emailCheck = this.sessionStorage.get('email');
+    const formValue = this.changeEmailForm.value;
+
+    if (formValue.email === emailCheck) {
+      this.showModalEvent.emit('New email cannot be the same as the old email');
+      return;
+    }
+
+    this.emailService.changeEmail(userId, formValue.email, formValue.email, formValue.password).subscribe(
+      (response: any) => {
+        this.showModalEvent.emit('Email changed successfully! Please log in again with your new email.');
+      },
+      (error: any) => {
+        if (error.status === 401 && error.error.message === 'Incorrect password') {
+          this.showModalEvent.emit('Invalid password. Please try again.');
+        } else {
+          this.showModalEvent.emit('Error changing email. Please try again.');
+        }
+      }
+    );
   }
 
   getErrorMessage(controlName: string): string {

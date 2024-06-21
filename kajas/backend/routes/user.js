@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const { changeEmail } = require('../controllers/changeEmail');
 
 const router = express.Router();
 
@@ -20,5 +21,8 @@ router.post('/change-password', async (req, res) => {
     }
   }
 });
+
+router.post('/change-email', changeEmail);
+
 
 module.exports = router;
