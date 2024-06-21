@@ -30,5 +30,8 @@ export class SettingsComponent {
 
   closeModal(): void {
     this.showModal = false;
+    if (this.modalMessage === 'Password changed successfully! Please log in again with your new password.') {
+      this.router.navigateByUrl('/login');
+    }
   }  
 }

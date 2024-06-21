@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalService } from '../../../services/modal.service'; 
+import { ModalService } from '../../../services/modal.service';
+import { HttpClient } from '@angular/common/http';
+import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
   selector: 'app-change-password',
@@ -19,28 +21,29 @@ export class ChangePasswordComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private modalService: ModalService 
+    private modalService: ModalService,
+    private http: HttpClient,
+    private sessionStorage: SessionStorageService
   ) {
     this.changePasswordForm = this.fb.group({
       currentPassword: ['', {
         validators: [
-          Validators.required
-        ]
+          Validators.required]
       }],
-
       newPassword: ['', {
         validators: [
           Validators.required,
-          this.passwordValidator
-        ]
-      }],
-
+          this.passwordValidator,
+        ] }],
       confirmPassword: ['', {
         validators: [
-          Validators.required,
+          Validators.required, 
           this.confirmPasswordValidator.bind(this)
-        ]
-      }],
+        ] }]
+    });
+
+    this.changePasswordForm.get('newPassword')?.valueChanges.subscribe(() => {
+      this.changePasswordForm.get('confirmPassword')?.updateValueAndValidity();
     });
   }
 
@@ -57,28 +60,16 @@ export class ChangePasswordComponent {
   private passwordValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
     const errors: ValidationErrors = {};
-    
-    if (!/[A-Z]/.test(password)) {
-      errors.noUpperCase = true;
-    }
-    if (!/[a-z]/.test(password)) {
-      errors.noLowerCase = true;
-    }
-    if (!/[0-9]/.test(password)) {
-      errors.noNumber = true;
-    }
-    if (!/[!@#$%^&*]/.test(password)) {
-      errors.noSpecialChar = true;
-    }
-    if (password.length < 8) {
-      errors.tooShort = true;
-    }
-
+    if (!/[A-Z]/.test(password)) errors.noUpperCase = true;
+    if (!/[a-z]/.test(password)) errors.noLowerCase = true;
+    if (!/[0-9]/.test(password)) errors.noNumber = true;
+    if (!/[!@#$%^&*]/.test(password)) errors.noSpecialChar = true;
+    if (password.length < 8) errors.tooShort = true;
     return Object.keys(errors).length ? errors : null;
   }
 
   private confirmPasswordValidator(control: AbstractControl): ValidationErrors | null {
-    if (this.changePasswordForm && control.value !== this.changePasswordForm.get('password')?.value) {
+    if (this.changePasswordForm && control.value !== this.changePasswordForm.get('newPassword')?.value) {
       return { mismatch: true };
     }
     return null;
@@ -90,28 +81,36 @@ export class ChangePasswordComponent {
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
-    
-    console.log('Form submitted successfully!');
+  
+    const email = this.sessionStorage.get('email');
+    const formValue = this.changePasswordForm.value;
+  
+    this.http.post('http://localhost:4000/api/change-password', { ...formValue, email }).subscribe(
+      (response: any) => {
+        this.showModalEvent.emit('Password changed successfully! Please log in again with your new password.');
+      },
+      (error: any) => {
+        if (error.status === 401 && error.error.message === 'Incorrect current password') {
+          this.showModalEvent.emit('Invalid current password. Please try again.');
+        } else if (error.status === 400 && error.error.message === 'New password cannot be the same as the old password') {
+          this.showModalEvent.emit('New password cannot be the same as the old password.');
+        } else {
+          this.showModalEvent.emit('Error changing password. Please try again.');
+        }
+      }
+    );
   }
 
   getErrorMessage(controlName: string): string {
     const control = this.changePasswordForm.get(controlName);
     if (control && control.errors) {
-      if (control.errors.required) {
-        return `${this.capitalizeFirstLetter(controlName)} is required.`;
-      } else if (control.errors.tooShort) {
-        return 'Password must be at least 8 characters long.';
-      } else if (control.errors.noUpperCase) {
-        return 'Password must include at least one uppercase letter.';
-      } else if (control.errors.noLowerCase) {
-        return 'Password must include at least one lowercase letter.';
-      } else if (control.errors.noNumber) {
-        return 'Password must include at least one number.';
-      } else if (control.errors.noSpecialChar) {
-        return 'Password must include at least one special character.';
-      } else if (control.errors.mismatch) {
-        return 'Passwords must match.';
-      }
+      if (control.errors.required) return `${this.capitalizeFirstLetter(controlName)} is required.`;
+      if (control.errors.tooShort) return 'Password must be at least 8 characters long.';
+      if (control.errors.noUpperCase) return 'Password must include at least one uppercase letter.';
+      if (control.errors.noLowerCase) return 'Password must include at least one lowercase letter.';
+      if (control.errors.noNumber) return 'Password must include at least one number.';
+      if (control.errors.noSpecialChar) return 'Password must include at least one special character.';
+      if (control.errors.mismatch) return 'Passwords must match.';
     }
     return '';
   }
@@ -119,5 +118,4 @@ export class ChangePasswordComponent {
   private capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1).replace(/([A-Z])/g, ' $1');
   }
-
 }
