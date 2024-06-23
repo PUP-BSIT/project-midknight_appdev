@@ -2,7 +2,7 @@
     <h1>Deactivate Account</h1>
     <p>To deactivate your account, please enter your password. 
         You can recover your account within 30 days if you change your mind.</p>
-    <form [formGroup]="deactivateForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="deactivateForm" (ngSubmit)="onDeactivateAttempt()">
         <label for="confirm-password">Confirm Password:</label>
         <div class="form-group password-container">
             <input 
@@ -24,7 +24,7 @@
                     </div>
             }
         </div>
-        <button class="deactivate-button">
+        <button class="deactivate-button" type="submit">
             Deactivate Account
         </button>
     </form>

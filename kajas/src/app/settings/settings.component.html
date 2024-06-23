@@ -79,7 +79,8 @@
 
                 @if (selectedTab === 'deactivate-account') {
                     <app-deactivate-account
-                        (showModalEvent)="showModalMessage($event)">
+                        (showModalEvent)="showModalMessage($event)"
+                        (openConfirmModalEvent)="handleOpenConfirmModalEvent($event)">
                     </app-deactivate-account>
                 }
             </div>
@@ -90,4 +91,13 @@
 @if (showModal) {
     <app-modal-message [message]="modalMessage" 
       (closeModal)="closeModal()"></app-modal-message>
+}
+
+@if(showConfirmModal) {
+    <app-confirm-cancel-modal 
+      [message]="modalMessage" 
+      (confirmAction)="confirmDeactivate()" 
+      (cancelAction)="cancelDeactivate()"
+      (closeModal)="closeConfirmModal()">
+    </app-confirm-cancel-modal>
 }
