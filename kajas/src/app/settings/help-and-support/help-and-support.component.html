@@ -4,16 +4,24 @@
 
     <div class="contents">
         <form [formGroup]="helpForm" (ngSubmit)="onSubmit()">
-            <div class="form-group left-column">           
+            <div class="form-group left-column">
                 <label for="image-upload">Upload an Image:</label>
-                <label 
-                    for="upload-pic" 
-                    class="upload-pic-label">
+                <label for="upload-pic" class="upload-pic-label">
                     <img 
-                        id="img_placeholder"
-                        src="../../../assets/icons/placeholder_image.png" 
+                        [src]="imagePreview || '../../../assets/icons/placeholder_image.png'" 
                         alt="Image Placeholder">
                 </label>
+                <input 
+                    type="file" 
+                    id="image-upload"
+                    accept="image/*"
+                    (change)="onFileSelected($event)"/>
+                @if (helpForm.get('image').touched && 
+                    helpForm.get('image').invalid) {
+                        <div class="error-message"> 
+                            {{ getErrorMessage('image') }}
+                        </div>
+                }
             </div>
 
             <div class="right-column">
@@ -25,20 +33,25 @@
                         formControlName="message"
                         rows="4"
                         placeholder="Please enter a message..."></textarea> 
-                    @if(helpForm.get('message').touched && 
+                    @if (helpForm.get('message').touched && 
                         helpForm.get('message').invalid) {
                             <div class="error-message"> 
                                 {{ getErrorMessage('message') }}
                             </div>
                     }
                 </div>
-                
+
                 <div class="submit-button">
-                    <button>
+                    <button type="submit">
                         Submit
                     </button>
-                </div>  
+                </div>
             </div>
         </form>
     </div>
 </div>
+
+@if (showModal) {
+    <app-modal-message [message]="modalMessage" (closeModal)="closeModal()">
+    </app-modal-message>
+}
