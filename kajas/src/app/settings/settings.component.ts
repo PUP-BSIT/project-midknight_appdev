@@ -34,6 +34,8 @@ export class SettingsComponent {
       this.modalMessage === 'Email changed successfully! Please log in again with your new email.'
     ) {
       this.router.navigateByUrl('/login');
+    } else if (this.modalMessage === 'Your issue has been sent to our support team. Thank you for reaching out to us!' ) {
+      this.router.navigateByUrl('/profile');
     }
   }  
 }

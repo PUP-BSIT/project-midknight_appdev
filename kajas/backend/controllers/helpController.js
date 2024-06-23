@@ -29,7 +29,7 @@ exports.submitHelpRequest = async (req, res) => {
 
   const mailOptions = {
     from: 'midknightv03@kajas.site',
-    to: 'midknights0714@gmail.com', 
+    to: 'midknightv03@gmail.com', 
     subject: 'New Help Request',
     html: `
       <div style="margin-left: 23px; overflow: hidden; max-width: 100%; font-family: Arial, sans-serif;">
