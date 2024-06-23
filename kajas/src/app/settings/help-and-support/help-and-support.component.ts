@@ -59,8 +59,6 @@ export class HelpAndSupportComponent{
         console.error('Error submitting the issue:', error);
         this.showModalMessage('Unable to process the request. Please try again later.');
       });
-
-    console.log('Form submitted successfully!');
   }
 
   showModalMessage(message: string) {

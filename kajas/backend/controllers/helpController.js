@@ -21,11 +21,6 @@ exports.submitHelpRequest = async (req, res) => {
     return res.status(400).json({ message: 'Message is required and should be at least 10 characters long.' });
   }
 
-  console.log('Received message:', message);
-  if (image) {
-    console.log('Received image:', image.filename);
-  }
-
   const issueData = {
     message: message,
     imagePath: image ? image.path : null,
@@ -54,7 +49,6 @@ exports.submitHelpRequest = async (req, res) => {
   try {
     await transporter.sendMail(mailOptions);
     setTimeout(() => {
-      console.log('Saved issue data:', issueData);
       res.status(200).json({ message: 'Issue submitted successfully!', issueData });
     }, 1000);
   } catch (error) {
