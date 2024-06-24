@@ -4,24 +4,24 @@
 
     <div class="contents">
         <form [formGroup]="helpForm" (ngSubmit)="onSubmit()">
-            <div class="form-group left-column">
+            <div class="left-column">
                 <label for="image-upload">Upload an Image:</label>
-                <label for="upload-pic" class="upload-pic-label">
-                    <img 
-                        [src]="imagePreview || '../../../assets/icons/placeholder_image.png'" 
-                        alt="Image Placeholder">
-                </label>
-                <input 
-                    type="file" 
-                    id="image-upload"
-                    accept="image/*"
-                    (change)="onFileSelected($event)"/>
-                @if (helpForm.get('image').touched && 
-                    helpForm.get('image').invalid) {
-                        <div class="error-message"> 
-                            {{ getErrorMessage('image') }}
-                        </div>
-                }
+                <div class="form-group upload-pic-group" 
+                    (click)="imageUpload.click()">
+                    <label for="upload-pic" class="upload-pic-label">
+                        <img 
+                            [src]="imagePreview || 
+                                '../../../assets/icons/placeholder_image.png'" 
+                            alt="Image Placeholder">
+                    </label>
+                    <input 
+                        type="file" 
+                        id="image-upload"
+                        accept="image/*"
+                        (change)="onFileSelected($event)"
+                        #imageUpload
+                        style="display:none"/>
+                </div> 
             </div>
 
             <div class="right-column">
@@ -50,8 +50,3 @@
         </form>
     </div>
 </div>
-
-@if (showModal) {
-    <app-modal-message [message]="modalMessage" (closeModal)="closeModal()">
-    </app-modal-message>
-}

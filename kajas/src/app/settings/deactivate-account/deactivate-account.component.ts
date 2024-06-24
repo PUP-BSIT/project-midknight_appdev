@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { ModalService } from '../../../services/modal.service';
 import { SessionStorageService } from 'angular-web-storage';
 
 @Component({
@@ -12,14 +10,14 @@ import { SessionStorageService } from 'angular-web-storage';
 })
 export class DeactivateAccountComponent {
   @Output() showModalEvent = new EventEmitter<string>();
+  @Output() openConfirmModalEvent = new EventEmitter<Function>();
 
   deactivateForm: FormGroup;
   hidePassword = true;
+  password: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private modalService: ModalService,
     private userService: UserService,
     private sessionStorage: SessionStorageService
   ) {
@@ -32,28 +30,32 @@ export class DeactivateAccountComponent {
     this.hidePassword = !this.hidePassword;
   }
 
-  onSubmit() {
+  onDeactivateAttempt() {
     if (this.deactivateForm.invalid) {
       this.deactivateForm.markAllAsTouched();
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
-
-    const password = this.deactivateForm.get('password')?.value;
+    this.password = this.deactivateForm.get('password')?.value;
+    this.openConfirmModalEvent.emit(() => this.onConfirmDeactivation());
+  }
+  
+  onConfirmDeactivation() {
     const userId = this.sessionStorage.get('id');
-
-    this.userService.deactivateAccount(userId, password).subscribe(
+    this.userService.deactivateAccount(userId, this.password).subscribe(
       response => {
-        console.log('Account deactivated successfully!', response);
-        this.router.navigate(['/']); 
+        this.showModalEvent.emit('Your account has been successfully deactivated. Thank you for being a part of our community.');
       },
       error => {
-        console.error('Error deactivating account:', error);
-        this.showModalEvent.emit('Error deactivating account: ' + error.error.message);
+        if (error.status === 400 && error.error.message === 'Incorrect password') {
+          this.showModalEvent.emit('Invalid password. Please try again.');
+        } else {
+          this.showModalEvent.emit('Error deactivating account: ' + error.error.message);
+        }
       }
     );
   }
-
+  
   getErrorMessage(controlName: string): string {
     const control = this.deactivateForm.get(controlName);
     if (control && control.errors) {

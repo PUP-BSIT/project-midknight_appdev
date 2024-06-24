@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
@@ -10,19 +10,19 @@ import axios from 'axios';
   templateUrl: './help-and-support.component.html',
   styleUrls: ['./help-and-support.component.css']
 })
-export class HelpAndSupportComponent{
+export class HelpAndSupportComponent{  
+  @Output() showModalEvent = new EventEmitter<string>();
+
   helpForm: FormGroup;
   selectedFile: File = null;
   imagePreview: string | ArrayBuffer = '';
   userEmail = this.sessionStorage.get('email') || '';
-  modalMessage = '';
-  showModal = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private modalService: ModalService,
-    private sessionStorage: SessionStorageService // Inject SessionStorageService
+    private sessionStorage: SessionStorageService
   ) {
     this.helpForm = this.fb.group({
       image: ['', this.imageRequiredValidator()],
@@ -38,7 +38,7 @@ export class HelpAndSupportComponent{
   onSubmit() {
     if (this.helpForm.invalid) {
       this.helpForm.markAllAsTouched();
-      this.showModalMessage('Please fill out the form accurately and completely.');
+      this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
 
@@ -52,22 +52,13 @@ export class HelpAndSupportComponent{
     axios.post('http://localhost:4000/api/support', formData)
       .then(response => {
         if (response.status === 200) {
-          this.showModalMessage('Issue submitted successfully!');
+          this.showModalEvent.emit('Your issue has been sent to our support team. Thank you for reaching out to us!');
         }
       })
       .catch(error => {
         console.error('Error submitting the issue:', error);
-        this.showModalMessage('Unable to process the request. Please try again later.');
+        this.showModalEvent.emit('Unable to process the request. Please try again later.');
       });
-  }
-
-  showModalMessage(message: string) {
-    this.modalMessage = message;
-    this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
   }
 
   getErrorMessage(controlName: string): string {
