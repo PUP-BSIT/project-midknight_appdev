@@ -37,6 +37,10 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
 import { TermsAndConditionsComponent } from './shared/terms-and-conditions/terms-and-conditions.component';
 import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
 import { EmailService } from '../services/email.service';
+import { LoaderModalComponent } from './shared/loader-modal/loader-modal.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MaterialModule } from './material.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +69,8 @@ import { EmailService } from '../services/email.service';
     HelpAndSupportComponent,
     DeactivateAccountComponent,
     TermsAndConditionsComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    LoaderModalComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +78,7 @@ import { EmailService } from '../services/email.service';
     FormsModule, 
     AppRoutingModule,
     HttpClientModule,
+    MaterialModule
   ],
   providers: [ 
     ModalService,
@@ -80,7 +86,8 @@ import { EmailService } from '../services/email.service';
     LocationService,
     SearchService,
     ArtworkService,
-    EmailService
+    EmailService,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
