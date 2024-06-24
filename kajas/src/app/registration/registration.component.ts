@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   existingUsernames: string[] = [];
   showModal = false;
   modalMessage = '';
+  showLoader = false;
   resizeSubscription: Subscription;
 
   constructor(
@@ -170,6 +171,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   async onSubmit(): Promise<void> {
     const url = "http://localhost:4000";
     if (this.registrationForm.valid) {
+      this.showLoader = true;
       try {
         const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
         if (signupUser.status === 201) {
@@ -183,6 +185,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         }
       } catch (error) {
         console.error('Error during registration:', error);
+      } finally {
+        this.showLoader = false; 
       }
     } else {
       this.modalMessage = 'Please fill out the form accurately and completely.';
