@@ -171,6 +171,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   async onSubmit(): Promise<void> {
     const url = "http://localhost:4000";
     if (this.registrationForm.valid) {
+      this.modalMessage = 'Loading...';
       this.showLoader = true;
       try {
         const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
