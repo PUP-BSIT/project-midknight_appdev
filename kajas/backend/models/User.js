@@ -72,6 +72,7 @@ const getUserProfile = (username, callback) => {
     FROM user u
     JOIN user_information ui ON u.user_information_id = ui.user_information_id
     WHERE u.username = ?
+    AND u.is_active = 1
   `;
 
   db.query(query, [username], (err, results) => {
