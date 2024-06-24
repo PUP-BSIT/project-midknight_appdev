@@ -117,7 +117,17 @@ const login = async (req, res) => {
       return res.status(403).json({ message: "Account not verified." });
     }
 
-    res.status(200).json({ message: "Login Success! Welcome to Kajas!", user });
+    if (!user.is_active) {
+      User.reactivateUser(user.user_id, (err, result) => {
+        if (err) {
+          return res.status(500).json({ message: "Error reactivating account.", err });
+        }
+        user.is_active = 1;
+        res.status(200).json({ message: "Login Success! Welcome to Kajas!", user });
+      });
+    } else {
+      res.status(200).json({ message: "Login Success! Welcome to Kajas!", user });
+    }
   });
 };
 
