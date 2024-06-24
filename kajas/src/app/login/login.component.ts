@@ -90,8 +90,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       this.showLoader = true;
-  
-      // Start a timeout to hide the loader and navigate after 2000ms
       const loaderTimeout = setTimeout(() => {
         this.showLoader = false;
         this.showModal = false;
@@ -104,8 +102,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.http.post('http://localhost:4000/api/login', this.loginForm.value).subscribe(
         async (response: any) => {
           this.modalMessage = 'Login Success! Welcome to Kajas!';
-          
-          // Store user data in session storage
           this.sessionStorage.set('id', response.user.user_id);
           this.sessionStorage.set('username', response.user.username);
           this.sessionStorage.set('email', response.user.email);
