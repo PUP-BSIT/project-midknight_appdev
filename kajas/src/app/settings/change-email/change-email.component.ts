@@ -17,6 +17,8 @@ export class ChangeEmailComponent {
   submitted = false;
   errorMessage = '';
   hidePassword = true;
+  modalMessage = '';
+  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -55,25 +57,32 @@ export class ChangeEmailComponent {
 
   onSubmit() {
     if (this.changeEmailForm.invalid) {
+      this.modalMessage = 'Changing Email...';
+      this.showLoader = true;
       this.changeEmailForm.markAllAsTouched();
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
+
+    this.showLoader = true;
 
     const userId = this.sessionStorage.get('id');
     const emailCheck = this.sessionStorage.get('email');
     const formValue = this.changeEmailForm.value;
 
     if (formValue.email === emailCheck) {
+      this.showLoader = false;
       this.showModalEvent.emit('New email cannot be the same as the old email');
       return;
     }
 
     this.emailService.changeEmail(userId, formValue.email, formValue.email, formValue.password).subscribe(
       (response: any) => {
+        this.showLoader = false;
         this.showModalEvent.emit('Email changed successfully! Please log in again with your new email.');
       },
       (error: any) => {
+        this.showLoader = false;
         if (error.status === 401 && error.error.message === 'Incorrect password') {
           this.showModalEvent.emit('Invalid password. Please try again.');
         } else {

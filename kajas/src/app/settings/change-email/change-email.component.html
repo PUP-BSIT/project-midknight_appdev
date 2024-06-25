@@ -47,3 +47,7 @@
         </button>
     </form>
 </div>
+
+@if (showLoader) {
+    <app-loader-modal [message]="modalMessage"></app-loader-modal>
+}
