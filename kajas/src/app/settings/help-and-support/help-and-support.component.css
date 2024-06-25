@@ -153,6 +153,65 @@ textarea.ng-touched.ng-invalid {
     visibility: visible;
 }
 
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    h1 {
+        font-size: 16px;
+        margin-top: 23px;
+    }
+
+    p {
+        color: #8E7C70;
+        font-size: 12px;
+        margin-bottom: 16px;
+    }
+
+    form {
+        display: block;
+        width: 100%;
+    }
+
+    form label {
+        display: flex;
+        font-size: 8px;
+    }
+    
+    .help-container {
+        margin-left: 0;
+        padding: 0 15px;
+    }
+
+    .contents {
+        display: block;
+    }
+
+    .left-column,
+    .right-column {
+        width: 100%;
+    }
+
+    .upload-pic-label {
+        width: 90%;
+        height: 100px;
+    }
+
+    .upload-pic-label img {
+        object-fit: contain;
+    }    
+
+    textarea {
+        width: 90%;
+        max-height: 100px;
+        font-size: 10px;
+    }
+
+    .submit-button button {
+        margin-bottom: 16px;
+        width: 100%;
+        font-size: 12px;
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .error-message {
         padding: 5px;
@@ -172,4 +231,3 @@ textarea.ng-touched.ng-invalid {
         top: -20px;
     }
 }
-
