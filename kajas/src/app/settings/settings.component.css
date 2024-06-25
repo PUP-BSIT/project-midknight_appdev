@@ -136,3 +136,56 @@ input[type="email"].ng-touched.ng-invalid {
     opacity: 0.8;
     visibility: visible;
 }
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .modal {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .modal-content {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 23px;
+        margin: 23px 0 23px 8px;
+    }
+
+    .left-column {
+        width: 100%;
+        overflow-y: visible;
+        padding: 0;
+    }
+
+    .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin: 0;
+        padding: 0;
+        border-bottom: 2px solid #8C7B75;
+        font-size: 8px;
+    }
+
+    .tabs .tab-link {
+        flex: 1;
+        text-align: center;
+        padding: 10px 5px;
+        margin-bottom: 0;
+    }
+
+    .right-column {
+        width: 100%;
+    }
+
+    .close {
+        top: 4px;
+        right: 8px;
+        font-size: 23px;
+    }
+
+    .form-group .error-message {
+        right: 5%;
+        width: 90%;
+    }
+}
