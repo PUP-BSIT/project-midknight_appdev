@@ -120,6 +120,53 @@ input[type="password"].ng-touched.ng-invalid {
     visibility: visible;
 }
 
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    h1 {
+        font-size: 16px;
+        margin-top: 23px;
+    }
+
+    p {
+        color: #8E7C70;
+        font-size: 12px;
+        margin-bottom: 16px;
+    }
+
+    form label {
+        display: flex;
+        font-size: 8px;
+    }
+    
+    form input {
+        height: 8px;
+        width: 80%;
+        padding: 8px;
+        margin: 8px 0 8px 0;
+        font-size: 10px;
+    }
+
+    .password-container input {
+        width: 80%;
+        font-size: 10px;
+    }
+
+    input::placeholder {
+        font-size: 10px;
+    }
+
+    img.toggle-password {
+        right: 16%;
+        width: 16px;
+    }
+
+    .deactivate-button {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        width: 50%;
+        font-size: 12px;
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .error-message {
         padding: 5px;
