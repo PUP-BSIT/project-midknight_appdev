@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { SessionStorageService } from 'angular-web-storage';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-deactivate-account',
@@ -15,6 +16,8 @@ export class DeactivateAccountComponent {
   deactivateForm: FormGroup;
   hidePassword = true;
   password: string = '';
+  modalMessage = '';
+  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -41,12 +44,18 @@ export class DeactivateAccountComponent {
   }
   
   onConfirmDeactivation() {
+    this.modalMessage = 'Deactivating Account...';
+    this.showLoader = true;
     const userId = this.sessionStorage.get('id');
-    this.userService.deactivateAccount(userId, this.password).subscribe(
+    this.userService.deactivateAccount(userId, this.password).pipe(
+      delay(1000)
+    ).subscribe(
       response => {
+        this.showLoader = false;
         this.showModalEvent.emit('Your account has been successfully deactivated. Thank you for being a part of our community.');
       },
       error => {
+        this.showLoader = false;
         if (error.status === 400 && error.error.message === 'Incorrect password') {
           this.showModalEvent.emit('Invalid password. Please try again.');
         } else {
