@@ -18,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   showModal = false;
   modalMessage = '';
   resizeSubscription: Subscription;
+  showLoader = false;
 
   constructor(
     private renderer: Renderer2,
@@ -92,6 +93,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.showModal = true;
       return;
     }
+
+    this.modalMessage = 'Loading...';
+    this.showLoader = true;
   
     try {
       const response = await axios.post(`${url}/send/resetLink`, {
@@ -99,10 +103,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       });
   
       if (response.status === 200) {
+        this.showLoader = false;
         this.modalMessage = 'Email to reset your password has been sent. Please check your inbox.';
         this.showModal = true;
       }
     } catch (error) {
+      this.showLoader = false;
       this.modalMessage = 'That email address is not linked to a Kajas account. Try again or create a new one.';
       this.showModal = true;
       console.error('Error sending the email for resetting the password:', error);
