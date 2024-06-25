@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ModalService } from '../../../services/modal.service';
 import { HttpClient } from '@angular/common/http';
 import { SessionStorageService } from 'angular-web-storage';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-change-password',
@@ -17,6 +18,8 @@ export class ChangePasswordComponent {
   hideCurrentPassword = true;
   hideNewPassword = true;
   hideConfirmPassword = true;
+  modalMessage = '';
+  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -81,15 +84,22 @@ export class ChangePasswordComponent {
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
+
+    this.modalMessage = 'Changing Password...';
+    this.showLoader = true;
   
     const email = this.sessionStorage.get('email');
     const formValue = this.changePasswordForm.value;
   
-    this.http.post('http://localhost:4000/api/change-password', { ...formValue, email }).subscribe(
+    this.http.post('http://localhost:4000/api/change-password', { ...formValue, email }).pipe(
+      delay(1000)
+    ).subscribe(
       (response: any) => {
+        this.showLoader = false;
         this.showModalEvent.emit('Password changed successfully! Please log in again with your new password.');
       },
       (error: any) => {
+        this.showLoader = false;
         if (error.status === 401 && error.error.message === 'Incorrect current password') {
           this.showModalEvent.emit('Invalid current password. Please try again.');
         } else if (error.status === 400 && error.error.message === 'New password cannot be the same as the old password') {
