@@ -8,16 +8,11 @@ body {
   overflow-x: hidden;
   scrollbar-color: #3e3e3e #d6c4b3;
   scrollbar-width: thin;
+  height: 100%;
 }
 
 body {
   overflow-y: hidden;
-}
-html,
-body {
-  height: 100%;
-}
-body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
 }
