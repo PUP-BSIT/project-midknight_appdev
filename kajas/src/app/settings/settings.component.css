@@ -140,10 +140,10 @@ input[type="email"].ng-touched.ng-invalid {
 @media screen and (min-width: 320px) and (max-width: 768px) {
     .settings-container {
         height: 80%;
+        margin-top: 20%;
     }
     
     .modal {
-        margin-top: 20%;
         margin-bottom: 10%;
         width: 60%;
         padding: 30px;
@@ -185,7 +185,7 @@ input[type="email"].ng-touched.ng-invalid {
 
     .right-column {
         width: 100%;
-        height: calc(80vh - 25vh);
+        height: 100%;
     }
 
     .close {
@@ -196,8 +196,12 @@ input[type="email"].ng-touched.ng-invalid {
 }
 
 @media screen and (min-width: 767px) and (max-width: 1023px) {
-    .modal {
+    .settings-container {
         margin-top: 10%;
+    }
+
+    .modal {
+        padding-bottom: 50px;
     }
 
     h1 {
