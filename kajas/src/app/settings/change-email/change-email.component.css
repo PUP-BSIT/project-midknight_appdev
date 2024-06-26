@@ -122,14 +122,18 @@ input[type="password"].ng-touched.ng-invalid {
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
+    .change-email-container {
+        margin-left: 0;
+    }
+    
     h1 {
-        font-size: 16px;
-        margin-top: 23px;
+        font-size: small;
+        margin-top: 25px;
     }
 
     p {
         color: #8E7C70;
-        font-size: 12px;
+        font-size: x-small;
         margin-bottom: 16px;
     }
 
@@ -142,8 +146,8 @@ input[type="password"].ng-touched.ng-invalid {
         height: 8px;
         width: 80%;
         padding: 8px;
-        margin: 8px 0 8px 0;
-        font-size: 10px;
+        margin-top: 8px;
+        font-size: x-small;
     }
 
     .password-container input {
@@ -152,7 +156,7 @@ input[type="password"].ng-touched.ng-invalid {
     }
 
     input::placeholder {
-        font-size: 10px;
+        font-size: xx-small;
     }
 
     img.toggle-password {
@@ -161,20 +165,19 @@ input[type="password"].ng-touched.ng-invalid {
     }
 
     .change-email-button {
-        margin-top: 16px;
-        margin-bottom: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         width: 50%;
-        font-size: 12px;
+        font-size: xx-small;
     }
-}
 
-@media only screen and (max-width: 768px) {
     .error-message {
         padding: 5px;
         border-radius: 5px;
         font-size: 0.3em;
         top: -20px; 
         width: 70%;
+        right: 0;
     }
       
     .error-message::before {
@@ -185,5 +188,33 @@ input[type="password"].ng-touched.ng-invalid {
       
     .form-group .error-message {
         top: -20px;
+    }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+
+    h1 {
+        font-size: medium;
+    }
+
+    img.toggle-password {
+        right: 30%;
+    }
+
+    form input {
+        width: 70%;
+    }
+
+    .password-container input {
+        width: 70%;
+    }
+
+    .error-message {
+        font-size: xx-small;
+        width: 50%;
+        right: 0;
     }
 }

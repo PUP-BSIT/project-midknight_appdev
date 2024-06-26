@@ -138,18 +138,27 @@ input[type="email"].ng-touched.ng-invalid {
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
+    .settings-container {
+        height: 80%;
+    }
+    
     .modal {
-        width: 90%;
-        padding: 10px;
+        margin-top: 20%;
+        margin-bottom: 10%;
+        width: 60%;
+        padding: 30px;
+        height: 80%;
+        max-height: 80vh;
     }
 
     .modal-content {
+        position: relative;
         flex-direction: column;
     }
 
     h1 {
-        font-size: 23px;
-        margin: 23px 0 23px 8px;
+        font-size: large;
+        margin: 0px 0 10px 8px;
     }
 
     .left-column {
@@ -160,11 +169,11 @@ input[type="email"].ng-touched.ng-invalid {
 
     .tabs {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         margin: 0;
         padding: 0;
         border-bottom: 2px solid #8C7B75;
-        font-size: 8px;
+        font-size: 5px;
     }
 
     .tabs .tab-link {
@@ -176,16 +185,31 @@ input[type="email"].ng-touched.ng-invalid {
 
     .right-column {
         width: 100%;
+        height: calc(80vh - 25vh);
     }
 
     .close {
-        top: 4px;
-        right: 8px;
+        top: -5%;
+        right: -5%;
         font-size: 23px;
     }
+}
 
-    .form-group .error-message {
-        right: 5%;
-        width: 90%;
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+
+    h1 {
+        font-size: x-large;
+    }
+
+    .tabs {
+        font-size: x-small;
+    }
+    
+    .close {
+        top: 0%;
+        right: 0%;
     }
 }

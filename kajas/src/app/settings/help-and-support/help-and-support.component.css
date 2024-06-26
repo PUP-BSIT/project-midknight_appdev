@@ -153,16 +153,19 @@ textarea.ng-touched.ng-invalid {
     visibility: visible;
 }
 
-
 @media screen and (min-width: 320px) and (max-width: 768px) {
+    .help-container {
+        margin-left: 0;
+    }
+    
     h1 {
-        font-size: 16px;
-        margin-top: 23px;
+        font-size: small;
+        margin-top: 25px;
     }
 
     p {
         color: #8E7C70;
-        font-size: 12px;
+        font-size: x-small;
         margin-bottom: 16px;
     }
 
@@ -175,10 +178,9 @@ textarea.ng-touched.ng-invalid {
         display: flex;
         font-size: 8px;
     }
-    
-    .help-container {
-        margin-left: 0;
-        padding: 0 15px;
+
+    textarea::placeholder {
+        font-size: xx-small;
     }
 
     .contents {
@@ -192,33 +194,30 @@ textarea.ng-touched.ng-invalid {
 
     .upload-pic-label {
         width: 90%;
-        height: 100px;
+        height: 150px;
     }
-
-    .upload-pic-label img {
-        object-fit: contain;
-    }    
 
     textarea {
         width: 90%;
-        max-height: 100px;
+        height: 150px;
         font-size: 10px;
+        margin-bottom: 10px;
     }
 
     .submit-button button {
-        margin-bottom: 16px;
-        width: 100%;
-        font-size: 12px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        width: 50%;
+        font-size: xx-small;
     }
-}
 
-@media only screen and (max-width: 768px) {
     .error-message {
         padding: 5px;
         border-radius: 5px;
         font-size: 0.3em;
         top: -20px; 
         width: 70%;
+        right: 0;
     }
       
     .error-message::before {
@@ -229,5 +228,29 @@ textarea.ng-touched.ng-invalid {
       
     .form-group .error-message {
         top: -20px;
+    }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+
+    form {
+        display: flex;
+    }
+
+    h1 {
+        font-size: medium;
+    }
+
+    textarea {
+        height: 100px;
+    }
+
+    .error-message {
+        font-size: xx-small;
+        width: 50%;
+        right: 0;
     }
 }
