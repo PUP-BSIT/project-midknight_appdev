@@ -17,6 +17,8 @@ export class HelpAndSupportComponent{
   selectedFile: File = null;
   imagePreview: string | ArrayBuffer = '';
   userEmail = this.sessionStorage.get('email') || '';
+  modalMessage = '';
+  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +43,9 @@ export class HelpAndSupportComponent{
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
+    
+    this.modalMessage = 'Loading...';
+    this.showLoader = true;
 
     const formData = new FormData();
     formData.append('message', this.helpForm.get('message').value);
@@ -51,11 +56,13 @@ export class HelpAndSupportComponent{
 
     axios.post('http://localhost:4000/api/support', formData)
       .then(response => {
+        this.showLoader = false;
         if (response.status === 200) {
           this.showModalEvent.emit('Your issue has been sent to our support team. Thank you for reaching out to us!');
         }
       })
       .catch(error => {
+        this.showLoader = false;
         console.error('Error submitting the issue:', error);
         this.showModalEvent.emit('Unable to process the request. Please try again later.');
       });

@@ -15,6 +15,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   hideConfirmPassword = true;
   showModal = false;
   modalMessage = '';
+  showLoader = false;
 
   constructor(
     private renderer: Renderer2,
@@ -144,6 +145,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       this.showModal = true;
       return;
     }
+
+    this.modalMessage = 'Loading...';
+    this.showLoader = true;
 
     if (this.resetPasswordForm.invalid) return;
     try {

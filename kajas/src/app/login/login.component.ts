@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   hidePassword = true;
   showModal = false;
   modalMessage = '';
+  showLoader = false;
   resizeSubscription: Subscription;
   redirectUrl: string | null = null;
 
@@ -88,50 +89,61 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
-      this.http
-        .post('http://localhost:4000/api/login', this.loginForm.value)
-        .subscribe(
-          async (response: any) => {
-            this.modalMessage = 'Login Success! Welcome to Kajas!';
-            this.showModal = true;
-            this.sessionStorage.set('id', response.user.user_id);
-            this.sessionStorage.set('username', response.user.username);
-            this.sessionStorage.set('email', response.user.email);
-            this.sessionStorage.set('first_name', response.user.first_name);
-            this.sessionStorage.set('middle_name', response.user.middle_name);
-            this.sessionStorage.set('last_name', response.user.last_name);
-            this.sessionStorage.set('city', response.user.city);
-            this.sessionStorage.set('country', response.user.country);
-            this.sessionStorage.set('bio', response.user.bio);
-            this.sessionStorage.set('profile', response.user.profile);
-            this.sessionStorage.set('linkedin', response.user.linkedin);
-            this.sessionStorage.set('facebook', response.user.facebook);
-            this.sessionStorage.set('instagram', response.user.instagram);
-            this.sessionStorage.set('website', response.user.website);
-            this.sessionStorage.set('kajas_link', response.user.kajas_link);
+      this.showLoader = true;
+      const loaderTimeout = setTimeout(() => {
+        this.showLoader = false;
+        this.showModal = false;
+        if (this.redirectUrl) {
+          this.router.navigateByUrl(this.redirectUrl);
+          this.redirectUrl = null;
+        }
+      }, 2000);
   
-            const url = "http://localhost:4000";
-            const id = response.user.user_id;
+      this.http.post('http://localhost:4000/api/login', this.loginForm.value).subscribe(
+        async (response: any) => {
+          this.modalMessage = 'Login Success! Welcome to Kajas!';
+          this.sessionStorage.set('id', response.user.user_id);
+          this.sessionStorage.set('username', response.user.username);
+          this.sessionStorage.set('email', response.user.email);
+          this.sessionStorage.set('first_name', response.user.first_name);
+          this.sessionStorage.set('middle_name', response.user.middle_name);
+          this.sessionStorage.set('last_name', response.user.last_name);
+          this.sessionStorage.set('city', response.user.city);
+          this.sessionStorage.set('country', response.user.country);
+          this.sessionStorage.set('bio', response.user.bio);
+          this.sessionStorage.set('profile', response.user.profile);
+          this.sessionStorage.set('linkedin', response.user.linkedin);
+          this.sessionStorage.set('facebook', response.user.facebook);
+          this.sessionStorage.set('instagram', response.user.instagram);
+          this.sessionStorage.set('website', response.user.website);
+          this.sessionStorage.set('kajas_link', response.user.kajas_link);
   
-            try {
-              const axiosResponse = await axios.get(`${url}/api/location/id?id=${id}`);
-              if (axiosResponse.status === 200) {
-                const isFirstTime = axiosResponse.data.isFirstTimeLogin;
-                this.redirectUrl = isFirstTime ? '/setup-profile' : '/profile';
-              }
-            } catch (error) {
-              console.error(error);
-              this.modalMessage = 'An error occurred while fetching location data';
-              this.showModal = true;
+          const url = "http://localhost:4000";
+          const id = response.user.user_id;
+  
+          try {
+            const axiosResponse = await axios.get(`${url}/api/location/id?id=${id}`);
+            if (axiosResponse.status === 200) {
+              const isFirstTime = axiosResponse.data.isFirstTimeLogin;
+              this.redirectUrl = isFirstTime ? '/setup-profile' : '/profile';
             }
-          },
-          (error: any) => {
-            this.modalMessage = error.error.message || 'An error occurred during login';
+          } catch (error) {
+            console.error(error);
+            this.modalMessage = 'An error occurred while fetching location data';
             this.showModal = true;
           }
-        );
+  
+        },
+        (error: any) => {
+          this.modalMessage = error.error.message || 'An error occurred during login';
+          this.showLoader = false;
+          this.showModal = true;
+          clearTimeout(loaderTimeout);
+        }
+      );
     } else {
       this.modalMessage = 'Please fill out the form accurately first.';
+      this.showLoader = false;
       this.showModal = true;
     }
   }

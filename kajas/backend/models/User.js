@@ -72,6 +72,7 @@ const getUserProfile = (username, callback) => {
     FROM user u
     JOIN user_information ui ON u.user_information_id = ui.user_information_id
     WHERE u.username = ?
+    AND u.is_active = 1
   `;
 
   db.query(query, [username], (err, results) => {
@@ -122,7 +123,8 @@ const searchUsers = (query) => {
       SELECT u.username, ui.profile, ui.first_name AS firstName, ui.last_name AS lastName 
       FROM user u
       JOIN user_information ui ON u.user_information_id = ui.user_information_id
-      WHERE ui.first_name LIKE ? OR ui.last_name LIKE ?
+      WHERE (ui.first_name LIKE ? OR ui.last_name LIKE ?)
+      AND u.is_active = 1
       LIMIT 5`;
     db.query(searchQuery, [`${query}%`, `${query}%`], (error, results) => {
       if (error) {
