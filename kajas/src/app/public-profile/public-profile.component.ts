@@ -78,6 +78,10 @@ export class PublicProfileComponent implements OnInit {
             title: item.title,
             user_id: item.user_id,
           }));
+          
+          if (this.artworks.length === 0) {
+            this.message = "No Artworks Yet...";
+          }
         }
       })
       .catch(error => {
