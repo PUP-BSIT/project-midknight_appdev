@@ -6,7 +6,7 @@ const getArtWorks = (id, callback) => {
         if (err) {
             return callback(err, null);
         }        
-        if (results.length === 0) {       
+        if (!results.length) {       
             return callback(null, null);
         }    
         return callback(null, results);
@@ -29,7 +29,7 @@ const getArtworkByTitleAndId = (title, id, callback) => {
       if (error) {
           return callback(error);
       }
-      if (results.length === 0) {
+      if (!results.length) {
           return callback(null, null);
       }
       callback(null, results[0]);

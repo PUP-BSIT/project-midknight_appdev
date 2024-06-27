@@ -32,7 +32,7 @@ const findUserByResetToken = (token) => {
   return new Promise((resolve, reject) => {
     const query = "SELECT * FROM user WHERE reset_token = ?";
     db.query(query, [token], (err, results) => {
-      if (err || results.length === 0) {
+      if (err || !results.length) {
         return reject(err || new Error('User not found'));
       }
       resolve(results[0]);
@@ -79,7 +79,7 @@ const getUserProfile = (username, callback) => {
     if (err) {
       return callback(err, null);
     }
-    if (results.length === 0) {
+    if (!results.length) {
       return callback(null, null);
     }
     const userProfile = results[0];
@@ -147,7 +147,7 @@ const getUserProfileById = (id, callback) => {
     if (err) {
       return callback(err, null);
     }
-    if (results.length === 0) {
+    if (!results.length) {
       return callback(null, null);
     }
     const userProfile = results[0];
@@ -172,7 +172,7 @@ const changePassword = async (email, currentPassword, newPassword) => {
         return reject(err);
       }
 
-      if (results.length === 0) {
+      if (!results.length) {
         return reject(new Error('User not found'));
       }
 
@@ -213,7 +213,7 @@ const findById = (id) => {
       if (err) {
         return reject(err);
       }
-      if (results.length === 0) {
+      if (!results.length) {
         return resolve(null);
       }
       const userProfile = results[0];
@@ -238,7 +238,7 @@ const comparePassword = (userId, candidatePassword) => {
         return reject(err);
       }
 
-      if (results.length === 0) {
+      if (!results.length) {
         return reject(new Error('User not found'));
       }
 
