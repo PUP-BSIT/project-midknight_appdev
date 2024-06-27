@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 @Component({
   selector: 'app-reset-password',
@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       newPassword: ['', {
         validators: [
           Validators.required,
-          this.passwordValidator
+          this.passwordValidator.bind(this)
         ]
       }],
       confirmNewPassword: ['', {
@@ -36,6 +36,10 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
           this.confirmPasswordValidator.bind(this)
         ]
       }],
+    });
+
+    this.resetPasswordForm.get('newPassword')?.valueChanges.subscribe(() => {
+      this.resetPasswordForm.get('confirmNewPassword')?.updateValueAndValidity();
     });
   }
 
@@ -49,26 +53,38 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   private setInitialStyles(): void {
-    this.renderer.setStyle(document.body, 'height', '100%');
-    this.renderer.setStyle(document.body, 'overflow', 'hidden');
-    this.renderer.setStyle(document.body, 'display', 'flex');
-    this.renderer.setStyle(document.body, 'justify-content', 'center');
-    this.renderer.setStyle(document.body, 'align-items', 'center');
-    this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_bg.png") center/cover no-repeat');
-    this.renderer.setStyle(document.documentElement, 'height', '100%');
-    this.renderer.setStyle(document.documentElement, 'overflow', 'hidden');
+    const styles = {
+      body: {
+        'height': '100%',
+        'overflow': 'hidden',
+        'display': 'flex',
+        'justify-content': 'center',
+        'align-items': 'center',
+        'background': 'url("../../assets/signup_bg.png") center/cover no-repeat'
+      },
+      html: {
+        'height': '100%',
+        'overflow': 'hidden'
+      }
+    };
+  
+    Object.entries(styles.body).forEach(([prop, value]) => {
+      this.renderer.setStyle(document.body, prop, value);
+    });
+  
+    Object.entries(styles.html).forEach(([prop, value]) => {
+      this.renderer.setStyle(document.documentElement, prop, value);
+    });
   }
-
+  
   private revertStyles(): void {
-    this.renderer.removeStyle(document.body, 'height');
-    this.renderer.removeStyle(document.body, 'overflow');
-    this.renderer.removeStyle(document.body, 'display');
-    this.renderer.removeStyle(document.body, 'justify-content');
-    this.renderer.removeStyle(document.body, 'align-items');
-    this.renderer.removeStyle(document.body, 'background');
-    this.renderer.removeStyle(document.documentElement, 'height');
-    this.renderer.removeStyle(document.documentElement, 'overflow');
-  }
+    const stylesToRemove = ['height', 'overflow', 'display', 'justify-content', 'align-items', 'background'];
+  
+    stylesToRemove.forEach(style => {
+      this.renderer.removeStyle(document.body, style);
+      this.renderer.removeStyle(document.documentElement, style);
+    });
+  }  
 
   private passwordValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
@@ -139,7 +155,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     }
   }
 
-  async onSubmit() {
+  onSubmit() {
     if (this.resetPasswordForm.invalid) {
       this.modalMessage = 'Please fill out the form first.';
       this.showModal = true;
@@ -149,19 +165,21 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.modalMessage = 'Loading...';
     this.showLoader = true;
 
-    if (this.resetPasswordForm.invalid) return;
-    try {
-      await axios.post('http://localhost:4000/api/reset-password', {
-        token: this.token,
-        newPassword: this.resetPasswordForm.get('newPassword')?.value,
-        confirmNewPassword: this.resetPasswordForm.get('confirmNewPassword')?.value
-      });
+    axios.post('http://localhost:4000/api/reset-password', {
+      token: this.token,
+      newPassword: this.resetPasswordForm.get('newPassword')?.value,
+      confirmNewPassword: this.resetPasswordForm.get('confirmNewPassword')?.value
+    })
+    .then((response: AxiosResponse) => {
       this.modalMessage = 'Password has been reset successfully. You may now log in with your new password.';
-    } catch (error) {
+    })
+    .catch((error: AxiosError) => {
       console.error('Error in password reset:', error);
-      this.modalMessage = error.response?.data?.message || 'An error occurred. Please try again later.';
-    }
-    this.showModal = true;
+      this.modalMessage = 'An error occurred. Please try again later.';
+    })
+    .finally(() => {
+      this.showModal = true;
+    });
   }
 
   closeModal() {

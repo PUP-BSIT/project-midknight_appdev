@@ -3,14 +3,13 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { ModalService } from '../../services/modal.service';
 import { UserService } from '../../services/user.service';
 import { fromEvent, Subscription } from 'rxjs';
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-
 export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup;
   hidePassword = true;
@@ -25,7 +24,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private renderer: Renderer2,
     private modalService: ModalService,
-    private userService: UserService 
+    private userService: UserService
   ) {
     this.registrationForm = this.fb.group({
       username: ['', {
@@ -38,13 +37,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         validators: [
           Validators.required,
           Validators.email,
-          this.gmailValidator
+          this.gmailValidator.bind(this)
         ]
       }],
       password: ['', {
         validators: [
           Validators.required,
-          this.passwordValidator
+          this.passwordValidator.bind(this)
         ]
       }],
       confirmPassword: ['', {
@@ -64,9 +63,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.required
         ]
       }],
-      terms: [false,  {
+      terms: [false, {
         validators: [
-          Validators.required
+          Validators.requiredTrue
         ]
       }],
     });
@@ -84,29 +83,40 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   private setInitialStyles(): void {
-    this.renderer.setStyle(document.body, 'height', '100%');
-    this.renderer.setStyle(document.body, 'overflow', 'hidden');
-    this.renderer.setStyle(document.body, 'display', 'flex');
-    this.renderer.setStyle(document.body, 'justify-content', 'center');
-    this.renderer.setStyle(document.body, 'align-items', 'center');
-    this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_bg.png") center/cover no-repeat');
-    
-    this.renderer.setStyle(document.documentElement, 'height', '100%');
-    this.renderer.setStyle(document.documentElement, 'overflow', 'hidden');
+    const styles = {
+      body: {
+        'height': '100%',
+        'overflow': 'hidden',
+        'display': 'flex',
+        'justify-content': 'center',
+        'align-items': 'center',
+        'background': 'url("../../assets/signup_bg.png") center/cover no-repeat'
+      },
+      html: {
+        'height': '100%',
+        'overflow': 'hidden'
+      }
+    };
+  
+    Object.entries(styles.body).forEach(([prop, value]) => {
+      this.renderer.setStyle(document.body, prop, value);
+    });
+  
+    Object.entries(styles.html).forEach(([prop, value]) => {
+      this.renderer.setStyle(document.documentElement, prop, value);
+    });
+  
     this.applyBackground();
   }
-
+  
   private revertStyles(): void {
-    this.renderer.removeStyle(document.body, 'height');
-    this.renderer.removeStyle(document.body, 'overflow');
-    this.renderer.removeStyle(document.body, 'display');
-    this.renderer.removeStyle(document.body, 'justify-content');
-    this.renderer.removeStyle(document.body, 'align-items');
-    this.renderer.removeStyle(document.body, 'background');
-    
-    this.renderer.removeStyle(document.documentElement, 'height');
-    this.renderer.removeStyle(document.documentElement, 'overflow');
-  }
+    const stylesToRemove = ['height', 'overflow', 'display', 'justify-content', 'align-items', 'background'];
+  
+    stylesToRemove.forEach(style => {
+      this.renderer.removeStyle(document.body, style);
+      this.renderer.removeStyle(document.documentElement, style);
+    });
+  }  
 
   private applyBackground(): void {
     const backgroundUrl = window.innerWidth <= 425 ? '../../assets/signup_mbg.png' : '../../assets/signup_bg.png';
@@ -115,10 +125,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   private loadUsernames(): void {
     this.userService.getUsernames().subscribe(
-      (usernames) => {
+      (usernames: string[]) => {
         this.existingUsernames = usernames;
       },
-      (error) => {
+      (error: any) => {
         console.error('Error fetching usernames:', error);
       }
     );
@@ -141,14 +151,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   private passwordValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.value;
     const errors: ValidationErrors = {};
-    
+
     if (!/[A-Z]/.test(password)) {
       errors.noUpperCase = true;
     }
     if (!/[a-z]/.test(password)) {
       errors.noLowerCase = true;
     }
-    if (!/[0-9]/.test(password)) {
+    if (!/\d/.test(password)) {
       errors.noNumber = true;
     }
     if (!/[!@#$%^&*]/.test(password)) {
@@ -168,32 +178,38 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  async onSubmit(): Promise<void> {
-    const url = "http://localhost:4000";
+  onSubmit(): void {
+    const url = 'http://localhost:4000';
     if (this.registrationForm.valid) {
       this.modalMessage = 'Loading...';
       this.showLoader = true;
-      try {
-        const signupUser = await axios.post(`${url}/api/signup`, this.registrationForm.value);
-        if (signupUser.status === 201) {
-          const sendEmail = await axios.post(`${url}/send/email`, {
-            email: this.registrationForm.value.email
-          });
-          if (sendEmail.status === 200) {
-            this.modalMessage = sendEmail.data.msg;
+
+      axios.post(`${url}/api/signup`, this.registrationForm.value)
+        .then((response: AxiosResponse) => {
+          if (response.status === 201) {
+            this.modalMessage = 'User registered successfully.';
+            return axios.post(`${url}/send/email`, { email: this.registrationForm.value.email });
+          }
+        })
+        .then((response: AxiosResponse) => {
+          if (response && response.status === 200) {
+            this.modalMessage = 'Registration successful. Verification email sent.';
             this.showModal = true;
           }
-        }
-      } catch (error) {
-        console.error('Error during registration:', error);
-      } finally {
-        this.showLoader = false; 
-      }
+        })
+        .catch((error: AxiosError) => {
+          console.error('Error during registration:', error);
+          this.modalMessage = 'An error occurred. Please try again later.';
+        })
+        .finally(() => {
+          this.showLoader = false;
+          this.showModal = true;
+        });
     } else {
       this.modalMessage = 'Please fill out the form accurately and completely.';
       this.showModal = true;
     }
-  }  
+  }
 
   togglePasswordVisibility(field: string): void {
     if (field === 'password') {
@@ -208,9 +224,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.modalService.openTermsModal();
   }
 
-  closeModal() {
+  closeModal(): void {
     this.showModal = false;
-  }  
+  }
 
   getErrorMessage(controlName: string): string {
     const control = this.registrationForm.get(controlName);
@@ -243,6 +259,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   private capitalizeFirstLetter(string: string): string {
-    return string.charAt(0).toUpperCase() + string.slice(1).replace(/([A-Z])/g, ' $1');
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

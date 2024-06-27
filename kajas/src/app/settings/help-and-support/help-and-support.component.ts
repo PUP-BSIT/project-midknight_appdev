@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ModalService } from '../../../services/modal.service';
 import { SessionStorageService } from 'angular-web-storage';
 import axios from 'axios';
 
@@ -22,8 +20,6 @@ export class HelpAndSupportComponent{
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private modalService: ModalService,
     private sessionStorage: SessionStorageService
   ) {
     this.helpForm = this.fb.group({

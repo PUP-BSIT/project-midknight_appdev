@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ModalService } from '../../../services/modal.service';
 import { HttpClient } from '@angular/common/http';
 import { SessionStorageService } from 'angular-web-storage';
 import { delay } from 'rxjs/operators';
@@ -23,8 +21,6 @@ export class ChangePasswordComponent {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private modalService: ModalService,
     private http: HttpClient,
     private sessionStorage: SessionStorageService
   ) {
