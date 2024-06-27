@@ -164,17 +164,17 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  async onSubmit(): Promise<void> {
+  onSubmit(): void {
     const url = "http://localhost:4000/api/setProfile";
     const formData = new FormData();
-  
+
     if (this.profileForm.invalid) {
       this.profileForm.markAllAsTouched();
       this.modalMessage = 'Please fill out the form accurately and completely.';
       this.showModal = true;
       return;
     }
-  
+
     Object.keys(this.profileForm.controls).forEach(key => {
       const control = this.profileForm.get(key);
       if (control && control.value !== null && control.value !== undefined) {
@@ -185,33 +185,34 @@ export class EditProfileComponent implements OnInit {
         }
       }
     });
-  
+
     if (!(this.profileForm.controls['profile'].value instanceof File)) {
       formData.append('profile', this.profileForm.controls['profile'].value);
     }
-  
-    try {
-      const response = await axios.post(url, formData);
-      if (response.status === 200) {
-        this.modalMessage = 'Profile Updated Successfully!';
-        this.showModal = true;
-  
-        this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
-        this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
-        this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
-        this.sessionStorage.set('city', this.profileForm.controls.city.value);
-        this.sessionStorage.set('country', this.profileForm.controls.country.value);
-        this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
-        this.sessionStorage.set('profile', response.data.updatedprofile || this.sessionStorage.get('profile'));
-        this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
-        this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
-        this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
-        this.sessionStorage.set('website', this.profileForm.controls.website.value);
-        this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
-      }
-    } catch (error) {
-      console.error('Error submitting the profile data:', error);
-    }
+
+    axios.post(url, formData)
+      .then(response => {
+        if (response.status === 200) {
+          this.modalMessage = 'Profile Updated Successfully!';
+          this.showModal = true;
+
+          this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
+          this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
+          this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
+          this.sessionStorage.set('city', this.profileForm.controls.city.value);
+          this.sessionStorage.set('country', this.profileForm.controls.country.value);
+          this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
+          this.sessionStorage.set('profile', response.data.updatedprofile || this.sessionStorage.get('profile'));
+          this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
+          this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
+          this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
+          this.sessionStorage.set('website', this.profileForm.controls.website.value);
+          this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
+        }
+      })
+      .catch(error => {
+        console.error('Error submitting the profile data:', error);
+      });
   }
 
   getErrorMessage(controlName: string): string {

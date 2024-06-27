@@ -14,24 +14,24 @@ export class SetupProfileComponent implements OnInit {
   profileForm: FormGroup;
   countries: any[] = [];
   cities: any[] = [];
-  selectedCountryName = '';
-  showModal = false;
-  modalMessage = '';
+  selectedCountryName: string = '';
+  showModal: boolean = false;
+  modalMessage: string = '';
   profileImageUrl: string | ArrayBuffer | null = '';
 
-  firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
-  lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
-  middleNamePlaceholder = this.sessionStorage.get('middle_name') || 'Middle Name';
-  emailPlaceholder = this.sessionStorage.get('email') || '';
-  kajasPlaceholder = this.sessionStorage.get('username') || '';
-  
+  firstNamePlaceholder: string = '';
+  lastNamePlaceholder: string = '';
+  middleNamePlaceholder: string = 'Middle Name';
+  emailPlaceholder: string = '';
+  kajasPlaceholder: string = '';
 
   constructor(
-    private fb: FormBuilder, 
-    private locationService: LocationService, 
-    private sessionStorage: SessionStorageService, 
+    private fb: FormBuilder,
+    private locationService: LocationService,
+    private sessionStorage: SessionStorageService,
     private router: Router
   ) {
+    
     this.profileForm = this.fb.group({
       id: [this.sessionStorage.get('id')],
       profile: [''],
@@ -95,6 +95,12 @@ export class SetupProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
+    this.lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
+    this.middleNamePlaceholder = this.sessionStorage.get('middle_name') || 'Middle Name';
+    this.emailPlaceholder = this.sessionStorage.get('email') || '';
+    this.kajasPlaceholder = this.sessionStorage.get('username') || '';
+
     this.locationService.getCountries().subscribe(data => {
       this.countries = data;
       this.countries.sort((a, b) => a.name.localeCompare(b.name));
@@ -149,7 +155,7 @@ export class SetupProfileComponent implements OnInit {
     });
   }
 
-  async onSubmit(): Promise<void> {
+  onSubmit(): void {
     const url = "http://localhost:4000/api/setProfile";
     const formData = new FormData();
 
@@ -170,26 +176,27 @@ export class SetupProfileComponent implements OnInit {
         }
       }
     });
-        
-    try {
-      const response = await axios.post(url, formData);
-      if (response.status === 200) {
-        this.modalMessage = 'Profile Setup Successfully!';
-        this.showModal = true;
 
-        this.sessionStorage.set('city', this.profileForm.controls.city.value);
-        this.sessionStorage.set('country', this.profileForm.controls.country.value);
-        this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
-        this.sessionStorage.set('profile', response.data.updatedprofile);
-        this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
-        this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
-        this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
-        this.sessionStorage.set('website', this.profileForm.controls.website.value);
-        this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
-      }
-    } catch (error) {
-      console.error('Error submitting the profile data:', error);
-    }
+    axios.post(url, formData)
+      .then(response => {
+        if (response.status === 200) {
+          this.modalMessage = 'Profile Setup Successfully!';
+          this.showModal = true;
+
+          this.sessionStorage.set('city', this.profileForm.controls.city.value);
+          this.sessionStorage.set('country', this.profileForm.controls.country.value);
+          this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
+          this.sessionStorage.set('profile', response.data.updatedprofile);
+          this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
+          this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
+          this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
+          this.sessionStorage.set('website', this.profileForm.controls.website.value);
+          this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
+        }
+      })
+      .catch(error => {
+        console.error('Error submitting the profile data:', error);
+      });
   }
 
   getErrorMessage(controlName: string): string {
@@ -219,5 +226,5 @@ export class SetupProfileComponent implements OnInit {
 
   getAbsoluteUrl(relativePath: string): string {
     return `http://localhost:4000/uploads/${relativePath}`;
-  }  
+  }
 }

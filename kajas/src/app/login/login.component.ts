@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoginResponse, User, LocationResponse } from '../../models/user.model';
 import { SessionStorageService } from 'angular-web-storage';
 import { fromEvent, Subscription } from 'rxjs';
-import axios from 'axios';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +17,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   showModal = false;
   modalMessage = '';
   showLoader = false;
-  resizeSubscription: Subscription;
+  resizeSubscription: Subscription | null = null;
   redirectUrl: string | null = null;
+  loaderTimeout: any;
 
   constructor(
     private renderer: Renderer2,
@@ -28,18 +29,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     private sessionStorage: SessionStorageService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', {
-        validators: [
-          Validators.required,
-          Validators.email
-        ]
-      }],
-      password: ['', {
-        validators: [
-          Validators.required,
-          Validators.minLength(6)
-        ]
-      }]
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6)
+      ]]
     });
   }
 
@@ -50,7 +47,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.revertStyles();
-    this.resizeSubscription.unsubscribe();
+    if (this.resizeSubscription) {
+      this.resizeSubscription.unsubscribe();
+    }
   }
 
   private setInitialStyles(): void {
@@ -87,65 +86,71 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(document.body, 'background', `url("${backgroundUrl}") center/cover no-repeat`);
   }
 
-  async onSubmit(): Promise<void> {
+  onSubmit(): void {
     if (this.loginForm.valid) {
-      this.showLoader = true;
-      const loaderTimeout = setTimeout(() => {
-        this.showLoader = false;
-        this.showModal = false;
-        if (this.redirectUrl) {
-          this.router.navigateByUrl(this.redirectUrl);
-          this.redirectUrl = null;
-        }
-      }, 2000);
-  
-      this.http.post('http://localhost:4000/api/login', this.loginForm.value).subscribe(
-        async (response: any) => {
-          this.modalMessage = 'Login Success! Welcome to Kajas!';
-          this.sessionStorage.set('id', response.user.user_id);
-          this.sessionStorage.set('username', response.user.username);
-          this.sessionStorage.set('email', response.user.email);
-          this.sessionStorage.set('first_name', response.user.first_name);
-          this.sessionStorage.set('middle_name', response.user.middle_name);
-          this.sessionStorage.set('last_name', response.user.last_name);
-          this.sessionStorage.set('city', response.user.city);
-          this.sessionStorage.set('country', response.user.country);
-          this.sessionStorage.set('bio', response.user.bio);
-          this.sessionStorage.set('profile', response.user.profile);
-          this.sessionStorage.set('linkedin', response.user.linkedin);
-          this.sessionStorage.set('facebook', response.user.facebook);
-          this.sessionStorage.set('instagram', response.user.instagram);
-          this.sessionStorage.set('website', response.user.website);
-          this.sessionStorage.set('kajas_link', response.user.kajas_link);
-  
-          const url = "http://localhost:4000";
-          const id = response.user.user_id;
-  
-          try {
-            const axiosResponse = await axios.get(`${url}/api/location/id?id=${id}`);
-            if (axiosResponse.status === 200) {
-              const isFirstTime = axiosResponse.data.isFirstTimeLogin;
-              this.redirectUrl = isFirstTime ? '/setup-profile' : '/profile';
-            }
-          } catch (error) {
-            console.error(error);
-            this.modalMessage = 'An error occurred while fetching location data';
-            this.showModal = true;
-          }
-  
+      this.http.post<LoginResponse>('http://localhost:4000/api/login', this.loginForm.value).subscribe(
+        (response: LoginResponse) => {
+          this.showLoader = true;
+          this.handleLoginSuccess(response);
         },
         (error: any) => {
-          this.modalMessage = error.error.message || 'An error occurred during login';
-          this.showLoader = false;
-          this.showModal = true;
-          clearTimeout(loaderTimeout);
+          this.handleError(error);
         }
       );
     } else {
       this.modalMessage = 'Please fill out the form accurately first.';
-      this.showLoader = false;
       this.showModal = true;
     }
+  }
+
+  private handleLoginSuccess(response: LoginResponse): void {
+    this.modalMessage = 'Login Success! Welcome to Kajas!';
+    this.saveUserData(response.user);
+
+    this.loaderTimeout = setTimeout(() => {
+      this.showLoader = false;
+      this.showModal = false;
+      if (this.redirectUrl) {
+        this.router.navigateByUrl(this.redirectUrl);
+        this.redirectUrl = null;
+      }
+    }, 2000);
+
+    this.http.get<LocationResponse>(`http://localhost:4000/api/location/id?id=${response.user.user_id}`).subscribe(
+      (locationResponse: LocationResponse) => {
+        this.redirectUrl = locationResponse.isFirstTimeLogin ? '/setup-profile' : '/profile';
+      },
+      (error: any) => {
+        console.error(error);
+        this.modalMessage = 'An error occurred while fetching location data';
+        this.showModal = true;
+      }
+    );
+  }
+
+  private handleError(error: any): void {
+    this.modalMessage = error.error.message || 'An error occurred during login';
+    this.showLoader = false;
+    this.showModal = true;
+    clearTimeout(this.loaderTimeout);
+  }
+
+  private saveUserData(user: User): void {
+    this.sessionStorage.set('id', user.user_id);
+    this.sessionStorage.set('username', user.username);
+    this.sessionStorage.set('email', user.email);
+    this.sessionStorage.set('first_name', user.first_name);
+    this.sessionStorage.set('middle_name', user.middle_name);
+    this.sessionStorage.set('last_name', user.last_name);
+    this.sessionStorage.set('city', user.city);
+    this.sessionStorage.set('country', user.country);
+    this.sessionStorage.set('bio', user.bio);
+    this.sessionStorage.set('profile', user.profile);
+    this.sessionStorage.set('linkedin', user.linkedin);
+    this.sessionStorage.set('facebook', user.facebook);
+    this.sessionStorage.set('instagram', user.instagram);
+    this.sessionStorage.set('website', user.website);
+    this.sessionStorage.set('kajas_link', user.kajas_link);
   }
 
   togglePasswordVisibility(): void {
@@ -156,7 +161,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.showModal = false;
     if (this.redirectUrl) {
       this.router.navigateByUrl(this.redirectUrl);
-      this.redirectUrl = null; 
+      this.redirectUrl = null;
     }
   }
 }
