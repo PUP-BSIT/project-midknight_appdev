@@ -40,6 +40,7 @@ import { EmailService } from '../services/email.service';
 import { LoaderModalComponent } from './shared/loader-modal/loader-modal.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './material.module';
+import { HeaderVisibilityService } from '../services/header-visibility.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MaterialModule } from './material.module';
     MaterialModule
   ],
   providers: [ 
+    HeaderVisibilityService,
     ModalService,
     UserService,
     LocationService,

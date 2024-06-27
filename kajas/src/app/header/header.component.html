@@ -1,35 +1,38 @@
-<div class="tab-container">
-    <div class="logo">
-        <img routerLink="/profile" 
-            src="../../assets/kajas_icon.png" 
-            alt="Kajas Logo">
-    </div>
-
-    <div class="search-field">
-        <input type="text" class="search-input" placeholder="SEARCH" 
-            (input)="onSearch($event.target.value)" (focus)="onSearchFocus()">
-        <div class="search-results" 
-            [ngClass]="{'show': searchResults.length > 0}">
-            @if(searchResults.length > 0) {
-                @for(result of searchResults; track result.id) {
-                    <div class="search-result-item" 
-                        (click)="navigateToProfile(result.username)">
-                        <img [src]="getAbsoluteUrl(result.profile) ||
-                            '../../assets/default-profile.png'" 
-                            alt="Profile Picture" />
-                        <span>{{ result.firstName }} 
-                            {{ result.lastName }}</span>
-                    </div>
+@if (showHeader) {
+    <div class="tab-container">
+        <div class="logo">
+            <img routerLink="/profile" 
+                src="../../assets/kajas_icon.png" 
+                alt="Kajas Logo">
+        </div>
+    
+        <div class="search-field">
+            <input type="text" class="search-input" placeholder="SEARCH" 
+                (input)="onSearch($event.target.value)" (focus)="onSearchFocus()">
+            <div class="search-results" 
+                [ngClass]="{'show': searchResults.length > 0}">
+                @if(searchResults.length > 0) {
+                    @for(result of searchResults; track result.id) {
+                        <div class="search-result-item" 
+                            (click)="navigateToProfile(result.username)">
+                            <img [src]="getAbsoluteUrl(result.profile) ||
+                                '../../assets/default-profile.png'" 
+                                alt="Profile Picture" />
+                            <span>{{ result.firstName }} 
+                                {{ result.lastName }}</span>
+                        </div>
+                    }
                 }
-            }
+            </div>
+        </div>    
+    
+        <div class="dropdown-button" (click)="toggleDropdown($event)">
+            <img src="../../assets/icons/dropbox.png" alt="drop down">
+            <div class="dropdown-content" [ngClass]="{'show': dropdownOpen}">
+                <a (click)="navigateToSettings($event)">Settings</a>
+                <a href="#" (click)="logout($event)">Log Out</a>
+            </div>
         </div>
     </div>    
+}
 
-    <div class="dropdown-button" (click)="toggleDropdown($event)">
-        <img src="../../assets/icons/dropbox.png" alt="drop down">
-        <div class="dropdown-content" [ngClass]="{'show': dropdownOpen}">
-            <a (click)="navigateToSettings($event)">Settings</a>
-            <a href="#" (click)="logout($event)">Log Out</a>
-        </div>
-    </div>
-</div>
