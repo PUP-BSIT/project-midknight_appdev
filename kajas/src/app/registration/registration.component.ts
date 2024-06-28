@@ -69,6 +69,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         ]
       }],
     });
+
+    this.registrationForm.get('password')?.valueChanges.subscribe(() => {
+      this.registrationForm.get('confirmPassword')?.updateValueAndValidity();
+    });
   }
 
   ngOnInit(): void {
@@ -187,13 +191,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       axios.post(`${url}/api/signup`, this.registrationForm.value)
         .then((response: AxiosResponse) => {
           if (response.status === 201) {
-            this.modalMessage = 'User registered successfully.';
+            this.modalMessage = 'Registering User...';
             return axios.post(`${url}/send/email`, { email: this.registrationForm.value.email });
           }
         })
         .then((response: AxiosResponse) => {
           if (response && response.status === 200) {
-            this.modalMessage = 'Registration successful. Verification email sent.';
+            this.modalMessage = 'User registered successfully. Please see the verification email sent.';
             this.showModal = true;
           }
         })
