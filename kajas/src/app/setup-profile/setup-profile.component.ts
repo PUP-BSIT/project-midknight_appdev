@@ -14,16 +14,16 @@ export class SetupProfileComponent implements OnInit {
   profileForm: FormGroup;
   countries: any[] = [];
   cities: any[] = [];
-  selectedCountryName: string = '';
-  showModal: boolean = false;
-  modalMessage: string = '';
+  selectedCountryName = '';
+  showModal = false;
+  modalMessage = '';
   profileImageUrl: string | ArrayBuffer | null = '';
 
-  firstNamePlaceholder: string = '';
-  lastNamePlaceholder: string = '';
-  middleNamePlaceholder: string = 'Middle Name';
-  emailPlaceholder: string = '';
-  kajasPlaceholder: string = '';
+  firstNamePlaceholder = '';
+  lastNamePlaceholder = '';
+  middleNamePlaceholder = '';
+  emailPlaceholder = '';
+  kajasPlaceholder = '';
 
   constructor(
     private fb: FormBuilder,
