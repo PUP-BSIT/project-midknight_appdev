@@ -69,10 +69,10 @@ const getUserProfile = (username, callback) => {
   const query = `
     SELECT u.user_id, u.username, u.email, ui.profile, ui.bio, ui.first_name, ui.middle_name, ui.last_name, ui.country, ui.city, ui.kajas_link,
     ui.facebook, ui.linkedin, ui.instagram, ui.website
-    FROM user u
+     FROM user u
     JOIN user_information ui ON u.user_information_id = ui.user_information_id
     WHERE u.username = ?
-    AND u.is_verify = 1
+    AND u.is_active = 1
   `;
 
   db.query(query, [username], (err, results) => {
@@ -121,10 +121,10 @@ const searchUsers = (query) => {
   return new Promise((resolve, reject) => {
     const searchQuery = `
       SELECT u.username, ui.profile, ui.first_name AS firstName, ui.last_name AS lastName 
-      FROM user u
+         FROM user u
       JOIN user_information ui ON u.user_information_id = ui.user_information_id
       WHERE (ui.first_name LIKE ? OR ui.last_name LIKE ?)
-      AND u.is_verify = 1
+      AND u.is_active = 1
       LIMIT 5`;
     db.query(searchQuery, [`${query}%`, `${query}%`], (error, results) => {
       if (error) {
@@ -266,12 +266,12 @@ const updateUserEmail = (userId, newEmail) => {
 };
 
 const deactivateUser = (userId, callback) => {
-  const query = "UPDATE user SET is_verify = 0 WHERE user_id = ?";
+  const query = "UPDATE user SET is_active = 0 WHERE user_id = ?";
   db.query(query, [userId], callback);
 };
 
 const reactivateUser = (userId, callback) => {
-  const query = "UPDATE user SET is_verify = 1 WHERE user_id = ?";
+  const query = "UPDATE user SET is_active = 1 WHERE user_id = ?";
   db.query(query, [userId], callback);
 };
 
