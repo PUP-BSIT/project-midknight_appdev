@@ -72,7 +72,7 @@ const getUserProfile = (username, callback) => {
     FROM user u
     JOIN user_information ui ON u.user_information_id = ui.user_information_id
     WHERE u.username = ?
-    AND u.is_active = 1
+    AND u.is_verify = 1
   `;
 
   db.query(query, [username], (err, results) => {
@@ -124,7 +124,7 @@ const searchUsers = (query) => {
       FROM user u
       JOIN user_information ui ON u.user_information_id = ui.user_information_id
       WHERE (ui.first_name LIKE ? OR ui.last_name LIKE ?)
-      AND u.is_active = 1
+      AND u.is_verify = 1
       LIMIT 5`;
     db.query(searchQuery, [`${query}%`, `${query}%`], (error, results) => {
       if (error) {
@@ -266,12 +266,12 @@ const updateUserEmail = (userId, newEmail) => {
 };
 
 const deactivateUser = (userId, callback) => {
-  const query = "UPDATE user SET is_active = 0 WHERE user_id = ?";
+  const query = "UPDATE user SET is_verify = 0 WHERE user_id = ?";
   db.query(query, [userId], callback);
 };
 
 const reactivateUser = (userId, callback) => {
-  const query = "UPDATE user SET is_active = 1 WHERE user_id = ?";
+  const query = "UPDATE user SET is_verify = 1 WHERE user_id = ?";
   db.query(query, [userId], callback);
 };
 
