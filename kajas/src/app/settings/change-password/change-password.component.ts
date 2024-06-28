@@ -89,12 +89,12 @@ export class ChangePasswordComponent {
   
     this.http.post('http://localhost:4000/api/change-password', { ...formValue, email }).pipe(
       delay(1000)
-    ).subscribe(
-      (response: any) => {
+    ).subscribe({
+      next: (response: any) => {
         this.showLoader = false;
         this.showModalEvent.emit('Password changed successfully! Please log in again with your new password.');
       },
-      (error: any) => {
+      error: (error: any) => {
         this.showLoader = false;
         if (error.status === 401 && error.error.message === 'Incorrect current password') {
           this.showModalEvent.emit('Invalid current password. Please try again.');
@@ -104,7 +104,7 @@ export class ChangePasswordComponent {
           this.showModalEvent.emit('Error changing password. Please try again.');
         }
       }
-    );
+    });    
   }
 
   getErrorMessage(controlName: string): string {

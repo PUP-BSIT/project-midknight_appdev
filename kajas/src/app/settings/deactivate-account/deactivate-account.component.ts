@@ -49,12 +49,12 @@ export class DeactivateAccountComponent {
     const userId = this.sessionStorage.get('id');
     this.userService.deactivateAccount(userId, this.password).pipe(
       delay(1000)
-    ).subscribe(
-      response => {
+    ).subscribe({
+      next: (response) => {
         this.showLoader = false;
         this.showModalEvent.emit('Your account has been successfully deactivated. Thank you for being a part of our community.');
       },
-      error => {
+      error: (error) => {
         this.showLoader = false;
         if (error.status === 400 && error.error.message === 'Incorrect password') {
           this.showModalEvent.emit('Invalid password. Please try again.');
@@ -62,7 +62,7 @@ export class DeactivateAccountComponent {
           this.showModalEvent.emit('Error deactivating account: ' + error.error.message);
         }
       }
-    );
+    });    
   }
   
   getErrorMessage(controlName: string): string {

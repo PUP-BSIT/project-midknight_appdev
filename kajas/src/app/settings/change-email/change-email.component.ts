@@ -72,12 +72,12 @@ export class ChangeEmailComponent {
       return;
     }
 
-    this.emailService.changeEmail(userId, formValue.email, formValue.email, formValue.password).subscribe(
-      (response: any) => {
+    this.emailService.changeEmail(userId, formValue.email, formValue.email, formValue.password).subscribe({
+      next: (response: any) => {
         this.showLoader = false;
         this.showModalEvent.emit('Email changed successfully! Please log in again with your new email.');
       },
-      (error: any) => {
+      error: (error: any) => {
         this.showLoader = false;
         if (error.status === 401 && error.error.message === 'Incorrect password') {
           this.showModalEvent.emit('Invalid password. Please try again.');
@@ -85,7 +85,7 @@ export class ChangeEmailComponent {
           this.showModalEvent.emit('Error changing email. Please try again.');
         }
       }
-    );
+    });    
   }
 
   getErrorMessage(controlName: string): string {

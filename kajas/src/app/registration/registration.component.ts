@@ -128,14 +128,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   private loadUsernames(): void {
-    this.userService.getUsernames().subscribe(
-      (usernames: string[]) => {
+    this.userService.getUsernames().subscribe({
+      next: (usernames: string[]) => {
         this.existingUsernames = usernames;
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error('Error fetching usernames:', error);
       }
-    );
+    });    
   }
 
   private usernameValidator(control: AbstractControl): ValidationErrors | null {

@@ -95,15 +95,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.http.post<LoginResponse>('http://localhost:4000/api/login', this.loginForm.value).subscribe(
-        (response: LoginResponse) => {
+      this.http.post<LoginResponse>('http://localhost:4000/api/login', this.loginForm.value).subscribe({
+        next: (response: LoginResponse) => {
           this.showLoader = true;
           this.handleLoginSuccess(response);
         },
-        (error: any) => {
+        error: (error: any) => {
           this.handleError(error);
         }
-      );
+      });      
     } else {
       this.modalMessage = 'Please fill out the form accurately first.';
       this.showModal = true;
@@ -123,16 +123,16 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     }, 2000);
 
-    this.http.get<LocationResponse>(`http://localhost:4000/api/location/id?id=${response.user.user_id}`).subscribe(
-      (locationResponse: LocationResponse) => {
+    this.http.get<LocationResponse>(`http://localhost:4000/api/location/id?id=${response.user.user_id}`).subscribe({
+      next: (locationResponse: LocationResponse) => {
         this.redirectUrl = locationResponse.isFirstTimeLogin ? '/setup-profile' : '/profile';
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error(error);
         this.modalMessage = 'An error occurred while fetching location data';
         this.showModal = true;
       }
-    );
+    });    
   }
 
   private handleError(error: any): void {
