@@ -161,20 +161,22 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       this.showModal = true;
       return;
     }
-
-    this.modalMessage = 'Loading...';
+  
+    this.modalMessage = 'Changing Password...';
     this.showLoader = true;
-
+  
     axios.post('http://localhost:4000/api/reset-password', {
       token: this.token,
       newPassword: this.resetPasswordForm.get('newPassword')?.value,
       confirmNewPassword: this.resetPasswordForm.get('confirmNewPassword')?.value
     })
     .then((response: AxiosResponse) => {
+      this.showLoader = false;
       this.modalMessage = 'Password has been reset successfully. You may now log in with your new password.';
     })
     .catch((error: AxiosError) => {
       console.error('Error in password reset:', error);
+      this.showLoader = false;
       this.modalMessage = 'An error occurred. Please try again later.';
     })
     .finally(() => {
