@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.http.post<LoginResponse>('http://localhost:4000/api/login', this.loginForm.value).subscribe({
+      this.http.post<LoginResponse>('https://kajas-backend.onrender.com/api/login', this.loginForm.value).subscribe({
         next: (response: LoginResponse) => {
           this.showLoader = true;
           this.handleLoginSuccess(response);
@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     }, 2000);
 
-    this.http.get<LocationResponse>(`http://localhost:4000/api/location/id?id=${response.user.user_id}`).subscribe({
+    this.http.get<LocationResponse>(`https://kajas-backend.onrender.com/api/location/id?id=${response.user.user_id}`).subscribe({
       next: (locationResponse: LocationResponse) => {
         this.redirectUrl = locationResponse.isFirstTimeLogin ? '/setup-profile' : '/profile';
       },

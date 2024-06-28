@@ -56,7 +56,7 @@ export class AddArtworkComponent {
   }
 
   save(): void {
-    const url = "http://localhost:4000/api/artwork/submit";
+    const url = "https://kajas-backend.onrender.com/api/artwork/submit";
     const formData = new FormData();
 
     if (this.artworkForm.invalid) {

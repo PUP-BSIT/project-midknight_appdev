@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
-  private apiUrl = 'http://localhost:4000/api/users';
+  private apiUrl = 'https://kajas-backend.onrender.com/api/users';
 
   constructor(private http: HttpClient) {}
 

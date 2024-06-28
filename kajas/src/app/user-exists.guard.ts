@@ -7,7 +7,7 @@ export const UserExistsGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
   const username = route.paramMap.get('username');
 
-  return axios.get(`http://localhost:4000/api/profile/${username}`)
+  return axios.get(`https://kajas-backend.onrender.com/api/profile/${username}`)
     .then(response => {
       if (response.status === 200) {
         return true;

@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
     this.website = this.sessionStorage.get('website') || '';
     this.kajasLink = this.sessionStorage.get('kajas_link') || '';
 
-    axios.get(`http://localhost:4000/api/artworks/id?id=${id}`)
+    axios.get(`https://kajas-backend.onrender.com/api/artworks/id?id=${id}`)
       .then(response => {
         if (response.status === 200 && response.data.data && response.data.data.length > 0) {
           this.artworks = response.data.data.map(item => ({
@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteArtwork(artworkId: number): void {
-    axios.post(`http://localhost:4000/api/artwork/delete/${artworkId}`)
+    axios.post(`https://kajas-backend.onrender.com/api/artwork/delete/${artworkId}`)
       .then(response => {
         if (response.status === 200) {
           this.artworks = this.artworks.filter(artwork => artwork.artwork_id !== artworkId);
@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://localhost:4000/uploads/${relativePath}`;
+    return `https://kajas-backend.onrender.com/uploads/${relativePath}`;
   }
 
   viewArtworkDetails(artwork: Artwork): void {

@@ -87,7 +87,7 @@ export class ChangePasswordComponent {
     const email = this.sessionStorage.get('email');
     const formValue = this.changePasswordForm.value;
   
-    this.http.post('http://localhost:4000/api/change-password', { ...formValue, email }).pipe(
+    this.http.post('https://kajas-backend.onrender.com/api/change-password', { ...formValue, email }).pipe(
       delay(1000)
     ).subscribe({
       next: (response: any) => {

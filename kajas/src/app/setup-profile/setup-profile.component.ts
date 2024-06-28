@@ -156,7 +156,7 @@ export class SetupProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const url = "http://localhost:4000/api/setProfile";
+    const url = "https://kajas-backend.onrender.com/api/setProfile";
     const formData = new FormData();
 
     if (this.profileForm.invalid) {
@@ -225,6 +225,6 @@ export class SetupProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://localhost:4000/uploads/${relativePath}`;
+    return `https://kajas-backend.onrender.com/uploads/${relativePath}`;
   }
 }

@@ -94,7 +94,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
   
   onSubmit(): void {
-    const url = "http://localhost:4000";
+    const url = "https://kajas-backend.onrender.com";
     this.submitted = true;
   
     if (this.forgotPasswordForm.invalid) {

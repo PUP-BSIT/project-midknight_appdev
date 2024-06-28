@@ -22,7 +22,7 @@ export class ArtworkDetailsComponent implements OnInit {
     const artworkId = this.artworkService.getArtworkId();
 
     if (artworkTitle && artworkId) {
-      const url = `http://localhost:4000/api/artwork/title/${artworkTitle}/id/${artworkId}`;
+      const url = `https://kajas-backend.onrender.com/api/artwork/title/${artworkTitle}/id/${artworkId}`;
       axios.get(url)
         .then(response => {
           if (response.status === 200) {
@@ -36,7 +36,7 @@ export class ArtworkDetailsComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://localhost:4000/uploads/${relativePath}`;
+    return `https://kajas-backend.onrender.com/uploads/${relativePath}`;
   }
 
   editArtwork(): void {

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ArtworkService {
-  private apiUrl = 'http://localhost:4000/api/artwork';
+  private apiUrl = 'https://kajas-backend.onrender.com/api/artwork';
 
   constructor(private http: HttpClient) {}
 
