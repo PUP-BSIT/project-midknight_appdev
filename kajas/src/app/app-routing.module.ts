@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { UserExistsGuard } from './user-exists.guard';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -29,8 +30,8 @@ const routes: Routes = [
   { path: 'edit-artwork/:title', component: EditArtworkComponent, canActivate: [AuthGuard] },
   { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'profile/:username', component: PublicProfileComponent},
-  { path: ':username/artwork-details/:title', component: PublicArtworkDetailsComponent},
+  { path: 'profile/:username', component: PublicProfileComponent, canActivate: [UserExistsGuard]},
+  { path: ':username/artwork-details/:title', component: PublicArtworkDetailsComponent, canActivate: [UserExistsGuard]},
   { path: '**', redirectTo: '/login' },
 ];
 
