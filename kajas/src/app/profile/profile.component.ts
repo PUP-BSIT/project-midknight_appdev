@@ -11,23 +11,23 @@ import axios from 'axios';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  firstName: string = '';
-  lastName: string = '';
-  country: string = '';
-  city: string = '';
-  bio: string = '';
-  profile: string = '';
-  linkedin: string = '';
-  facebook: string = '';
-  instagram: string = '';
-  website: string = '';
-  kajasLink: string = '';
+  firstName = '';
+  lastName = '';
+  country = '';
+  city = '';
+  bio = '';
+  profile = '';
+  linkedin = '';
+  facebook = '';
+  instagram = '';
+  website = '';
+  kajasLink = '';
   artworks: any[] = [];
-  message: string = '';
-  showDeleteButton: boolean = false;
-  showConfirmModal: boolean = false;
-  showMessageModal: boolean = false;
-  modalMessage: string = '';
+  message = '';
+  showDeleteButton = false;
+  showConfirmModal = false;
+  showMessageModal= false;
+  modalMessage = '';
   selectedArtworkForDeletion: any = null;
 
   constructor(
