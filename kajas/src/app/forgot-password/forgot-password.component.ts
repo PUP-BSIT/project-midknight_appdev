@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalService } from '../../services/modal.service'; 
-import axios from 'axios';
 import { fromEvent, Subscription } from 'rxjs';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,19 +17,19 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   showModal = false;
   modalMessage = '';
   resizeSubscription: Subscription;
+  showLoader = false;
 
   constructor(
     private renderer: Renderer2,
     private fb: FormBuilder,
-    private router: Router,
-    private modalService: ModalService 
+    private router: Router
   ) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', {
         validators: [
           Validators.required,
           Validators.email,
-          this.gmailValidator
+          this.gmailValidator.bind(this)
         ]
       }]
     });
@@ -47,29 +46,40 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   private setInitialStyles(): void {
-    this.renderer.setStyle(document.body, 'height', '100%');
-    this.renderer.setStyle(document.body, 'overflow', 'hidden');
-    this.renderer.setStyle(document.body, 'display', 'flex');
-    this.renderer.setStyle(document.body, 'justify-content', 'center');
-    this.renderer.setStyle(document.body, 'align-items', 'center');
-    this.renderer.setStyle(document.body, 'background', 'url("../../assets/signup_bg.png") center/cover no-repeat');
-    
-    this.renderer.setStyle(document.documentElement, 'height', '100%');
-    this.renderer.setStyle(document.documentElement, 'overflow', 'hidden');
+    const styles = {
+      body: {
+        'height': '100%',
+        'overflow': 'hidden',
+        'display': 'flex',
+        'justify-content': 'center',
+        'align-items': 'center',
+        'background': 'url("../../assets/signup_bg.png") center/cover no-repeat'
+      },
+      html: {
+        'height': '100%',
+        'overflow': 'hidden'
+      }
+    };
+  
+    Object.entries(styles.body).forEach(([prop, value]) => {
+      this.renderer.setStyle(document.body, prop, value);
+    });
+  
+    Object.entries(styles.html).forEach(([prop, value]) => {
+      this.renderer.setStyle(document.documentElement, prop, value);
+    });
+  
     this.applyBackground();
   }
-
+  
   private revertStyles(): void {
-    this.renderer.removeStyle(document.body, 'height');
-    this.renderer.removeStyle(document.body, 'overflow');
-    this.renderer.removeStyle(document.body, 'display');
-    this.renderer.removeStyle(document.body, 'justify-content');
-    this.renderer.removeStyle(document.body, 'align-items');
-    this.renderer.removeStyle(document.body, 'background');
-    
-    this.renderer.removeStyle(document.documentElement, 'height');
-    this.renderer.removeStyle(document.documentElement, 'overflow');
-  }
+    const stylesToRemove = ['height', 'overflow', 'display', 'justify-content', 'align-items', 'background'];
+  
+    stylesToRemove.forEach(style => {
+      this.renderer.removeStyle(document.body, style);
+      this.renderer.removeStyle(document.documentElement, style);
+    });
+  }  
 
   private applyBackground(): void {
     const backgroundUrl = window.innerWidth <= 425 ? '../../assets/signup_mbg.png' : '../../assets/signup_bg.png';
@@ -83,7 +93,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     return null;
   }
   
-  async onSubmit(): Promise<void> {
+  onSubmit(): void {
     const url = "http://localhost:4000";
     this.submitted = true;
   
@@ -92,22 +102,26 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.showModal = true;
       return;
     }
+
+    this.modalMessage = 'Loading...';
+    this.showLoader = true;
   
-    try {
-      const response = await axios.post(`${url}/send/resetLink`, {
-        email: this.forgotPasswordForm.value.email
-      });
-  
+    axios.post(`${url}/send/resetLink`, {
+      email: this.forgotPasswordForm.value.email
+    })
+    .then((response: AxiosResponse) => {
       if (response.status === 200) {
+        this.showLoader = false;
         this.modalMessage = 'Email to reset your password has been sent. Please check your inbox.';
         this.showModal = true;
       }
-    } catch (error) {
+    })
+    .catch((error: AxiosError) => {
+      this.showLoader = false;
       this.modalMessage = 'That email address is not linked to a Kajas account. Try again or create a new one.';
       this.showModal = true;
       console.error('Error sending the email for resetting the password:', error);
-      this.errorMessage = error.response?.data?.message || 'Something went wrong. Please try again later.';
-    }
+    });
   }
   
   getEmailErrorMessage(): string {

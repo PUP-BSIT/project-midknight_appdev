@@ -2,23 +2,34 @@
     <h1>Deactivate Account</h1>
     <p>To deactivate your account, please enter your password. 
         You can recover your account within 30 days if you change your mind.</p>
-        <form>
-            <label for="confirm-password">Confirm Password:</label>
-            <div class="password-container">
-                <input 
-                    [type]="hidePassword ? 'password' : 'text'" 
-                    id="confirm_password" 
-                    name="password" 
-                    placeholder="Enter your password"
-                    required>
-                <img
-                    src="../../assets/icons/{{ hidePassword ? 'unsee' : 'see' }}.png"
-                    alt="Toggle Password Visibility"
-                    class="toggle-password"
-                    (click)="togglePasswordVisibility()"/>
-            </div>
-        </form>
-        <button class="deactivate-button">
+    <form [formGroup]="deactivateForm" (ngSubmit)="onDeactivateAttempt()">
+        <label for="confirm-password">Confirm Password:</label>
+        <div class="form-group password-container">
+            <input 
+                [type]="hidePassword ? 'password' : 'text'" 
+                id="confirm_password" 
+                formControlName="password" 
+                placeholder="Enter your password"
+                required>
+            <img
+                src="../../assets/icons/{{ hidePassword ?
+                    'unsee' : 'see' }}.png"
+                alt="Toggle Password Visibility"
+                class="toggle-password"
+                (click)="togglePasswordVisibility()"/>
+            @if(deactivateForm.get('password').touched && 
+                deactivateForm.get('password').invalid) {
+                    <div class="error-message"> 
+                        {{ getErrorMessage('password') }}
+                    </div>
+            }
+        </div>
+        <button class="deactivate-button" type="submit">
             Deactivate Account
         </button>
+    </form>
 </div>
+
+@if (showLoader) {
+    <app-loader-modal [message]="modalMessage"></app-loader-modal>
+}

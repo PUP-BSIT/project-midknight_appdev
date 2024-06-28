@@ -53,8 +53,8 @@ export class EditArtworkComponent implements OnInit {
 
     if (artworkTitle && artworkId) {
       const url = `http://localhost:4000/api/artwork/title/${artworkTitle}/id/${artworkId}`;
-      this.http.get(url).subscribe(
-        (response: any) => {
+      this.http.get(url).subscribe({
+        next: (response: any) => {
           this.artwork = response;
           this.artworkForm.patchValue({
             title: this.artwork.title,
@@ -64,10 +64,10 @@ export class EditArtworkComponent implements OnInit {
           this.imageUrl = this.artwork.image_url;
           this.updatePlaceholders();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error fetching artwork data:', error);
         }
-      );
+      });      
     } else {
       console.error('artworkId or userId is missing');
     }
@@ -91,17 +91,17 @@ export class EditArtworkComponent implements OnInit {
     return `http://localhost:4000/uploads/${relativePath}`;
   }
 
-  async save(): Promise<void> {
+  save(): void {
     const artworkId = this.artworkService.getArtworkId();
     const url = `http://localhost:4000/api/artwork/${artworkId}`;
-  
+
     if (this.artworkForm.invalid) {
       this.artworkForm.markAllAsTouched();
       this.modalMessage = 'Please fill out the form accurately and completely.';
       this.showModal = true;
       return;
     }
-  
+
     const updatedFields: { [key: string]: any } = {};
     Object.keys(this.artworkForm.controls).forEach((key) => {
       const control = this.artworkForm.get(key);
@@ -119,30 +119,30 @@ export class EditArtworkComponent implements OnInit {
         }
       }
     });
-  
+
     if (Object.keys(updatedFields).length === 0) {
       this.modalMessage = 'No changes detected.';
       this.showModal = true;
       return;
     }
-  
-    try {
-      const response = await this.http.put(url, updatedFields).toPromise();
-      if (response) {
-        this.modalMessage = 'Artwork updated successfully!';
+
+    this.http.put(url, updatedFields).subscribe({
+      next: (response: any) => {
+        if (response) {
+          this.modalMessage = 'Artwork updated successfully!';
+          this.showModal = true;
+          this.updatePlaceholders();
+        } else {
+          throw new Error('No response from server');
+        }
+      },
+      error: (error) => {
+        console.error('Error updating artwork:', error);
+        this.modalMessage = 'There was an error updating your artwork. Please try again.';
         this.showModal = true;
-        this.updatePlaceholders();
-      } else {
-        throw new Error('No response from server');
       }
-    } catch (error) {
-      console.error('Error updating artwork:', error);
-      this.modalMessage =
-        'There was an error updating your artwork. Please try again.';
-      this.showModal = true;
-    }
+    });    
   }
-  
 
   getErrorMessage(controlName: string): string {
     const control = this.artworkForm.get(controlName);

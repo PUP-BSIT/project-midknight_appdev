@@ -304,14 +304,13 @@ input[type="text"].ng-touched.ng-invalid {
     }
 
     .modal-content {
-        position: initial;
         width: 100%;
         align-items: center;
     }
 
     .close {
-        top: 15%;
-        right: 15%;
+        top: -2%;
+        right: -2%;
         font-size: 32px;
     }
     
@@ -452,8 +451,8 @@ input[type="text"].ng-touched.ng-invalid {
 
 @media screen and (min-width: 425px) and (max-width: 767px) {
     .close {
-        top: 20%;
-        right: 20%;
+        top: -2%;
+        right: -2%;
         font-size: 32px;
     }
 }   
@@ -464,8 +463,8 @@ input[type="text"].ng-touched.ng-invalid {
     }
 
     .close {
-        top: 17%;
-        right: 20%;
+        top: -2%;
+        right: 2%;
         font-size: 50px;
     }
 }   

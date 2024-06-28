@@ -19,7 +19,12 @@ p {
 
 .contents {
     display: flex;
-    gap: 8px;
+    gap: 5%;
+}
+
+form {
+    display: flex;
+    width: 100%;
 }
 
 .left-column {
@@ -33,35 +38,46 @@ p {
 form label {
     display: flex;
     font-size: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 5%;
+}
+
+.upload-pic-group {
+    cursor: pointer;
 }
 
 .upload-pic-label {
-    height: 200px;
+    height: 220px;
     width: 300px;
     background-color: #8E7C70;
     border-radius: 10px;
     overflow: hidden;
+    margin-left: 2.5%;
     margin-bottom: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.upload-pic-label:hover {
+    transform: scale(1.05); 
 }
 
 .upload-pic-label img {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
 textarea {
     display: flex;
     resize: none;
-    height: 150px;
+    height: 170px;
     width: 95%;
     padding: 5px;
     margin-top: 5px;
+    margin-bottom: 23px;
     background-color: #F1EEE7;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -76,7 +92,6 @@ textarea {
 }
 
 .submit-button button {
-    margin-top: 8px;
     width: 100%;
     padding: 8px;
     background-color: #3E3E3E;
@@ -86,4 +101,156 @@ textarea {
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.submit-button button:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+form .form-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 5px; 
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 0.7em;
+    position: absolute;
+    top: -30px; 
+    right: 0%;
+    width: 80%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+  
+.error-message::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f8d7da transparent transparent transparent;
+}
+
+textarea.ng-touched.ng-invalid {
+    border: 1px solid #721c24;
+}
+  
+.form-group textarea.ng-touched.ng-invalid ~ .error-message,
+.form-group textarea.ng-dirty.ng-invalid ~ .error-message {
+    opacity: 0.8;
+    visibility: visible;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .help-container {
+        margin-left: 0;
+    }
+    
+    h1 {
+        font-size: small;
+        margin-top: 25px;
+    }
+
+    p {
+        color: #8E7C70;
+        font-size: x-small;
+        margin-bottom: 16px;
+    }
+
+    form {
+        display: block;
+        width: 100%;
+    }
+
+    form label {
+        display: flex;
+        font-size: 8px;
+    }
+
+    textarea::placeholder {
+        font-size: xx-small;
+    }
+
+    .contents {
+        display: block;
+    }
+
+    .left-column,
+    .right-column {
+        width: 100%;
+    }
+
+    .upload-pic-label {
+        width: 90%;
+        height: 150px;
+    }
+
+    textarea {
+        width: 90%;
+        height: 150px;
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
+    .submit-button button {
+        margin-top: 0px;
+        margin-bottom: 10px;
+        width: 50%;
+        font-size: xx-small;
+    }
+
+    .error-message {
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.3em;
+        top: -20px; 
+        width: 70%;
+        right: 0;
+    }
+      
+    .error-message::before {
+        bottom: -10px;
+        left: 10px;
+        border-width: 5px;
+    }
+      
+    .form-group .error-message {
+        top: -20px;
+    }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+    .modal {
+        margin-top: 10%;
+    }
+
+    form {
+        display: flex;
+    }
+
+    h1 {
+        font-size: medium;
+    }
+
+    textarea {
+        height: 100px;
+    }
+
+    .error-message {
+        font-size: xx-small;
+        width: 50%;
+        right: 0;
+    }
 }

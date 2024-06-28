@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const userController = require('../controllers/userController');
 
 router.get('/usernames', async (req, res) => {
   try {
@@ -11,5 +12,8 @@ router.get('/usernames', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+router.post('/deactivate', userController.deactivateAccount);
+router.post('/reactivate', userController.reactivateAccount);
 
 module.exports = router;

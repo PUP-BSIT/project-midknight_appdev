@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService } from 'angular-web-storage';
 import { SearchService } from '../../services/search.service';
@@ -9,6 +9,7 @@ import { SearchService } from '../../services/search.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnDestroy {
+  @Input() showHeader: boolean = true; 
   dropdownOpen = false;
   searchResults: any[] = [];
   searchFocused = false;

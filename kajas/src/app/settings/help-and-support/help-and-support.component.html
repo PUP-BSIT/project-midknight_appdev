@@ -3,33 +3,54 @@
     <p>Here to offer assistance and support whenever you need it.</p>
 
     <div class="contents">
-        <div class="left-column">
-            <form>
+        <form [formGroup]="helpForm" (ngSubmit)="onSubmit()">
+            <div class="left-column">
                 <label for="image-upload">Upload an Image:</label>
-                <label 
-                    for="upload-pic" 
-                    class="upload-pic-label">
-                    <img 
-                        id="img_placeholder"
-                        src="../../../assets/icons/placeholder_image.png" 
-                        alt="Image Placeholder">
-                </label>
-            </form>
-        </div>
-        <div class="right-column">
-            <form>
+                <div class="form-group upload-pic-group" 
+                    (click)="imageUpload.click()">
+                    <label for="upload-pic" class="upload-pic-label">
+                        <img 
+                            [src]="imagePreview || 
+                                '../../../assets/icons/placeholder_image.png'" 
+                            alt="Image Placeholder">
+                    </label>
+                    <input 
+                        type="file" 
+                        id="image-upload"
+                        accept="image/*"
+                        (change)="onFileSelected($event)"
+                        #imageUpload
+                        style="display:none"/>
+                </div> 
+            </div>
+
+            <div class="right-column">
                 <label for="message">What issues are you having?</label>
-                <textarea
-                    class="message"
-                    id="message" 
-                    rows="4"
-                    placeholder="Please enter a message..."></textarea> 
-            </form>
-            <div class="submit-button">
-            <button>
-                Submit
-            </button>
-            </div>  
-        </div>
+                <div class="form-group">
+                    <textarea
+                        class="message"
+                        id="message" 
+                        formControlName="message"
+                        rows="4"
+                        placeholder="Please enter a message..."></textarea> 
+                    @if (helpForm.get('message').touched && 
+                        helpForm.get('message').invalid) {
+                            <div class="error-message"> 
+                                {{ getErrorMessage('message') }}
+                            </div>
+                    }
+                </div>
+
+                <div class="submit-button">
+                    <button type="submit">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+
+@if (showLoader) {
+    <app-loader-modal [message]="modalMessage"></app-loader-modal>
+}

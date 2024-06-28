@@ -12,24 +12,26 @@ export class ArtworkDetailsComponent implements OnInit {
   artwork: any = null;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     private artworkService: ArtworkService
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     const artworkTitle = this.route.snapshot.paramMap.get('title');
     const artworkId = this.artworkService.getArtworkId();
 
     if (artworkTitle && artworkId) {
-      try {
-        const response = await axios.get(`http://localhost:4000/api/artwork/title/${artworkTitle}/id/${artworkId}`);
-        if (response.status === 200) {
-          this.artwork = response.data;
-        }
-      } catch (error) {
-        console.error('Error fetching artwork details:', error);
-      }
+      const url = `http://localhost:4000/api/artwork/title/${artworkTitle}/id/${artworkId}`;
+      axios.get(url)
+        .then(response => {
+          if (response.status === 200) {
+            this.artwork = response.data;
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching artwork details:', error);
+        });
     }
   }
 

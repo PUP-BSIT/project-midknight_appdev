@@ -1,40 +1,53 @@
 <div class="change-email-container">
     <h1>Change Email</h1>
     <p>Change your current email to a new one.</p>
-    <form>
-        <label for="current-email">Current Email:</label>
-        <input 
-            type="email" 
-            id="current_email" 
-            name="currentEmail" 
-            placeholder="Enter your current email address"
-            required>
-        
+    <form [formGroup]="changeEmailForm" (ngSubmit)="onSubmit()">
         <label for="new-email">New Email:</label>
-        <input 
-            type="email"
-            id="new_email" 
-            name="newEmail" 
-            placeholder="Enter an new email address"
-            required>
+        <div class="form-group">
+            <input 
+                type="email"
+                id="new_email" 
+                formControlName="email" 
+                placeholder="Enter your new email address"
+                required>
+            @if(changeEmailForm.get('email').touched && 
+                changeEmailForm.get('email').invalid) {
+                    <div class="error-message"> 
+                    {{ getErrorMessage('email') }}
+                    </div>
+            }
+        </div>
         
         <label for="password">Password:</label>
-        <div class="password-container">
-            <input 
-                [type]="hidePassword ? 'password' : 'text'" 
-                id="password" 
-                name="password" 
-                placeholder="Enter your password"
-                required>
-            <img
-                src="../../assets/icons/{{ hidePassword ? 'unsee' : 'see' }}.png"
-                alt="Toggle Password Visibility"
-                class="toggle-password"
-                (click)="togglePasswordVisibility()"/>
+        <div class="form-group">
+            <div class="password-container">
+                <input 
+                    [type]="hidePassword ? 'password' : 'text'" 
+                    id="password" 
+                    formControlName="password" 
+                    placeholder="Enter your password"
+                    required>
+                @if(changeEmailForm.get('password').touched && 
+                    changeEmailForm.get('password').invalid) {
+                        <div class="error-message"> 
+                            {{ getErrorMessage('password') }}
+                        </div>
+                }
+                <img
+                    src="../../assets/icons/{{ hidePassword ?
+                        'unsee' : 'see' }}.png"
+                    alt="Toggle Password Visibility"
+                    class="toggle-password"
+                    (click)="togglePasswordVisibility()"/>
+            </div>
         </div>
+        
+        <button class="change-email-button" type="submit">
+            Change Email
+        </button>
     </form>
-
-    <button class="change-email-button">
-        Change Email
-    </button>
 </div>
+
+@if (showLoader) {
+    <app-loader-modal [message]="modalMessage"></app-loader-modal>
+}

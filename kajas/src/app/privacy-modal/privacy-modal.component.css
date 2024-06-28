@@ -43,21 +43,6 @@
     cursor: pointer;
 }
   
-h2 {
-    color: #3E3E3E;
-    font-size: xx-large;
-    margin-bottom: 24px;
-}
-
-h3 {
-    color: #3E3E3E;
-    font-size: large;
-}
-
-.privacy-policy {
-    margin-top: 20px;
-}
-  
 .modal {
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -79,22 +64,5 @@ h3 {
 @media only screen and (max-width: 768px) {
     .modal-content {
         padding: 15px;
-    }
-
-    h2 {
-        font-size: large;
-        margin-bottom: 12px;
-    }
-
-    .privacy-policy {
-        margin-top: 10px;
-    }
-
-    li, h3 {
-        font-size: smaller;
-    }
-
-    p {
-        font-size: x-small;
     }
 }

@@ -34,6 +34,14 @@ import { HelpAndSupportComponent } from './settings/help-and-support/help-and-su
 import { DeactivateAccountComponent } from './settings/deactivate-account/deactivate-account.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
+import { TermsAndConditionsComponent } from './shared/terms-and-conditions/terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.component';
+import { EmailService } from '../services/email.service';
+import { LoaderModalComponent } from './shared/loader-modal/loader-modal.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MaterialModule } from './material.module';
+import { HeaderVisibilityService } from '../services/header-visibility.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +68,10 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
     ChangeEmailComponent,
     ChangePasswordComponent,
     HelpAndSupportComponent,
-    DeactivateAccountComponent
+    DeactivateAccountComponent,
+    TermsAndConditionsComponent,
+    PrivacyPolicyComponent,
+    LoaderModalComponent
   ],
   imports: [
     BrowserModule,
@@ -68,13 +79,17 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
     FormsModule, 
     AppRoutingModule,
     HttpClientModule,
+    MaterialModule
   ],
   providers: [ 
+    HeaderVisibilityService,
     ModalService,
     UserService,
     LocationService,
     SearchService,
-    ArtworkService
+    ArtworkService,
+    EmailService,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
