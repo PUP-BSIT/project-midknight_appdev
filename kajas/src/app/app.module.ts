@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'; 
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { HomeHeaderComponent } from './home/home-header/home-header.component';
+import { FeaturesComponent } from './home/features/features.component';
+import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,6 +49,10 @@ import { HeaderVisibilityService } from '../services/header-visibility.service';
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    HomeHeaderComponent,
+    FeaturesComponent,
+    HowItWorksComponent,
     LoginComponent,
     RegistrationComponent,
     TermsModalComponent,
