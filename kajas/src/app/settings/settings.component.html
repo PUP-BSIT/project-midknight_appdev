@@ -52,19 +52,25 @@
             <div class="right-column">
                 @if (selectedTab === 'change-email') {
                     <app-change-email 
-                        (showModalEvent)="showModalMessage($event)">
+                        (showModalEvent)="showModalMessage($event)"
+                        (showLoaderEvent)="showLoaderModal($event)"
+                        (hideLoaderEvent)="hideLoaderModal()">
                     </app-change-email>
                 }
 
                 @if (selectedTab === 'change-password') {
                     <app-change-password
-                        (showModalEvent)="showModalMessage($event)">
+                        (showModalEvent)="showModalMessage($event)"
+                        (showLoaderEvent)="showLoaderModal($event)"
+                        (hideLoaderEvent)="hideLoaderModal()">
                     </app-change-password>
                 }
 
                 @if (selectedTab === 'help-and-support') {
                     <app-help-and-support
-                        (showModalEvent)="showModalMessage($event)">
+                        (showModalEvent)="showModalMessage($event)"
+                        (showLoaderEvent)="showLoaderModal($event)"
+                        (hideLoaderEvent)="hideLoaderModal()">
                     </app-help-and-support>
                 }
 
@@ -79,7 +85,9 @@
                 @if (selectedTab === 'deactivate-account') {
                     <app-deactivate-account
                         (showModalEvent)="showModalMessage($event)"
-                        (openConfirmModalEvent)="handleOpenConfirmModalEvent($event)">
+                        (openConfirmModalEvent)="handleOpenConfirmModalEvent($event)"
+                        (showLoaderEvent)="showLoaderModal($event)"
+                        (hideLoaderEvent)="hideLoaderModal()">
                     </app-deactivate-account>
                 }
             </div>
@@ -99,4 +107,8 @@
       (cancelAction)="cancelDeactivate()"
       (closeModal)="closeConfirmModal()">
     </app-confirm-cancel-modal>
+}
+
+@if(showLoader) {
+    <app-loader-modal [message]="loaderMessage"></app-loader-modal>
 }
