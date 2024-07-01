@@ -12,12 +12,12 @@ import { delay } from 'rxjs/operators';
 export class DeactivateAccountComponent {
   @Output() showModalEvent = new EventEmitter<string>();
   @Output() openConfirmModalEvent = new EventEmitter<Function>();
+  @Output() showLoaderEvent = new EventEmitter<string>();
+  @Output() hideLoaderEvent = new EventEmitter<void>();
 
   deactivateForm: FormGroup;
   hidePassword = true;
   password: string = '';
-  modalMessage = '';
-  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -44,18 +44,17 @@ export class DeactivateAccountComponent {
   }
   
   onConfirmDeactivation() {
-    this.modalMessage = 'Deactivating Account...';
-    this.showLoader = true;
+    this.showLoaderEvent.emit('Deactivating Account...');
     const userId = this.sessionStorage.get('id');
     this.userService.deactivateAccount(userId, this.password).pipe(
       delay(1000)
     ).subscribe({
       next: (response) => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         this.showModalEvent.emit('Your account has been successfully deactivated. Thank you for being a part of our community.');
       },
       error: (error) => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         if (error.status === 400 && error.error.message === 'Incorrect password') {
           this.showModalEvent.emit('Invalid password. Please try again.');
         } else {

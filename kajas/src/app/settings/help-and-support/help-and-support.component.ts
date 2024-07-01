@@ -10,13 +10,13 @@ import axios from 'axios';
 })
 export class HelpAndSupportComponent{  
   @Output() showModalEvent = new EventEmitter<string>();
+  @Output() showLoaderEvent = new EventEmitter<string>();
+  @Output() hideLoaderEvent = new EventEmitter<void>();
 
   helpForm: FormGroup;
   selectedFile: File = null;
   imagePreview: string | ArrayBuffer = '';
   userEmail = this.sessionStorage.get('email') || '';
-  modalMessage = '';
-  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,8 +40,7 @@ export class HelpAndSupportComponent{
       return;
     }
     
-    this.modalMessage = 'Loading...';
-    this.showLoader = true;
+    this.showLoaderEvent.emit('Sending...');
 
     const formData = new FormData();
     formData.append('message', this.helpForm.get('message').value);
@@ -52,13 +51,13 @@ export class HelpAndSupportComponent{
 
     axios.post('http://localhost:4000/api/support', formData)
       .then(response => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         if (response.status === 200) {
           this.showModalEvent.emit('Your issue has been sent to our support team. Thank you for reaching out to us!');
         }
       })
       .catch(error => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         console.error('Error submitting the issue:', error);
         this.showModalEvent.emit('Unable to process the request. Please try again later.');
       });
