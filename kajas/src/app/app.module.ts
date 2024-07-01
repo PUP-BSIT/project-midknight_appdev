@@ -41,6 +41,7 @@ import { LoaderModalComponent } from './shared/loader-modal/loader-modal.compone
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './material.module';
 import { HeaderVisibilityService } from '../services/header-visibility.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { HeaderVisibilityService } from '../services/header-visibility.service';
     DeactivateAccountComponent,
     TermsAndConditionsComponent,
     PrivacyPolicyComponent,
-    LoaderModalComponent
+    LoaderModalComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
