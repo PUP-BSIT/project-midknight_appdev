@@ -159,12 +159,17 @@
 }
 
 .gallery-button {
-  padding-top: 10px;
-  padding-left: 20px;
+  padding: 7px;
+  margin: 5px 10px 5px 10px;
   font-family: "Montserrat", sans-serif;
-  font-size: larger;
+  font-size: medium;
+  color: #888888;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gallery-button:hover {
@@ -172,8 +177,8 @@
   font-weight: 600;
 }
 
-.gallery-button img {
-  width: 20px;
+.gallery-button mat-icon {
+  color: #888888;
 }
 
 .gallery-button a {
@@ -244,7 +249,7 @@
 
 .trashbin-overlay mat-icon {
   font-size: 150%;
-  color: #3e3e3e;
+  color: #e70f0f;
 }
 
 .trashbin-overlay:hover {
@@ -339,17 +344,19 @@
   }
 
   .gallery-button {
-    padding-left: 3px;
-    padding-top: 8px;
-    font-size: small;
+    margin: 7px 0px 0px 5px;
+    padding: 3px 0px 3px 0px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 15px;
   }
 
-  .gallery-button img {
-    width: 12px;
-  }
-
-  .gallery-button a {
-    font-size: small;
+  .gallery-button mat-icon{
+    font-size: 120%;
+    width: 120%;
+    padding-top: 10px;
   }
 
   .gallery-images {
@@ -436,18 +443,24 @@
   }
 
   .gallery-button {
-    padding-top: 13px;
-    padding-left: 10px;
+    padding-left: 0px;
+    font-size: medium;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 15px;
   }
 
-  .gallery-button img {
-    width: 15px;
+  .gallery-button mat-icon{
+    font-size: 100%;
+    width: 100%;
+    padding-top: 10px;
   }
+
 
   .gallery-button a {
     display: flex;
     align-items: center;
-    gap: 5px;
   }
 
   .gallery-grid {

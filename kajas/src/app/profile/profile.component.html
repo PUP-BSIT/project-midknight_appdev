@@ -35,7 +35,7 @@
       <h2>Gallery</h2>
     </div>
     <a class="gallery-button" (click)="toggleDelete()">
-      <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
+      <mat-icon>edit</mat-icon>
       Edit
     </a>                
   </div>
@@ -50,8 +50,7 @@
               
           @if(showDeleteButton) {
             <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
-              <!--<img src="../../assets/icons/delete.png" alt="delete-trash"/>-->
-              <mat-icon>delete</mat-icon>
+              <mat-icon>delete_outline</mat-icon>
             </div>
           }
         </div>
