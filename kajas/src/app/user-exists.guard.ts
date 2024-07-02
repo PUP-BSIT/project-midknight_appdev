@@ -18,7 +18,7 @@ export const UserExistsGuard: CanActivateFn = (route, state) => {
     })
     .catch(error => {
       console.error('Error checking user existence:', error);
-      router.navigate(['/login']);
+      router.navigate(['invalid-user']);
       return false;
     });
 };

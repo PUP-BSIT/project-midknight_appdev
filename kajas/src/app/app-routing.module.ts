@@ -18,6 +18,7 @@ import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { PublicArtworkDetailsComponent } from './public-artwork-details/public-artwork-details.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,7 +39,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'profile/:username', component: PublicProfileComponent, canActivate: [UserExistsGuard]},
   { path: ':username/artwork-details/:title', component: PublicArtworkDetailsComponent, canActivate: [UserExistsGuard]},
-  { path: '**', redirectTo: '/login' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
