@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
+    background-image: url('../../../assets/login_bg.png');
+    background-size: cover;
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+    width: 80%;
+}
+
+.step-group {
+    text-align: center;
+    background-color: #d6c4b3;
+    padding: 30px;
+    padding-top: 80px;
+    width: 60%;
+    height: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 20px;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.step-group:hover {
+    transform: scale(1.05); 
+}
+
+.container h1 {
+    font-size: 40px;
+    margin-top: 5%;
+    margin-bottom: 24px;
+}
+
+h2 {
+    color: #3E3E3E;
+}
+
+p {
+    display: flex;
+    font-size: large;
+    color: #3E3E3E;
+    margin-bottom: 5%;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.steps img {
+    width: 100px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        height: max-content;
+        justify-content: center;
+        align-items: center;
+        background-image: url('../../../assets/login_mbg.png');
+        background-size:auto;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .steps {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 10%;
+        gap: 0;
+    }
+
+    .step-group {
+        padding: 15px; 
+        margin: 0;
+        margin-bottom: 10%;
+        margin-left: 6%;
+        width: 70%;
+        height: 200px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .steps .step-group:nth-child(3) {
+        grid-column: span 2;
+        justify-self: center;
+        width: 50%;
+        margin-left: 0;
+    }
+
+    .container h1 {
+        font-size: larger;
+        margin-top: 20%;
+        margin-bottom: 10%;
+    }
+
+    .container h2 {
+        font-size: small;
+        margin: 12px;
+    }
+
+    p {
+        font-size: x-small;
+    }
+
+    .steps img {
+        width: 50px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .main-container {
+        flex-direction: row;
+        background-image: url('../../../assets/login_bg.png');
+        background-size: cover;
+    }
+    
+    .container {
+        width: 80%;
+    }
+
+    .container h1 {
+        font-size: larger;
+        margin-top: 15%;
+        margin-bottom: 5%;
+    }
+}
