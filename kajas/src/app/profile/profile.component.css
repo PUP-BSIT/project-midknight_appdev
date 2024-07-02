@@ -36,7 +36,7 @@
 }
 
 .profile-picture img:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .profile-info {
@@ -97,8 +97,8 @@
 }
 
 .edit-profile, .add-artwork {
-  display: inline-block; 
-  background-color: #3E3E3E;
+  display: inline-block;
+  background-color: #3e3e3e;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -114,7 +114,7 @@
   transform: translateY(-5px);
 }
 
-.add-artwork:hover{
+.add-artwork:hover {
   font-weight: 600;
   color: #f1eee7;
   background-color: #8e7c70;
@@ -202,7 +202,6 @@
   width: 1080px;
 }
 
-
 .gallery-item {
   position: relative;
   display: flex;
@@ -233,20 +232,28 @@
   top: 10px;
   right: 10px;
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-  border-radius: 50%;
+  border-radius: 10%;
+  width: 10%;
+  height: 10%;
   cursor: pointer;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.trashbin-overlay img {
-  width: 30px;
-  height: 30px;
-  object-fit:fill;
+.trashbin-overlay mat-icon {
+  font-size: 150%;
+  color: #3e3e3e;
 }
 
 .trashbin-overlay:hover {
   transform: scale(1.2);
+  background-color: #b91212;
+}
+
+.trashbin-overlay mat-icon:hover {
+  color: #f1eee7;
 }
 
 .add-artwork {
@@ -309,7 +316,8 @@
     font-size: x-small;
   }
 
-  .edit-profile, .add-artwork {
+  .edit-profile,
+  .add-artwork {
     width: 70%;
     text-align: center;
     font-size: xx-small;
@@ -370,17 +378,20 @@
     flex-wrap: wrap;
     gap: 20px;
   }
-  
+
   .trashbin-overlay {
     top: 5px;
     right: 5px;
-    padding: 5px;
-    height: 15px;
+    width: 20%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .trashbin-overlay img {
-    width: 15px;
-    height: 15px;
+  .trashbin-overlay mat-icon {
+    padding: 0;
+    font-size: 150%;
   }
 
   .close {
@@ -390,8 +401,8 @@
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .container {
-      margin-top: 10%;
-      margin-bottom: 5%;
+    margin-top: 10%;
+    margin-bottom: 5%;
   }
 
   .gallery-container {
@@ -401,7 +412,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   .gallery {
     display: flex;
     text-align: left;
@@ -409,41 +420,41 @@
     width: 60%;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  
+
   .gallery-container h2 {
     margin: 0;
     font-size: x-large;
   }
-  
+
   .gallery-header {
     display: flex;
     align-items: center;
   }
-  
+
   .gallery-title {
     padding: 5px;
   }
-  
+
   .gallery-button {
     padding-top: 13px;
     padding-left: 10px;
   }
-  
+
   .gallery-button img {
     width: 15px;
   }
-  
+
   .gallery-button a {
     display: flex;
     align-items: center;
     gap: 5px;
   }
-  
+
   .gallery-grid {
     display: flex;
     justify-content: center;
   }
-  
+
   .gallery-images {
     padding-left: 40px;
     padding-right: 40px;
@@ -452,7 +463,7 @@
     gap: 10px;
     width: 1080px;
   }
-  
+
   .gallery-item {
     position: relative;
     display: flex;
@@ -460,7 +471,7 @@
     overflow: hidden;
     width: auto;
   }
-  
+
   .gallery-item img {
     width: 100%;
     object-fit: cover;
@@ -472,16 +483,19 @@
   .add-artwork {
     font-size: small;
   }
-  
+
   .trashbin-overlay {
-    top: 10px; 
+    top: 10px;
     right: 10px;
     padding: 5px;
-    height: 20px;
+    width: 10%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  
-  .trashbin-overlay img {
-    width: 20px;
-    height: 20px;
+
+  .trashbin-overlay mat-icon {
+    font-size: 150%;
   }
 }
