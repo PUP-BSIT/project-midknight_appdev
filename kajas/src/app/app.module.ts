@@ -41,6 +41,7 @@ import { LoaderModalComponent } from './shared/loader-modal/loader-modal.compone
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './material.module';
 import { HeaderVisibilityService } from '../services/header-visibility.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { HeaderVisibilityService } from '../services/header-visibility.service';
     FormsModule, 
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MatIconModule
   ],
   providers: [ 
     HeaderVisibilityService,
