@@ -6,7 +6,7 @@
     height: 100%;
     font-family: 'Montserrat', sans-serif;
     align-items: center;
-    background-image: url('../../assets/signup_bg.png');
+    background-image: url('../../assets/home_bg.png');
     background-size: cover;
 }
 
@@ -79,6 +79,7 @@ p {
     background-color: #3D3D3D;
     border: 1px solid #fff;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .log-in-button:hover {
@@ -92,6 +93,7 @@ p {
     background-color: #fff;
     border: 1px solid #3D3D3D;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .sign-up-button:hover {
@@ -105,7 +107,7 @@ p {
         margin: 0;
         justify-content: center;
         align-items: center;
-        background-image: url('../../assets/signup_mbg.png');
+        background-image: url('../../assets/home_mbg.png');
         background-size: cover;
     }
 

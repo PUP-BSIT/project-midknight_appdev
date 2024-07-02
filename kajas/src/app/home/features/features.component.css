@@ -6,7 +6,7 @@
     height: 100%;
     font-family: 'Montserrat', sans-serif;
     align-items: center;
-    background-image: url('../../../assets/login_bg.png');
+    background-image: url('../../../assets/home2_bg.png');
     background-size: cover;
     justify-content: center;
 }
@@ -41,7 +41,7 @@
     margin-bottom: 24px;
 }
 
-h2 {
+h1, h2 {
     color: #3E3E3E;
 }
 
@@ -73,7 +73,7 @@ p {
         height: max-content;
         justify-content: center;
         align-items: center;
-        background-image: url('../../../assets/login_mbg.png');
+        background-image: url('../../../assets/home2_mbg.png');
         background-size:auto;
     }
 
@@ -129,7 +129,7 @@ p {
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .main-container {
         flex-direction: row;
-        background-image: url('../../../assets/login_bg.png');
+        background-image: url('../../../assets/home2_bg.png');
         background-size: cover;
     }
     
