@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { UserExistsGuard } from './user-exists.guard';
 import { HomeComponent } from './home/home.component';
+import { FeaturesComponent } from './home/features/features.component';
+import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -19,6 +21,9 @@ import { PublicArtworkDetailsComponent } from './public-artwork-details/public-a
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'features', component: FeaturesComponent },
+  { path: 'how-it-works', component: HowItWorksComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
