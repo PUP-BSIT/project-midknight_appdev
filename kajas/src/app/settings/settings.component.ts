@@ -12,6 +12,8 @@ export class SettingsComponent {
   modalMessage = '';
   showConfirmModal = false;
   confirmDeactivateAction: Function = () => {};
+  showLoader = false;
+  loaderMessage = '';
 
   constructor(
     private router: Router
@@ -65,5 +67,14 @@ export class SettingsComponent {
   handleOpenConfirmModalEvent(confirmDeactivateAction: Function) {
     this.confirmDeactivateAction = confirmDeactivateAction;
     this.openDeactivateModal();
+  }
+
+  showLoaderModal(message: string) {
+    this.loaderMessage = message;
+    this.showLoader = true;
+  }
+
+  hideLoaderModal() {
+    this.showLoader = false;
   }
 }

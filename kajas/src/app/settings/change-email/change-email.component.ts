@@ -10,13 +10,13 @@ import { SessionStorageService } from 'angular-web-storage';
 })
 export class ChangeEmailComponent {
   @Output() showModalEvent = new EventEmitter<string>();
+  @Output() showLoaderEvent = new EventEmitter<string>();
+  @Output() hideLoaderEvent = new EventEmitter<void>();
 
   changeEmailForm: FormGroup;
   submitted = false;
   errorMessage = '';
   hidePassword = true;
-  modalMessage = '';
-  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -53,32 +53,30 @@ export class ChangeEmailComponent {
 
   onSubmit() {
     if (this.changeEmailForm.invalid) {
-      this.modalMessage = 'Changing Email...';
-      this.showLoader = true;
       this.changeEmailForm.markAllAsTouched();
       this.showModalEvent.emit('Please fill out the form accurately and completely.');
       return;
     }
 
-    this.showLoader = true;
+    this.showLoaderEvent.emit('Changing Email...');
 
     const userId = this.sessionStorage.get('id');
     const emailCheck = this.sessionStorage.get('email');
     const formValue = this.changeEmailForm.value;
 
     if (formValue.email === emailCheck) {
-      this.showLoader = false;
+      this.hideLoaderEvent.emit();
       this.showModalEvent.emit('New email cannot be the same as the old email');
       return;
     }
 
     this.emailService.changeEmail(userId, formValue.email, formValue.email, formValue.password).subscribe({
       next: (response: any) => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         this.showModalEvent.emit('Email changed successfully! Please log in again with your new email.');
       },
       error: (error: any) => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         if (error.status === 401 && error.error.message === 'Incorrect password') {
           this.showModalEvent.emit('Invalid password. Please try again.');
         } else {

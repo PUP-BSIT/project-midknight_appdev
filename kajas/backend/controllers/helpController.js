@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const emailStyles = require('./emailStyles');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.hostinger.com',
@@ -29,21 +30,40 @@ exports.submitHelpRequest = async (req, res) => {
 
   const mailOptions = {
     from: 'midknightv03@kajas.site',
-    to: 'midknightv03@gmail.com', 
+    to: 'midknightv03@gmail.com',
     subject: 'New Help Request',
     html: `
-      <div style="margin-left: 23px; overflow: hidden; max-width: 100%; font-family: Arial, sans-serif;">
-        <h1 style="color: #4D493E; font-size: xx-large; margin: 0; margin-bottom: 8px;">New Help Request</h1>
-        <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">From: ${email}</p>
-        <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Message: ${message}</p>
-      </div>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>New Help Request</title>
+            <style>${emailStyles}</style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="logo">
+                    <img src="cid:logo.png" alt="Logo">
+                </div>
+                <div class="content">
+                    <h1>New Help Request</h1>
+                    <p>From: ${email}</p>
+                    <p>Message: ${message}</p>
+                </div>
+            </div>
+        </body>
+        </html>
     `,
-    attachments: image ? [
-      {
-        filename: image.filename,
-        path: image.path
-      }
-    ] : []
+    attachments: [
+        {
+            filename: 'kajas_icon.png',
+            path: __dirname + '/../../src/assets/kajas_icon.png',
+            cid: 'logo.png'
+        },
+        ...(image ? [{
+            filename: image.filename,
+            path: image.path
+        }] : [])
+    ]
   };
 
   try {
