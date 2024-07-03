@@ -35,7 +35,7 @@ export interface ProfileData {
     facebook: string;
     instagram: string;
     website: string;
-    kajasLink: string;
+    kajas_link: string;
     artworks: Artwork[];
 }
 

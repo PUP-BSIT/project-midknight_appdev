@@ -21,8 +21,9 @@
         <a [attr.href]="website" [class.hidden]="!website" target="_blank">
           <img src="../../assets/icons/website.png" alt="Website" />
         </a>
-        <a class="kajas-link" [href]="kajasLink" target="_blank"> 
-          Share Profile</a>
+        <a class="kajas-link" (click)="copy(kajasLink)" target="_blank"> 
+          Share Profile
+        </a>        
       </div>
       <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>
     </div>

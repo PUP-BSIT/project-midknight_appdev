@@ -74,6 +74,20 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  copy(text: string): void {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        this.modalMessage = 'Profile link copied to clipboard!';
+        this.showMessageModal = true;
+      },
+      (err) => {
+        console.error('Could not copy text: ', err);
+        this.modalMessage = 'Failed to copy the link. Please try again.';
+        this.showMessageModal = true;
+      }
+    );
+  }  
+
   deleteArtwork(artworkId: number): void {
     this.showLoader = true;
     this.modalMessage = 'Deleting artwork...';
