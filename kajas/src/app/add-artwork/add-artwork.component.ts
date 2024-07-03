@@ -90,12 +90,12 @@ export class AddArtworkComponent {
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Adding artwork...';
+          this.modalMessage = 'Adding new artwork...';
 
           setTimeout(() => {
             this.showLoader = false;
             this.router.navigateByUrl('/profile');
-          }, 1000);
+          }, 3000);
         }
       })
       .catch(error => {

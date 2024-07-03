@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   showMessageModal= false;
   modalMessage = '';
   selectedArtworkForDeletion: any = null;
+  showLoader = false;
 
   constructor(
     private sessionStorage: SessionStorageService,
@@ -74,17 +75,26 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteArtwork(artworkId: number): void {
+    this.showLoader = true;
+    this.modalMessage = 'Deleting artwork...';
+
     axios.post(`http://localhost:4000/api/artwork/delete/${artworkId}`)
       .then(response => {
         if (response.status === 200) {
-          this.artworks = this.artworks.filter(artwork => artwork.artwork_id !== artworkId);
           const deletedArtwork = this.selectedArtworkForDeletion;
-          this.modalMessage = `Successfully deleted the artwork '${deletedArtwork?.title}'.`;
+
+          setTimeout(() => {
+            this.modalMessage = `Successfully deleted the artwork '${deletedArtwork?.title}'.`;
+            this.artworks = this.artworks.filter(artwork => artwork.artwork_id !== artworkId);
+            this.showLoader = false;
+          }, 3000);
         } else {
+          this.showLoader = false;
           this.modalMessage = `Failed to delete artwork with ID ${artworkId}.`;
         }
       })
       .catch(error => {
+        this.showLoader = false;
         console.error(`Error deleting artwork with ID ${artworkId}:`, error);
         this.modalMessage = `Error deleting artwork with ID ${artworkId}. Please try again later.`;
       })

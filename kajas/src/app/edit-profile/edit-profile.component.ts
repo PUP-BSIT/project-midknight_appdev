@@ -195,7 +195,7 @@ export class EditProfileComponent implements OnInit {
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Changing profile details...';
+          this.modalMessage = 'Updating your profile details...';
   
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
           this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
@@ -213,7 +213,7 @@ export class EditProfileComponent implements OnInit {
           setTimeout(() => {
             this.showLoader = false;
             this.router.navigateByUrl('/profile');
-          }, 1000);
+          }, 3000);
         }
       })
       .catch(error => {

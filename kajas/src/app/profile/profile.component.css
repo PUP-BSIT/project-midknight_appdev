@@ -249,12 +249,12 @@
 
 .trashbin-overlay mat-icon {
   font-size: 150%;
-  color: #e70f0f;
+  color: #4d493e;
 }
 
 .trashbin-overlay:hover {
   transform: scale(1.2);
-  background-color: #b91212;
+  background-color: #e33535;
 }
 
 .trashbin-overlay mat-icon:hover {

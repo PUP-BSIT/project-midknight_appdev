@@ -185,7 +185,7 @@ export class SetupProfileComponent implements OnInit {
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Setting your profile...';
+          this.modalMessage = 'Completing your profile setup...';
           this.showLoader = true;
 
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
@@ -204,7 +204,7 @@ export class SetupProfileComponent implements OnInit {
           setTimeout(() => {
             this.showLoader = false;
             this.router.navigateByUrl('/profile');
-          }, 1000);
+          }, 3000);
         }
       })
       .catch(error => {
