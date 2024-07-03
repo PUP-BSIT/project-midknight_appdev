@@ -232,7 +232,7 @@
 
                     <div class="button-container">
                         <button type="submit" class="continue-button">
-                            SAVE</button>
+                            Save</button>
                     </div>
                 </div>
             </form>
@@ -244,3 +244,7 @@
   <app-modal-message [message]="modalMessage" 
     (closeModal)="closeModal()"></app-modal-message>
 }
+
+@if (showLoader) {
+    <app-loader-modal [message]="modalMessage"></app-loader-modal>
+  }

@@ -19,6 +19,7 @@ export class EditArtworkComponent implements OnInit {
   titlePlaceholder = '';
   dateCreatedPlaceholder = '';
   descriptionPlaceholder = '';
+  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -126,17 +127,23 @@ export class EditArtworkComponent implements OnInit {
       return;
     }
 
+    this.showLoader = true;
     this.http.put(url, updatedFields).subscribe({
       next: (response: any) => {
         if (response) {
-          this.modalMessage = 'Artwork updated successfully!';
-          this.showModal = true;
+          this.modalMessage = 'Updating artwork details...';
           this.updatePlaceholders();
+
+          setTimeout(() => {
+            this.showLoader = false;
+            this.router.navigateByUrl('/profile');
+          }, 3000);
         } else {
           throw new Error('No response from server');
         }
       },
       error: (error) => {
+        this.showLoader = false;
         console.error('Error updating artwork:', error);
         this.modalMessage = 'There was an error updating your artwork. Please try again.';
         this.showModal = true;
@@ -166,9 +173,6 @@ export class EditArtworkComponent implements OnInit {
   }
 
   closeModal(): void {
-    if (this.modalMessage === 'Artwork updated successfully!') {
-      this.router.navigateByUrl('/profile');
-    }
     this.showModal = false;
   }
 }
