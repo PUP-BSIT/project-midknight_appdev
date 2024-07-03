@@ -387,18 +387,22 @@
   }
 
   .trashbin-overlay {
-    top: 5px;
-    right: 5px;
-    width: 20%;
-    height: 25%;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 15%;
+    height: 15%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .trashbin-overlay mat-icon {
+    font-size: 100%;
+    width: fit-content;
+    height: fit-content;
+    margin: 0; 
     padding: 0;
-    font-size: 150%;
   }
 
   .close {
@@ -509,6 +513,7 @@
   }
 
   .trashbin-overlay mat-icon {
+    margin-top: 0;
     font-size: 150%;
   }
 }

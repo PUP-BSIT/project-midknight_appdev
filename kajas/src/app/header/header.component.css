@@ -105,8 +105,9 @@ input[type="text"] {
 }
 
 .dropdown-button mat-icon {
-    height: 100%;
-    font-size: xx-large;
+    height: auto;
+    width: auto;
+    font-size: 45px;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     color: #3e3e3e;
 }
@@ -118,7 +119,7 @@ input[type="text"] {
 .dropdown-content {
     display: block; 
     position: absolute;
-    top: 200%; 
+    top: 130%; 
     background-color: #8b7a71;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -189,15 +190,6 @@ input[type="text"] {
         padding-left: 8px;
         font-size: xx-small;
     }
-
-    .dropdown-content {
-        top: 220%; 
-    }
-    
-    .dropdown-content a {
-        font-size: xx-small;
-        padding: 10px 12px;
-    }
 }
 
 @media screen and (min-width: 427px) and (max-width: 769px) {
@@ -226,5 +218,27 @@ input[type="text"] {
         padding: 5px;
         padding-left: 8px;
         font-size: xx-small;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .dropdown-button mat-icon {
+        height: auto;
+        width: auto;
+        font-size: 20px;
+        transition: none;
+    }
+
+    .dropdown-button mat-icon:hover {
+        transform: none;
+    }
+
+    .dropdown-content {
+        top: 150%; 
+    }
+
+    .dropdown-content a {
+        font-size: xx-small;
+        padding: 10px 12px;
     }
 }
