@@ -183,7 +183,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    const url = 'https://kajas-backend.onrender.com';
+    const url = 'http://api.kajas.site';
     if (this.registrationForm.valid) {
       this.modalMessage = 'Loading...';
       this.showLoader = true;

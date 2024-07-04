@@ -3,7 +3,7 @@ import axios from 'axios';
 
 @Injectable()
 export class SearchService {
-  private apiUrl = 'https://kajas-backend.onrender.com/api';
+  private apiUrl = 'http://api.kajas.site/api';
 
   searchUsers(query: string): Promise<any[]> {
     return axios.get(`${this.apiUrl}/search`, { params: { query } })

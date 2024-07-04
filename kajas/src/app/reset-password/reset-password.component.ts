@@ -165,7 +165,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.modalMessage = 'Changing Password...';
     this.showLoader = true;
   
-    axios.post('https://kajas-backend.onrender.com/api/reset-password', {
+    axios.post('http://api.kajas.site/api/reset-password', {
       token: this.token,
       newPassword: this.resetPasswordForm.get('newPassword')?.value,
       confirmNewPassword: this.resetPasswordForm.get('confirmNewPassword')?.value

@@ -50,7 +50,7 @@ export class HelpAndSupportComponent{
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
 
-    axios.post('https://kajas-backend.onrender.com/api/support', formData)
+    axios.post('http://api.kajas.site/api/support', formData)
       .then(response => {
         this.showLoader = false;
         if (response.status === 200) {

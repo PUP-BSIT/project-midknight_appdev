@@ -86,7 +86,7 @@ export class HeaderComponent implements OnDestroy {
   }  
 
   getAbsoluteUrl(relativePath: string): string {
-    return relativePath ? `https://kajas-backend.onrender.com/uploads/${relativePath}` : '../../assets/default-profile.png';
+    return relativePath ? `http://api.kajas.site/uploads/${relativePath}` : '../../assets/default-profile.png';
   }
 
   trackById(index: number, item: any): any {

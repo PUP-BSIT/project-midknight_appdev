@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class EmailService {
-  private apiUrl = 'https://kajas-backend.onrender.com/api';
+  private apiUrl = 'http://api.kajas.site/api';
 
   constructor(private http: HttpClient) {}
 
