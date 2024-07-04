@@ -49,7 +49,7 @@ export class HelpAndSupportComponent{
       formData.append('image', this.selectedFile, this.selectedFile.name);
     }
 
-    axios.post('http://api.kajas.site/api/support', formData)
+    axios.post('https://api.kajas.site/api/support', formData)
       .then(response => {
         this.hideLoaderEvent.emit();
         if (response.status === 200) {

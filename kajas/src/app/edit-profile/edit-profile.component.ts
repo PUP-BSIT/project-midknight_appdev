@@ -112,7 +112,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return relativePath ? `http://api.kajas.site/uploads/${relativePath}` : '../../assets/default-profile.png';
+    return relativePath ? `https://api.kajas.site/uploads/${relativePath}` : '../../assets/default-profile.png';
   }  
 
   urlValidator(): (control: AbstractControl) => ValidationErrors | null {
@@ -166,7 +166,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const url = "http://api.kajas.site/api/setProfile";
+    const url = "https://api.kajas.site/api/setProfile";
     const formData = new FormData();
   
     if (this.profileForm.invalid) {

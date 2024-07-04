@@ -53,7 +53,7 @@ export class EditArtworkComponent implements OnInit {
     const artworkId = this.artworkService.getArtworkId();
 
     if (artworkTitle && artworkId) {
-      const url = `http://api.kajas.site/api/artwork/title/${artworkTitle}/id/${artworkId}`;
+      const url = `https://api.kajas.site/api/artwork/title/${artworkTitle}/id/${artworkId}`;
       this.http.get(url).subscribe({
         next: (response: any) => {
           this.artwork = response;
@@ -89,12 +89,12 @@ export class EditArtworkComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://api.kajas.site/uploads/${relativePath}`;
+    return `https://api.kajas.site/uploads/${relativePath}`;
   }
 
   save(): void {
     const artworkId = this.artworkService.getArtworkId();
-    const url = `http://api.kajas.site/api/artwork/${artworkId}`;
+    const url = `https://api.kajas.site/api/artwork/${artworkId}`;
 
     if (this.artworkForm.invalid) {
       this.artworkForm.markAllAsTouched();

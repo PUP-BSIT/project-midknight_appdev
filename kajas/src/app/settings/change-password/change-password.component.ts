@@ -86,7 +86,7 @@ export class ChangePasswordComponent {
     const email = this.sessionStorage.get('email');
     const formValue = this.changePasswordForm.value;
   
-    this.http.post('http://api.kajas.site/api/change-password', { ...formValue, email }).pipe(
+    this.http.post('https://api.kajas.site/api/change-password', { ...formValue, email }).pipe(
       delay(1000)
     ).subscribe({
       next: (response: any) => {

@@ -52,7 +52,7 @@ export class PublicProfileComponent implements OnInit {
       this.showMessageModal = false;
     }
 
-    axios.get<ProfileData>(`http://api.kajas.site/api/profile/${username}`)
+    axios.get<ProfileData>(`https://api.kajas.site/api/profile/${username}`)
       .then(response => {
         if (response.status === 200) {
           const data = response.data;
@@ -109,7 +109,7 @@ export class PublicProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://api.kajas.site/uploads/${relativePath}`;
+    return `https://api.kajas.site/uploads/${relativePath}`;
   }
 
   viewArtworkDetails(artwork: Artwork): void {

@@ -156,7 +156,7 @@ export class SetupProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const url = "http://api.kajas.site/api/setProfile";
+    const url = "https://api.kajas.site/api/setProfile";
     const formData = new FormData();
 
     if (this.profileForm.invalid) {
@@ -238,6 +238,6 @@ export class SetupProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://api.kajas.site/uploads/${relativePath}`;
+    return `https://api.kajas.site/uploads/${relativePath}`;
   }
 }

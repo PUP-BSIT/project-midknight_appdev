@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "http://api.kajas.site",
+      "target": "https://api.kajas.site",
       "secure": false,
       "changeOrigin": true
     }

@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.website = this.sessionStorage.get('website') || '';
     this.kajasLink = this.sessionStorage.get('kajas_link') || '';
 
-    axios.get(`http://api.kajas.site/api/artworks/id?id=${id}`)
+    axios.get(`https://api.kajas.site/api/artworks/id?id=${id}`)
       .then(response => {
         if (response.status === 200 && response.data.data && response.data.data.length > 0) {
           this.artworks = response.data.data.map(item => ({
@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
     this.showLoader = true;
     this.modalMessage = 'Deleting artwork...';
 
-    axios.post(`http://api.kajas.site/api/artwork/delete/${artworkId}`)
+    axios.post(`https://api.kajas.site/api/artwork/delete/${artworkId}`)
       .then(response => {
         if (response.status === 200) {
           const deletedArtwork = this.selectedArtworkForDeletion;
@@ -127,7 +127,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getAbsoluteUrl(relativePath: string): string {
-    return `http://api.kajas.site/uploads/${relativePath}`;
+    return `https://api.kajas.site/uploads/${relativePath}`;
   }
 
   viewArtworkDetails(artwork: Artwork): void {
