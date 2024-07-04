@@ -21,8 +21,9 @@
         <a [attr.href]="website" [class.hidden]="!website" target="_blank">
           <img src="../../assets/icons/website.png" alt="Website" />
         </a>
-        <a class="kajas-link" [href]="kajasLink" target="_blank"> 
-          Share Profile</a>
+        <a class="kajas-link" (click)="copy(kajasLink)" target="_blank"> 
+          Share Profile
+        </a>        
       </div>
       <a routerLink="/edit-profile" class="edit-profile">Edit Profile</a>
     </div>
@@ -35,7 +36,7 @@
       <h2>Gallery</h2>
     </div>
     <a class="gallery-button" (click)="toggleDelete()">
-      <img src="../../assets/icons/edit.png" alt="Edit Gallery" />
+      <mat-icon>edit</mat-icon>
       Edit
     </a>                
   </div>
@@ -50,7 +51,7 @@
               
           @if(showDeleteButton) {
             <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
-              <img src="../../assets/icons/delete.png" alt="delete-trash"/>
+              <mat-icon>delete_outline</mat-icon>
             </div>
           }
         </div>
@@ -82,3 +83,6 @@
   </app-modal-message>
 }
 
+@if (showLoader) {
+  <app-loader-modal [message]="modalMessage"></app-loader-modal>
+}

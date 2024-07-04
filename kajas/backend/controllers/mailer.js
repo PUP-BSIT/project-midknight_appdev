@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const emailStyles = require('./emailStyles');
 
 
 const transporter = nodemailer.createTransport({
@@ -15,34 +16,66 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const mailer =  async (req, res) => {
+const mailer = async (req, res) => {
     try {
-        const { email } = req.body
+        const { email } = req.body;
         const mailOptions = {
             from: 'midknightv03@kajas.site',
             to: email,
             subject: 'Email Verification',
             html: `
-                <div style="margin-left: 23px; overflow: hidden; max-width: 100%; font-family: Arial, sans-serif;">
-                <h1 style="color: #4D493E; font-size: xx-large; margin: 0; margin-bottom: 8px;">Email Verification</h1>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">We hope this email finds you well.</p>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">To complete your registration and activate your account, we need to verify your email address. Please take a moment to confirm your email address by clicking the link below:</p>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;"><a href="http://localhost:4000/api/verify?email=${email}" style="color: #0073e6; text-decoration: none;">Verify Email Address</a></p>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Verifying your email address ensures that you can receive important updates and information about your account. If you did not sign up for this account or believe you received this message in error, please disregard this email.</p>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">For any questions or assistance, feel free to contact our support team at <a href="mailto:midknightv03@gmail.com" style="color: #0073e6; text-decoration: none;">midknightv03@gmail.com</a>.</p>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Thank you for your cooperation.</p>
-                <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Best regards,<br>Team Midknight</p>
-                </div>
-            `          
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Email Verification</title>
+                    <style>${emailStyles}</style>
+                </head>
+                <body>
+                    <div class="container">
+                        <div class="logo">
+                            <img src="cid:logo.png" alt="Logo">
+                        </div>
+                        <div class="content">
+                            <h1>Email Verification</h1>
+                            <p>We hope this email finds you well.</p>
+                            <p>To complete your registration and activate your
+                                account, we need to verify your email address. 
+                                Please take a moment to confirm your email address 
+                                by clicking the link below:</p>
+                            <button><a class="button"
+                                href="http://localhost:4000/api/verify?email=${email}">
+                                    Verify Email Address</a></button>
+                            <p>Verifying your email address ensures that you can
+                                receive important updates and information about 
+                                your account. If you did not sign up for this 
+                                account or believe you received this message in 
+                                error, please disregard this email.</p>
+                            <p>For any questions or assistance, feel free to 
+                                contact our support team at 
+                            <a class="mail" href="mailto:midknightv03@gmail.com">
+                                midknightv03@gmail.com</a>.</p>
+                            <p>Thank you for your cooperation.</p>
+                            <p>Best regards, <span class="team">
+                                Team Midknight</span></p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `,
+            attachments: [{
+                filename: 'kajas_icon.png',
+                path: __dirname + '/../../src/assets/kajas_icon.png',
+                cid: 'logo.png'
+            }]
         };
         await transporter.sendMail(mailOptions);
         return res.status(200).json({ title: "Success", msg: 'Thank you for signing up! Please check your email for a verification message to complete the account activation.' });
-        
-      } catch (error) {
-            console.error();
-          return res.status(500).json({ title: "Internal Error", msg: "Something went wrong! Please try again later." });
-      }
-}
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ title: "Internal Error", msg: "Something went wrong! Please try again later." });
+    }
+};
 
 const forgotPassword = async (req, res) => {
     try {
@@ -67,18 +100,45 @@ const forgotPassword = async (req, res) => {
                 to: email,
                 subject: 'Password Reset',
                 html: `
-                    <div style="margin-left: 23px; overflow: hidden; max-width: 100%; font-family: Arial, sans-serif;">
-                    <h1 style="color: #4D493E; font-size: xx-large; margin: 0; margin-bottom: 8px;">Password Reset</h1>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">You requested a password reset.</p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Click the link below to reset your password:</p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;"><a href="http://localhost:4200/reset-password?token=${token}" style="color: #0073e6; text-decoration: none;">Reset Password</a></p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">This link will expire in 1 hour.</p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">If you did not request this password reset or believe this email was sent in error, please disregard it.</p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">For any assistance, feel free to contact our support team at <a href="mailto:midknightv03@gmail.com" style="color: #0073e6; text-decoration: none;">midknightv03@gmail.com</a>.</p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Thank you.</p>
-                    <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Best regards,<br>Team Midknight</p>
-                    </div>
-                `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Password Reset</title>
+                        <style>${emailStyles}</style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="logo">
+                                <img src="cid:logo.png" alt="Logo">
+                            </div>
+                            <div class="content">
+                                <h1>Password Reset</h1>
+                                <p>You requested a password reset.</p>
+                                <p>Click the link below to reset your password:</p>
+                                <button><a class="button"
+                                    href="http://localhost:4200/reset-password?token=${token}">
+                                        Reset Password</a></button>
+                                <p>This link will expire in 1 hour.</p>
+                                <p>If you did not request this password reset or
+                                    believe this email was sent in error, 
+                                    please disregard it.</p>
+                                <p>For any assistance, feel free to contact our 
+                                    support team at 
+                                <a class="mail" href="mailto:midknightv03@gmail.com">
+                                    midknightv03@gmail.com</a>.</p>
+                                <p>Thank you.</p>
+                                <p>Best regards, <span class="team">
+                                    Team Midknight</span></p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                `,
+                attachments: [{
+                    filename: 'kajas_icon.png',
+                    path: __dirname + '/../../src/assets/kajas_icon.png',
+                    cid: 'logo.png'
+                }]
             };
 
             try {

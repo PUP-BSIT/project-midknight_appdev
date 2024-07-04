@@ -11,13 +11,13 @@ import { delay } from 'rxjs/operators';
 })
 export class ChangePasswordComponent {
   @Output() showModalEvent = new EventEmitter<string>();
+  @Output() showLoaderEvent = new EventEmitter<string>();
+  @Output() hideLoaderEvent = new EventEmitter<void>();
 
   changePasswordForm: FormGroup;
   hideCurrentPassword = true;
   hideNewPassword = true;
   hideConfirmPassword = true;
-  modalMessage = '';
-  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -81,8 +81,7 @@ export class ChangePasswordComponent {
       return;
     }
 
-    this.modalMessage = 'Changing Password...';
-    this.showLoader = true;
+    this.showLoaderEvent.emit('Changing Password...');
   
     const email = this.sessionStorage.get('email');
     const formValue = this.changePasswordForm.value;
@@ -91,11 +90,11 @@ export class ChangePasswordComponent {
       delay(1000)
     ).subscribe({
       next: (response: any) => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         this.showModalEvent.emit('Password changed successfully! Please log in again with your new password.');
       },
       error: (error: any) => {
-        this.showLoader = false;
+        this.hideLoaderEvent.emit();
         if (error.status === 401 && error.error.message === 'Incorrect current password') {
           this.showModalEvent.emit('Invalid current password. Please try again.');
         } else if (error.status === 400 && error.error.message === 'New password cannot be the same as the old password') {

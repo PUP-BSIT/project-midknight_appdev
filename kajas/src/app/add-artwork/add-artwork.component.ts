@@ -15,6 +15,7 @@ export class AddArtworkComponent {
   selectedFile: File | null = null;
   showModal = false;
   modalMessage = '';
+  showLoader = false;
 
   constructor(
     private fb: FormBuilder,
@@ -85,15 +86,21 @@ export class AddArtworkComponent {
 
     formData.append('userId', this.sessionStorage.get('id'));
 
+    this.showLoader = true;
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Artwork added successfully!';
-          this.showModal = true;
+          this.modalMessage = 'Adding new artwork...';
+
+          setTimeout(() => {
+            this.showLoader = false;
+            this.router.navigateByUrl('/profile');
+          }, 3000);
         }
       })
       .catch(error => {
         console.error('Error submitting artwork:', error);
+        this.showLoader = false;
         this.modalMessage = 'There was an error submitting your artwork. Please try again.';
         this.showModal = true;
       });
@@ -118,9 +125,6 @@ export class AddArtworkComponent {
   }
 
   closeModal(): void {
-    if (this.modalMessage === 'Artwork added successfully!') {
-      this.router.navigateByUrl('/profile');
-    }
     this.showModal = false;
   }
 }

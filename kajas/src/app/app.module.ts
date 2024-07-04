@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'; 
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { HomeHeaderComponent } from './home/home-header/home-header.component';
+import { FeaturesComponent } from './home/features/features.component';
+import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,10 +45,16 @@ import { LoaderModalComponent } from './shared/loader-modal/loader-modal.compone
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './material.module';
 import { HeaderVisibilityService } from '../services/header-visibility.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    HomeHeaderComponent,
+    FeaturesComponent,
+    HowItWorksComponent,
     LoginComponent,
     RegistrationComponent,
     TermsModalComponent,
@@ -71,7 +81,8 @@ import { HeaderVisibilityService } from '../services/header-visibility.service';
     DeactivateAccountComponent,
     TermsAndConditionsComponent,
     PrivacyPolicyComponent,
-    LoaderModalComponent
+    LoaderModalComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +90,8 @@ import { HeaderVisibilityService } from '../services/header-visibility.service';
     FormsModule, 
     AppRoutingModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MatIconModule
   ],
   providers: [ 
     HeaderVisibilityService,

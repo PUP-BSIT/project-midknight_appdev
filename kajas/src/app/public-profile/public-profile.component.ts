@@ -68,7 +68,8 @@ export class PublicProfileComponent implements OnInit {
           this.facebook = data.facebook;
           this.instagram = data.instagram;
           this.website = data.website;
-          this.kajasLink = data.kajasLink;
+          this.kajasLink = data.kajas_link;
+
           this.artworks = data.artworks.map(item => ({
             status: item.status,
             artwork_id: item.artwork_id,
@@ -88,6 +89,20 @@ export class PublicProfileComponent implements OnInit {
         console.error('Error fetching profile data:', error);
       });
   }
+
+  copy(text: string): void {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        this.modalMessage = 'Profile link copied to clipboard!';
+        this.showMessageModal = true;
+      },
+      (err) => {
+        console.error('Could not copy text: ', err);
+        this.modalMessage = 'Failed to copy the link. Please try again.';
+        this.showMessageModal = true;
+      }
+    );
+  }  
 
   trackByFn(index: number, artwork: Artwork): string {
     return artwork.artwork_id; 

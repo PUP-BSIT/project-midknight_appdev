@@ -17,6 +17,7 @@ export class EditProfileComponent implements OnInit {
   selectedCountryName = '';
   showModal = false;
   modalMessage = '';
+  showLoader = false;
 
   firstNamePlaceholder = this.sessionStorage.get('first_name') || '';
   lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
@@ -167,14 +168,14 @@ export class EditProfileComponent implements OnInit {
   onSubmit(): void {
     const url = "http://api.kajas.site/api/setProfile";
     const formData = new FormData();
-
+  
     if (this.profileForm.invalid) {
       this.profileForm.markAllAsTouched();
       this.modalMessage = 'Please fill out the form accurately and completely.';
       this.showModal = true;
       return;
     }
-
+  
     Object.keys(this.profileForm.controls).forEach(key => {
       const control = this.profileForm.get(key);
       if (control && control.value !== null && control.value !== undefined) {
@@ -185,17 +186,17 @@ export class EditProfileComponent implements OnInit {
         }
       }
     });
-
+  
     if (!(this.profileForm.controls['profile'].value instanceof File)) {
       formData.append('profile', this.profileForm.controls['profile'].value);
     }
-
+  
+    this.showLoader = true;
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Profile Updated Successfully!';
-          this.showModal = true;
-
+          this.modalMessage = 'Updating your profile details...';
+  
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
           this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
           this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
@@ -208,12 +209,21 @@ export class EditProfileComponent implements OnInit {
           this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
           this.sessionStorage.set('website', this.profileForm.controls.website.value);
           this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
+  
+          setTimeout(() => {
+            this.showLoader = false;
+            this.router.navigateByUrl('/profile');
+          }, 3000);
         }
       })
       .catch(error => {
         console.error('Error submitting the profile data:', error);
+        this.showLoader = false;
+        this.modalMessage = 'An error occurred while updating your profile. Please try again later.';
+        this.showModal = true;
       });
   }
+  
 
   getErrorMessage(controlName: string): string {
     const control = this.profileForm.get(controlName);

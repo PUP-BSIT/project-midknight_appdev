@@ -17,6 +17,7 @@ export class SetupProfileComponent implements OnInit {
   selectedCountryName = '';
   showModal = false;
   modalMessage = '';
+  showLoader = false;
   profileImageUrl: string | ArrayBuffer | null = '';
 
   firstNamePlaceholder = '';
@@ -31,7 +32,6 @@ export class SetupProfileComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private router: Router
   ) {
-    
     this.profileForm = this.fb.group({
       id: [this.sessionStorage.get('id')],
       profile: [''],
@@ -171,31 +171,47 @@ export class SetupProfileComponent implements OnInit {
       if (control && control.value !== null && control.value !== undefined) {
         if (key === 'profile' && control.value instanceof File) {
           formData.append(key, control.value);
-        } else {
+        } else if (key !== 'profile') {
           formData.append(key, control.value);
         }
       }
     });
 
+    if (!(this.profileForm.controls['profile'].value instanceof File)) {
+      formData.append('profile', this.profileForm.controls['profile'].value);
+    }
+
+    this.showLoader = true;
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Profile Setup Successfully!';
-          this.showModal = true;
+          this.modalMessage = 'Completing your profile setup...';
+          this.showLoader = true;
 
+          this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
+          this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
+          this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
           this.sessionStorage.set('city', this.profileForm.controls.city.value);
           this.sessionStorage.set('country', this.profileForm.controls.country.value);
           this.sessionStorage.set('bio', this.profileForm.controls.bio.value);
-          this.sessionStorage.set('profile', response.data.updatedprofile);
+          this.sessionStorage.set('profile', response.data.updatedprofile || this.sessionStorage.get('profile'));
           this.sessionStorage.set('linkedin', this.profileForm.controls.linkedIn.value);
           this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
           this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
           this.sessionStorage.set('website', this.profileForm.controls.website.value);
           this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
+
+          setTimeout(() => {
+            this.showLoader = false;
+            this.router.navigateByUrl('/profile');
+          }, 3000);
         }
       })
       .catch(error => {
         console.error('Error submitting the profile data:', error);
+        this.showLoader = false;
+        this.modalMessage = 'An error occurred while updating your profile. Please try again later.';
+        this.showModal = true;
       });
   }
 
@@ -218,9 +234,6 @@ export class SetupProfileComponent implements OnInit {
   }
 
   closeModal(): void {
-    if (this.modalMessage === 'Profile Setup Successfully!') {
-      this.router.navigateByUrl('/profile');
-    }
     this.showModal = false;
   }
 

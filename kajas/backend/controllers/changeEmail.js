@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { transporter } = require('./mailer'); 
 const bcrypt = require('bcrypt');
+const emailStyles = require('./emailStyles');
 
 const changeEmail = async (req, res) => {
   try {
@@ -27,17 +28,42 @@ const changeEmail = async (req, res) => {
       to: newEmail,
       subject: 'Email Change Confirmation',
       html: `
-            <div style="margin-left: 23px; overflow: hidden; max-width: 100%; font-family: Arial, sans-serif;">
-            <h1 style="color: #4D493E; font-size: xx-large; margin: 0; margin-bottom: 8px;">Email Change Confirmation</h1>
-            <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Hello,</p>
-            <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">We wanted to let you know that your email address associated with your Kajas account has been successfully updated.</p>
-            <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Your new email address is: <strong>${newEmail}</strong></p>
-            <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">If you did not request this change, please contact our support team immediately at <a href="mailto:midknightv03@gmail.com" style="color: #4D493E; text-decoration: none;">midknightv03@gmail.com</a>.</p>
-            <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Thank you for using Kajas!</p>
-            <p style="color: #8E7C70; font-size: 16px; margin-bottom: 23px;">Best regards,<br>Team Midknight</p>
-            </div>
-        `
-    };
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Email Change Confirmation</title>
+              <style>${emailStyles}</style>
+          </head>
+          <body>
+              <div class="container">
+                  <div class="logo">
+                      <img src="cid:logo.png" alt="Logo">
+                  </div>
+                  <div class="content">
+                      <h1>Email Change Confirmation</h1>
+                      <p>We wanted to let you know that your email address 
+                        associated with your Kajas account has been successfully
+                        updated.</p>
+                      <p>Your new email address is: 
+                        <strong>${newEmail}</strong></p>
+                      <p>If you did not request this change, please contact our
+                        support team immediately at 
+                      <a class="mail" href="mailto:midknightv03@gmail.com">
+                        midknightv03@gmail.com</a>.</p>
+                      <p>Thank you for using Kajas!</p>
+                      <p>Best regards, <span class="team">
+                        Team Midknight</span></p>
+                  </div>
+              </div>
+          </body>
+          </html>
+      `,
+      attachments: [{
+          filename: 'kajas_icon.png',
+          path: __dirname + '/../../src/assets/kajas_icon.png',
+          cid: 'logo.png'
+      }]
+  };
 
     await transporter.sendMail(mailOptions); 
 

@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.tab-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9b8a81;
+    padding: 5px;
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    top: 0;           
+    left: 0;       
+    z-index: 1000;   
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    width: 25%;
+}
+
+.logo img {
+    width: 30%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo img:hover {
+    transform: translateY(-5px);
+}
+
+.action-buttons {
+    display: flex;
+    margin-left: 2%;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.action-buttons a {
+    color: #232323;
+    font-size: larger;
+    font-weight: 700;
+    text-decoration: none;
+    margin-right: 35px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.action-buttons a:hover {
+    text-decoration: underline;
+    transform: translateY(-5px);
+}
+
+.action-buttons button {
+    font-size: large;
+    padding: 10px 20px;
+    width: 180px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.log-in-button {
+    color: #fff;
+    background-color: #3D3D3D;
+    border: 1px solid #fff;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.log-in-button:hover {
+    color: #fff;
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+.sign-up-button {
+    color: #3D3D3D;
+    background-color: #fff;
+    border: 1px solid #fff;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sign-up-button:hover {
+    transform: translateY(-5px);
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .tab-container {
+        padding: 0;
+    }
+
+    .logo {
+        width: 20%;
+    }
+    
+    .logo img {
+        width: 100%;
+    }
+
+    .action-buttons a {
+        font-size: 0.1em;
+        margin-right: 5px;
+    }
+
+    .action-buttons {
+        gap: 5px;
+    }
+    
+    .action-buttons button {
+        font-size: 0.1em;
+        text-wrap: nowrap;
+        padding: 4px 10px;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .logo {
+        width: 10%;
+    }
+
+    .logo img {
+        width: 100%;
+    }
+
+    .action-buttons {
+        margin-left: 10%;
+        gap: 15px;
+    }
+
+    .action-buttons a {
+        font-size: small;
+        margin-right: 5px;
+    }
+    
+    .action-buttons button {
+        font-size: small;
+        text-wrap: nowrap;
+        padding: 8px 16px;
+        width: 100%;
+    }
+}
