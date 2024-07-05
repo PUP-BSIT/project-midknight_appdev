@@ -10,7 +10,7 @@
             <input type="text" class="search-input" placeholder="SEARCH" 
                 (input)="onSearch($event.target.value)" (focus)="onSearchFocus()">
             <div class="search-results" 
-                [ngClass]="{'show': searchResults.length > 0}">
+                [ngClass]="{'show': searchFocused}">
                 @if(searchResults.length > 0) {
                     @for(result of searchResults; track result.id) {
                         <div class="search-result-item" 
@@ -22,6 +22,11 @@
                                 {{ result.lastName }}</span>
                         </div>
                     }
+                } @else {
+                    <div class="search-result-item">
+                        <img src="../../assets/default-profile.png" alt="Default Profile Picture" />
+                        <span>No users found. Please try a different name.</span>
+                    </div>
                 }
             </div>
         </div>    
@@ -35,4 +40,3 @@
         </div>
     </div>    
 }
-

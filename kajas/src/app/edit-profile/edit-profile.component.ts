@@ -108,6 +108,11 @@ export class EditProfileComponent implements OnInit {
     this.locationService.getCountries().subscribe(data => {
       this.countries = data;
       this.countries.sort((a, b) => a.name.localeCompare(b.name));
+      
+      const initialCountryCode = this.countries.find(country => country.name === this.profileForm.get('country')?.value)?.id;
+      if (initialCountryCode) {
+        this.onCountryChange({ target: { value: initialCountryCode } });
+      }
     });
   }
 
@@ -154,8 +159,8 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
-  onCountryChange(event: Event): void {
-    const countryCode = (event.target as HTMLSelectElement).value;
+  onCountryChange(event: any): void {
+    const countryCode = event.target.value;
     this.selectedCountryName = this.countries.find(country => country.id === countryCode)?.name || '';
     this.profileForm.patchValue({ country: this.selectedCountryName });
 
@@ -192,10 +197,10 @@ export class EditProfileComponent implements OnInit {
     }
   
     this.showLoader = true;
+    this.modalMessage = 'Updating your profile details...';
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Updating your profile details...';
   
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
           this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);

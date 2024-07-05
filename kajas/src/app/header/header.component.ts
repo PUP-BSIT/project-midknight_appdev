@@ -54,26 +54,32 @@ export class HeaderComponent implements OnDestroy {
     this.closeDropdown();
   }
 
-  async onSearch(query: string): Promise<void> {
+  onSearch(query: string): void {
     if (query.length < 1) {
       this.searchResults = [];
+      this.searchFocused = false
       return;
     }
 
-    try {
-      this.searchResults = await this.searchService.searchUsers(query);
-    } catch (error) {
+    this.searchService.searchUsers(query).then(results => {
+      this.searchResults = results;
+      this.searchFocused = true; 
+    }).catch(error => {
       console.error('Error fetching search results', error);
       this.searchResults = [];
-    }
+      this.searchFocused = true; 
+    });
   }
 
   onSearchFocus(): void {
-    this.searchFocused = true;
+    if (this.searchResults.length > 0 || this.searchFocused) {
+      this.searchFocused = true; 
+    }
   }
 
   clearSearchResults(): void {
     this.searchResults = [];
+    this.searchFocused = false; 
   }
 
   navigateToProfile(username: string): void {
