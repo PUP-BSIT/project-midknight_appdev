@@ -12,6 +12,10 @@ export class UserService {
     return this.http.get<string[]>(`${this.apiUrl}/usernames`);
   }
 
+  checkEmailExists(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/check-email-exists?email=${email}`);
+  }  
+
   deactivateAccount(userId: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/deactivate`, { userId, password });
   }

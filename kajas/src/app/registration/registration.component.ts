@@ -38,6 +38,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.email,
           this.gmailValidator.bind(this)
+        ],
+        asyncValidators: [
+          this.emailExistsValidator.bind(this)
         ]
       }],
       password: ['', {
@@ -68,7 +71,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.requiredTrue
         ]
       }],
-    });
+    });    
 
     this.registrationForm.get('password')?.valueChanges.subscribe(() => {
       this.registrationForm.get('confirmPassword')?.updateValueAndValidity();
@@ -144,6 +147,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
     return null;
   }
+
+  private emailExistsValidator(control: AbstractControl): Promise<ValidationErrors | null> {
+    return new Promise((resolve) => {
+      this.userService.checkEmailExists(control.value).subscribe({
+        next: (exists: boolean) => {
+          resolve(exists ? { emailTaken: true } : null);
+        },
+        error: () => {
+          resolve(null);
+        }
+      });
+    });
+  }  
 
   private gmailValidator(control: AbstractControl): ValidationErrors | null {
     if (control.value && !control.value.endsWith('@gmail.com')) {
@@ -242,6 +258,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         return 'Email must be a valid email address.';
       } else if (control.errors.notGmail) {
         return 'Email must be a valid Google mail address.';
+      } else if (control.errors.emailTaken) {
+        return 'Email is already taken.';
       } else if (control.errors.usernameTaken) {
         return 'Username is already taken.';
       } else if (control.errors.tooShort) {
