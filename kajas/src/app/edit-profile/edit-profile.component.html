@@ -128,11 +128,7 @@
 
                             <select 
                                 id="city" 
-                                formControlName="city" 
-                                [ngClass]="{'ng-touched ng-invalid':
-                                    profileForm.get('city').touched && 
-                                    profileForm.get('city').invalid}" 
-                                [disabled]="!profileForm.get('country').value" 
+                                formControlName="city"
                                 required>
 
                                 <option value="{{ cityPlaceholder }}" 
