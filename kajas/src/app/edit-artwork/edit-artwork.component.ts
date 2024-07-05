@@ -128,10 +128,10 @@ export class EditArtworkComponent implements OnInit {
     }
 
     this.showLoader = true;
+    this.modalMessage = 'Updating artwork details...';
     this.http.put(url, updatedFields).subscribe({
       next: (response: any) => {
         if (response) {
-          this.modalMessage = 'Updating artwork details...';
           this.updatePlaceholders();
 
           setTimeout(() => {

@@ -185,24 +185,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     const url = 'http://localhost:4000';
     if (this.registrationForm.valid) {
-      this.modalMessage = 'Loading...';
+      this.modalMessage = 'Registering User...';
       this.showLoader = true;
 
       axios.post(`${url}/api/signup`, this.registrationForm.value)
         .then((response: AxiosResponse) => {
           if (response.status === 201) {
-            this.modalMessage = 'Registering User...';
             return axios.post(`${url}/send/email`, { email: this.registrationForm.value.email });
           }
         })
         .then((response: AxiosResponse) => {
           if (response && response.status === 200) {
+            this.showLoader = false;
             this.modalMessage = 'User registered successfully. Please see the verification email sent.';
             this.showModal = true;
           }
         })
         .catch((error: AxiosError) => {
           console.error('Error during registration:', error);
+          this.showLoader = false;
           this.modalMessage = 'An error occurred. Please try again later.';
         })
         .finally(() => {

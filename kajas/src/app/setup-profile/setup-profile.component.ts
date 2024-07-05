@@ -182,10 +182,10 @@ export class SetupProfileComponent implements OnInit {
     }
 
     this.showLoader = true;
+    this.modalMessage = 'Completing your profile setup...';
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Completing your profile setup...';
           this.showLoader = true;
 
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
