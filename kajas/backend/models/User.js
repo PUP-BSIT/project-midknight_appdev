@@ -125,6 +125,9 @@ const searchUsers = (query) => {
       JOIN user_information ui ON u.user_information_id = ui.user_information_id
       WHERE (ui.first_name LIKE ? OR ui.last_name LIKE ?)
       AND u.is_active = 1
+      AND u.is_verify = 1
+      AND ui.country IS NOT NULL
+      AND ui.country != ''
       LIMIT 5`;
     db.query(searchQuery, [`${query}%`, `${query}%`], (error, results) => {
       if (error) {
