@@ -20,11 +20,6 @@
     width: 60%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.modal:hover {
-    transform: scale(1.02); 
 }
 
 .modal-content {
@@ -57,11 +52,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.image-placeholder:hover {
-    transform: scale(1.05); 
 }
 
 .image-placeholder img {
