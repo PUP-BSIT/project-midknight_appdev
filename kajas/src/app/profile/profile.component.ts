@@ -13,6 +13,7 @@ import axios from 'axios';
 export class ProfileComponent implements OnInit {
   firstName = '';
   lastName = '';
+  location = '';
   country = '';
   city = '';
   bio = '';
@@ -52,6 +53,8 @@ export class ProfileComponent implements OnInit {
     this.instagram = this.sessionStorage.get('instagram') || '';
     this.website = this.sessionStorage.get('website') || '';
     this.kajasLink = this.sessionStorage.get('kajas_link') || '';
+
+    this.location = this.city && this.country ? `${this.city}, ${this.country}` : this.city || this.country;
 
     axios.get(`http://localhost:4000/api/artworks/id?id=${id}`)
       .then(response => {

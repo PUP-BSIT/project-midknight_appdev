@@ -87,11 +87,10 @@ export class AddArtworkComponent {
     formData.append('userId', this.sessionStorage.get('id'));
 
     this.showLoader = true;
+    this.modalMessage = 'Adding new artwork...';
     axios.post(url, formData)
       .then(response => {
         if (response.status === 200) {
-          this.modalMessage = 'Adding new artwork...';
-
           setTimeout(() => {
             this.showLoader = false;
             this.router.navigateByUrl('/profile');

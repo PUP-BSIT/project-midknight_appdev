@@ -13,6 +13,7 @@ import axios from 'axios';
 export class PublicProfileComponent implements OnInit {
   firstName = '';
   lastName = '';
+  location = '';
   country = '';
   city = '';
   bio = '';
@@ -70,6 +71,7 @@ export class PublicProfileComponent implements OnInit {
           this.website = data.website;
           this.kajasLink = data.kajas_link;
 
+          this.location = this.city && this.country ? `${this.city}, ${this.country}` : this.city || this.country;
           this.artworks = data.artworks.map(item => ({
             status: item.status,
             artwork_id: item.artwork_id,

@@ -38,6 +38,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.email,
           this.gmailValidator.bind(this)
+        ],
+        asyncValidators: [
+          this.emailExistsValidator.bind(this)
         ]
       }],
       password: ['', {
@@ -68,7 +71,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           Validators.requiredTrue
         ]
       }],
-    });
+    });    
 
     this.registrationForm.get('password')?.valueChanges.subscribe(() => {
       this.registrationForm.get('confirmPassword')?.updateValueAndValidity();
@@ -145,6 +148,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return null;
   }
 
+  private emailExistsValidator(control: AbstractControl): Promise<ValidationErrors | null> {
+    return new Promise((resolve) => {
+      this.userService.checkEmailExists(control.value).subscribe({
+        next: (exists: boolean) => {
+          resolve(exists ? { emailTaken: true } : null);
+        },
+        error: () => {
+          resolve(null);
+        }
+      });
+    });
+  }  
+
   private gmailValidator(control: AbstractControl): ValidationErrors | null {
     if (control.value && !control.value.endsWith('@gmail.com')) {
       return { notGmail: true };
@@ -185,24 +201,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     const url = 'http://localhost:4000';
     if (this.registrationForm.valid) {
-      this.modalMessage = 'Loading...';
+      this.modalMessage = 'Registering User...';
       this.showLoader = true;
 
       axios.post(`${url}/api/signup`, this.registrationForm.value)
         .then((response: AxiosResponse) => {
           if (response.status === 201) {
-            this.modalMessage = 'Registering User...';
             return axios.post(`${url}/send/email`, { email: this.registrationForm.value.email });
           }
         })
         .then((response: AxiosResponse) => {
           if (response && response.status === 200) {
+            this.showLoader = false;
             this.modalMessage = 'User registered successfully. Please see the verification email sent.';
             this.showModal = true;
           }
         })
         .catch((error: AxiosError) => {
           console.error('Error during registration:', error);
+          this.showLoader = false;
           this.modalMessage = 'An error occurred. Please try again later.';
         })
         .finally(() => {
@@ -241,6 +258,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         return 'Email must be a valid email address.';
       } else if (control.errors.notGmail) {
         return 'Email must be a valid Google mail address.';
+      } else if (control.errors.emailTaken) {
+        return 'Email is already taken.';
       } else if (control.errors.usernameTaken) {
         return 'Username is already taken.';
       } else if (control.errors.tooShort) {
