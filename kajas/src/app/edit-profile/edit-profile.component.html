@@ -1,7 +1,6 @@
 <div class="edit">
     <div class="modal">
         <div class="modal-content">
-            <span class="close" (click)="close()">&times;</span>
             <h1>Edit Profile</h1>
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <div class="left-column">
@@ -227,6 +226,9 @@
                     </div>
 
                     <div class="button-container">
+                        <button type="button" class="cancel" (click)="close()">
+                            Cancel
+                          </button>
                         <button type="submit" class="continue-button">
                             Save</button>
                     </div>

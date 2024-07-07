@@ -130,14 +130,21 @@
     right: 20px;
     background: none;
     border: none;
-    font-size: 40px;
+    font-weight: 800;
+    font-size: medium;
     cursor: pointer;
-    color: #aaa;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    color: #3E3E3E;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.close-button mat-icon {
+    font-weight: 900;
 }
 
 .close-button:hover {
-    color: black;
+    transform: scale(1.1);
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
@@ -217,9 +224,9 @@
     }
 
     .close-button {
-        top: 5px;
-        right: 5px;
-        font-size: 30px;
+        top: 8px;
+        right: 8px;
+        font-size: xx-small;
     }
 }
 
