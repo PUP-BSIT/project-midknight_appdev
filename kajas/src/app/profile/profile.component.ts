@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit {
             title: item.title,
             user_id: item.user_id,
           }));
+          this.artworks.reverse();
         } else {
           this.message = "No Artworks Yet...";
         }
