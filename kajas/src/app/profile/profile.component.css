@@ -160,15 +160,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-wrap: nowrap ;
 }
 
 .gallery-button:hover {
-  transform: scale(1.2);
+  transform: translateY(-5px);
   font-weight: 600;
 }
 
 .gallery-button mat-icon {
   color: #888888;
+  margin-right: 5px;
 }
 
 .gallery-button a {

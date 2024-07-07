@@ -36,9 +36,9 @@
       <h2>Gallery</h2>
     </div>
     <a class="gallery-button" (click)="toggleDelete()">
-      <mat-icon>edit</mat-icon>
-      Edit
-    </a>                
+      <mat-icon>{{ showDeleteButton ? 'check' : 'edit' }}</mat-icon>
+      {{ showDeleteButton ? 'Done Editing' : 'Edit' }}
+    </a>                            
   </div>
 </div>
 <div class="gallery-grid">
