@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { SessionStorageService } from 'angular-web-storage';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Artwork, ProfileData } from '../../models/user.model';
@@ -25,18 +25,20 @@ export class PublicProfileComponent implements OnInit {
   kajasLink = '';
   artworks: any[] = [];
   message = '';
-  showDeleteButton = false;
-  showConfirmModal = false;
   showMessageModal = false;
   modalMessage = '';
-  selectedArtworkForDeletion: any = null;
   sessionStorageId: string | null = '';
+
+  currentPage = 1;
+  itemsPerPage = 12;
+  totalPages = 1;
 
   constructor(
     public sessionStorage: SessionStorageService,
     private router: Router,
     private route: ActivatedRoute,
-    private artworkService: ArtworkService
+    private artworkService: ArtworkService,
+    private renderer: Renderer2 
   ) {}
 
   ngOnInit(): void {
@@ -81,10 +83,12 @@ export class PublicProfileComponent implements OnInit {
             title: item.title,
             user_id: item.user_id,
           }));
-          
+
           if (this.artworks.length === 0) {
             this.message = "No Artworks Yet...";
           }
+
+          this.totalPages = Math.ceil(this.artworks.length / this.itemsPerPage);
         }
       })
       .catch(error => {
@@ -104,10 +108,10 @@ export class PublicProfileComponent implements OnInit {
         this.showMessageModal = true;
       }
     );
-  }  
+  }
 
   trackByFn(index: number, artwork: Artwork): string {
-    return artwork.artwork_id; 
+    return artwork.artwork_id;
   }
 
   getAbsoluteUrl(relativePath: string): string {
@@ -121,11 +125,34 @@ export class PublicProfileComponent implements OnInit {
     this.router.navigate([`${username}/artwork-details`, artworkTitle]);
   }
 
-  closeModal(): void {
-    this.showConfirmModal = false;
-  }
-
   closeMessageModal(): void {
     this.showMessageModal = false;
   }
+
+  paginatedArtworks(): any[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.artworks.slice(start, end);
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.scrollToGallery();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.scrollToGallery();
+    }
+  }
+
+  scrollToGallery(): void {
+    const galleryContainer = this.renderer.selectRootElement('.kajas-link');
+    if (galleryContainer) {
+      galleryContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }  
 }

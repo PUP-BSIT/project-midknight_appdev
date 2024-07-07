@@ -42,15 +42,14 @@
   </div>
 </div>
 <div class="gallery-grid">
-  @if(artworks.length) {
+  @if(paginatedArtworks().length) {
     <div class="gallery-images">
-      @for(artwork of artworks; track artwork.id) {
+      @for(artwork of paginatedArtworks(); track artwork.id) {
         <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
-            (click)="viewArtworkDetails(artwork)" />
-              
+          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title"
+           (click)="viewArtworkDetails(artwork)" />
           @if(showDeleteButton) {
-            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
+            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)">
               <mat-icon>delete_outline</mat-icon>
             </div>
           }
@@ -58,9 +57,17 @@
       }
     </div>
   }
-  @if(!artworks.length) {
+  @if(!paginatedArtworks().length) {
     <p>{{ message }}</p>
   }
+</div>
+
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">
+    Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next</button>
 </div>
 
 <div class="add-artwork-container">

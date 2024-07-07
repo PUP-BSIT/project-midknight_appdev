@@ -265,6 +265,42 @@
   margin-bottom: 5%;
 }
 
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  gap: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: medium;
+  color: #3e3e3e;
+}
+
+.pagination-controls button {
+  padding: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: small;
+  color:#fff; 
+  background-color: #4d493e;
+  border-radius: 5px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pagination-controls button:disabled {
+  background-color: #888888;
+  transition: none;
+}
+
+.pagination-controls button:disabled:hover {
+  transform: none;
+  background-color: #888888;
+}
+
+.pagination-controls button:hover {
+  background-color: #8e7c70;
+  transform: translateY(-5px);
+}
+
 @media screen and (min-width: 320px) and (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -398,6 +434,16 @@
   .close {
     font-size: 28px;
   }
+
+  .pagination-controls {
+    gap: 10px;
+    font-size: xx-small;
+  }
+  
+  .pagination-controls button {
+    padding: 5px;
+    font-size: xx-small;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -505,5 +551,15 @@
   .trashbin-overlay mat-icon {
     margin-top: 0;
     font-size: 150%;
+  }
+
+  .pagination-controls {
+    gap: 15px;
+    font-size: small;
+  }
+  
+  .pagination-controls button {
+    padding: 5px;
+    font-size: x-small;
   }
 }
