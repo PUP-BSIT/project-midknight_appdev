@@ -87,7 +87,7 @@ export class PublicProfileComponent implements OnInit {
           if (this.artworks.length === 0) {
             this.message = "No Artworks Yet...";
           }
-
+          this.artworks.reverse();
           this.totalPages = Math.ceil(this.artworks.length / this.itemsPerPage);
         }
       })

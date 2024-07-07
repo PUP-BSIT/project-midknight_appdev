@@ -136,7 +136,7 @@
                                         {{ cityPlaceholder }}
                                 </option>
 
-                                @for(city of cities; track city.name) {
+                                @for(city of cities; track city.id) {
                                     <option [value]="city.name">
                                         {{ city.name }}</option>
                                 }

@@ -47,7 +47,7 @@
 <div class="gallery-grid">
   @if(paginatedArtworks().length) {
     <div class="gallery-images">
-      @for(artwork of paginatedArtworks(); track artwork.id) {
+      @for(artwork of paginatedArtworks(); track paginatedArtworks()) {
         <div class="gallery-item">
           <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
             (click)="viewArtworkDetails(artwork)" />
@@ -60,13 +60,17 @@
   }
 </div>
 
-<div class="pagination-controls">
-  <button (click)="previousPage()" [disabled]="currentPage === 1">
-    Previous</button>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
-    Next</button>
-</div>
+@if(paginatedArtworks().length) {
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+}
 
 @if(showMessageModal) {
   <app-modal-message 
