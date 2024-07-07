@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
   copy(text: string): void {
     navigator.clipboard.writeText(text).then(
       () => {
-        this.modalMessage = 'Profile link copied to clipboard!';
+        this.modalMessage = 'Your profile link has been copied to your clipboard. Feel free to share it with others!';
         this.showMessageModal = true;
       },
       (err) => {
