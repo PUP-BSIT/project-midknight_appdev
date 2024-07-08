@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   kajasLink = '';
   artworks: any[] = [];
   message = '';
-  showDeleteButton = false;
+  showEditButtons = false;
   showConfirmModal = false;
   showMessageModal = false;
   modalMessage = '';
@@ -129,8 +129,8 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  toggleDelete(): void {
-    this.showDeleteButton = !this.showDeleteButton;
+  toggleEdit(): void {
+    this.showEditButtons = !this.showEditButtons;
   }
 
   trackByFn(index: number, artwork: Artwork): string {
