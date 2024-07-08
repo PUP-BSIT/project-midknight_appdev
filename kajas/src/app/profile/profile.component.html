@@ -1,8 +1,12 @@
 <div class="profile-container">
   <div class="container">
     <div class="profile-picture">
-      <img [src]="profile" 
-        alt="Profile Picture" class="profile-picture" />
+      <img 
+        [lazyLoad]="profile" 
+        alt="Profile Picture"
+        class="profile-picture" 
+        [defaultImage]="'../../assets/default-profile.png'"
+        [errorImage]="'../../assets/default-profile.png'" />
     </div>
     <div class="profile-info">
       <h1>{{ firstName }} {{ lastName }}</h1>
@@ -46,9 +50,7 @@
         <mat-icon>{{ showEditButtons ? 'check' : 'edit' }}</mat-icon>
         {{ showEditButtons ? 'Done Editing' : 'Edit' }}
       </a>  
-    </div>
-    
-                            
+    </div>       
   </div>
 </div>
 <div class="gallery-grid">
@@ -56,8 +58,12 @@
     <div class="gallery-images">
       @for(artwork of paginatedArtworks(); track paginatedArtworks()) {
         <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title"
-           (click)="viewArtworkDetails(artwork)" />
+          <img 
+            [lazyLoad]="getAbsoluteUrl(artwork.image_url)" 
+            [alt]="artwork.title" 
+            [defaultImage]="'../../assets/default-artwork.png'"
+            [errorImage]="'../../assets/default-artwork.png'"
+            (click)="viewArtworkDetails(artwork)" />
           @if(showEditButtons) {
             <div class="trashbin-overlay" (click)="openDeleteModal(artwork)">
               <mat-icon>delete_outline</mat-icon>

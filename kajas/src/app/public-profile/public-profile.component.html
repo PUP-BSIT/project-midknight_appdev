@@ -9,8 +9,12 @@
 <div class="profile-container">
   <div class="container">
     <div class="profile-picture">
-        <img [src]="profile || '../../assets/default-profile.png'" 
-        alt="Profile Picture" class="profile-picture" />
+      <img 
+        [lazyLoad]="profile" 
+        alt="Profile Picture"
+        class="profile-picture" 
+        [defaultImage]="'../../assets/default-profile.png'"
+        [errorImage]="'../../assets/default-profile.png'" />
     </div>
     <div class="profile-info">
       <h1>{{ firstName }} {{ lastName }}</h1>
@@ -49,7 +53,11 @@
     <div class="gallery-images">
       @for(artwork of paginatedArtworks(); track paginatedArtworks()) {
         <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
+          <img 
+            [lazyLoad]="getAbsoluteUrl(artwork.image_url)" 
+            [alt]="artwork.title" 
+            [defaultImage]="'../../assets/default-artwork.png'"
+            [errorImage]="'../../assets/default-artwork.png'"
             (click)="viewArtworkDetails(artwork)" />
         </div>
       }

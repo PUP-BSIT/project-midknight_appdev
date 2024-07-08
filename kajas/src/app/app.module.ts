@@ -49,6 +49,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoadingService } from '../services/loading.service';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { LoadingService } from '../services/loading.service';
     HttpClientModule,
     MaterialModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    LazyLoadImageModule
   ],
   providers: [ 
     HeaderVisibilityService,
