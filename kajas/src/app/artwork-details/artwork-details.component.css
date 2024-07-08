@@ -75,6 +75,7 @@
     gap: 10px;
     margin-left: 20px;
     font-size: 0.9em;
+    width: 100%;
 }
 
 .details-group {
@@ -82,12 +83,17 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    height: 400px;
 }
 
 .artwork-title {
     color: #4D493E;
     font-size: xx-large;
     margin-bottom: 5px;
+    width: 100%;
+    text-wrap: wrap;
+    word-break: break-all;
 }
 
 .username {
@@ -103,6 +109,11 @@
     margin-top: 8px;
     color: #4D493E;
     text-align: justify;
+    width: 100%;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 10px; 
 }
 
 .edit-button {
@@ -237,5 +248,12 @@
 
     .artwork-title {
         margin-top: 20px;
+    }
+} 
+
+@media screen and (min-width: 1024px) and (max-width: 1039px) {
+    .image-placeholder {
+        width: 250px;
+        height: 250px;
     }
 } 
