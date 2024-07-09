@@ -23,7 +23,7 @@ export class EditProfileComponent implements OnInit {
   lastNamePlaceholder = this.sessionStorage.get('last_name') || '';
   middleNamePlaceholder = this.sessionStorage.get('middle_name') || 'Middle Name';
   emailPlaceholder = this.sessionStorage.get('email') || '';
-  kajasPlaceholder = this.sessionStorage.get('kajasLink') || '';
+  kajasPlaceholder = this.sessionStorage.get('username') || '';
   countryPlaceholder = this.sessionStorage.get('country') || '';
   cityPlaceholder = this.sessionStorage.get('city') || '';
   bioPlaceholder = this.sessionStorage.get('bio') || 'Describe yourself here...';
@@ -202,6 +202,7 @@ export class EditProfileComponent implements OnInit {
       .then(response => {
         if (response.status === 200) {
   
+          this.sessionStorage.set('username', this.profileForm.controls.kajas_link.value);
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
           this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
           this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
@@ -213,7 +214,7 @@ export class EditProfileComponent implements OnInit {
           this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
           this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
           this.sessionStorage.set('website', this.profileForm.controls.website.value);
-          this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
+          this.sessionStorage.set('kajas_link', `kajas.site/profile/${this.profileForm.controls.kajas_link.value}`);
   
           setTimeout(() => {
             this.showLoader = false;

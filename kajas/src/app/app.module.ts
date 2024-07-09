@@ -47,6 +47,9 @@ import { MaterialModule } from './material.module';
 import { HeaderVisibilityService } from '../services/header-visibility.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoadingService } from '../services/loading.service';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,9 @@ import { MatIconModule } from '@angular/material/icon';
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressBarModule,
+    LazyLoadImageModule
   ],
   providers: [ 
     HeaderVisibilityService,
@@ -101,7 +106,8 @@ import { MatIconModule } from '@angular/material/icon';
     SearchService,
     ArtworkService,
     EmailService,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

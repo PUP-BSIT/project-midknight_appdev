@@ -6,8 +6,9 @@ const {
   removeArtwork,
   addArtWork,
 } = require("../models/Artworks");
-const { query } = require("express");
 const path = require("path");
+const sharp = require("sharp");
+const fs = require("fs");
 
 const getProfile = (req, res) => {
   const { username } = req.params;
@@ -151,22 +152,37 @@ const deleteAnArtwork = (req, res) => {
   });
 };
 
-const submitArtwork = (req, res) => {
+const submitArtwork = async (req, res) => {
   const { title, date, details, userId } = req.body;
   const imageUrl = req.file ? path.basename(req.file.path) : null;
+
   if (!title || !date || !details || !imageUrl) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  addArtWork(userId, title, details, date, imageUrl, (error, result) => {
-    if (error) {
-      console.error("Error inserting artwork:", err);
-      return res.status(500).json({ message: "Internal server error" });
-    }
-    res.status(200).json({ message: "Artwork added successfully" });
-  });
+
+  try {
+    const uploadsDir = path.resolve(__dirname, '../../uploads'); 
+    const compressedImagePath = path.join(uploadsDir, 'compressed_' + path.basename(req.file.path));
+
+    await sharp(req.file.path)
+      .resize(400, 400)
+      .toFile(compressedImagePath);
+
+
+    const ImageFileName = path.basename(req.file.path);
+
+    addArtWork(userId, title, details, date, ImageFileName, (error, result) => {
+      if (error) {
+        console.error("Error inserting artwork:", error);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+      res.status(200).json({ message: "Artwork added successfully" });
+    });
+  } catch (error) {
+    console.error("Error processing image:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
-
-
 
 module.exports = {
   getProfile,

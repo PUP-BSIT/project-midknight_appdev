@@ -34,15 +34,24 @@
 .close {
     position: absolute;
     top: -20px;
-    right: -10px;
-    color: #aaa;
-    font-size: 64px;
-    font-weight: bold;
+    right: -20px;
+    background: none;
+    border: none;
+    font-weight: 800;
+    font-size: medium;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #3E3E3E;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.close:hover,
-.close:focus {
-    color: black;
+.close mat-icon {
+    font-weight: 900;
+}
+
+.close:hover {
+    transform: scale(1.1);
 }
 
 h1 {
@@ -216,10 +225,10 @@ form select {
 .button-container {
     display: flex;
     justify-content: center;
-    width: 100%; 
+    gap: 40px;
 }
 
-.continue-button {
+.continue-button, button.cancel {
     margin-top: 16px;
     margin-left: 20px;
     width: 80%;
@@ -235,6 +244,14 @@ form select {
 
 button.continue-button:hover {
     background-color: #555;
+    transform: translateY(-5px);
+}
+
+button.cancel {
+    background-color: #8E7C70;
+}
+
+button.cancel:hover {
     transform: translateY(-5px);
 }
 
@@ -304,9 +321,7 @@ input[type="text"].ng-touched.ng-invalid {
     }
 
     .close {
-        top: -2%;
-        right: -2%;
-        font-size: 32px;
+        font-size: xx-small;
     }
     
     h1 {
@@ -414,15 +429,13 @@ input[type="text"].ng-touched.ng-invalid {
     }
     
     .button-container {
-        width: 100%; 
+        flex-direction: row;
+        gap: 0;
     }
 
-    .continue-button {
-        margin-top: 10px;
-        margin-left: 0;
-        padding: 5px;
+    .button-container button {
         font-size: small;
-        border-radius: 5px;
+        margin: 10px;
     }
 
     .error-message {
@@ -444,22 +457,8 @@ input[type="text"].ng-touched.ng-invalid {
     }
 }
 
-@media screen and (min-width: 425px) and (max-width: 767px) {
-    .close {
-        top: -2%;
-        right: -2%;
-        font-size: 32px;
-    }
-}   
-
 @media screen and (min-width: 767px) and (max-width: 1023px) {
     .modal {
         margin-top: 10%;
-    }
-
-    .close {
-        top: -2%;
-        right: 2%;
-        font-size: 50px;
     }
 }   
