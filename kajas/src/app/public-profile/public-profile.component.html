@@ -54,7 +54,7 @@
       @for(artwork of paginatedArtworks(); track paginatedArtworks()) {
         <div class="gallery-item">
           <img 
-            [lazyLoad]="getAbsoluteUrl(artwork.image_url)" 
+            [lazyLoad]="getAbsoluteUrl('compressed_' + artwork.image_url)" 
             [alt]="artwork.title" 
             [defaultImage]="'../../assets/default-artwork.png'"
             [errorImage]="'../../assets/default-artwork.png'"

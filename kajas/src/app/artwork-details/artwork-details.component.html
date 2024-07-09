@@ -7,9 +7,10 @@
             <div class="image-upload">
               <div class="image-placeholder">
                 <img 
-                  [src]="artwork.image_url ? getAbsoluteUrl(artwork.image_url) : 
-                      '../../assets/icons/placeholder_image.png'" 
-                  alt="Artwork Image">
+                  [lazyLoad]="getAbsoluteUrl(artwork.image_url)" 
+                  [alt]="artwork.title" 
+                  [defaultImage]="'../../assets/default-artwork.png'"
+                  [errorImage]="'../../assets/default-artwork.png'"/>
               </div>
             </div>
           </div>
