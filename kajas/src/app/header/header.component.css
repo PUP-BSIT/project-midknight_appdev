@@ -11,7 +11,7 @@
     position: fixed;
     top: 0;           
     left: 0;       
-    z-index: 1000;   
+    z-index: 1;   
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -53,7 +53,7 @@
     overflow: hidden;
     transform: translateY(-10px); 
     transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
-    z-index: 1001;
+    z-index: 1000;
 }
 
 .search-results.show {

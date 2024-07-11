@@ -1,4 +1,6 @@
 <app-header [showHeader]="showHeader$ | async"></app-header>
+<mat-progress-bar class="mat-primary" [class.hidden]="!(isLoading$ | async)" 
+    color="warn" mode="indeterminate"></mat-progress-bar>
 <router-outlet></router-outlet>
 <app-terms-modal></app-terms-modal>
 <app-privacy-modal></app-privacy-modal>

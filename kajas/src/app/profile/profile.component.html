@@ -1,12 +1,16 @@
 <div class="profile-container">
   <div class="container">
     <div class="profile-picture">
-      <img [src]="profile" 
-        alt="Profile Picture" class="profile-picture" />
+      <img 
+        [lazyLoad]="profile" 
+        alt="Profile Picture"
+        class="profile-picture" 
+        [defaultImage]="'../../assets/default-profile.png'"
+        [errorImage]="'../../assets/default-profile.png'" />
     </div>
     <div class="profile-info">
       <h1>{{ firstName }} {{ lastName }}</h1>
-      <h2>{{ city }}, {{ country }}</h2>
+      <h2>{{ location }}</h2>
       <p>{{ bio }}</p>
       <div class="social-links">
         <a [attr.href]="linkedin" [class.hidden]="!linkedin" target="_blank">
@@ -35,22 +39,33 @@
     <div class="gallery-title">
       <h2>Gallery</h2>
     </div>
-    <a class="gallery-button" (click)="toggleDelete()">
-      <mat-icon>edit</mat-icon>
-      Edit
-    </a>                
+    <div class="gallery-buttons">
+      @if(showEditButtons) {
+        <a class="gallery-button" routerLink="/add-artwork">
+          <mat-icon>add</mat-icon>
+            Add New Artwork
+        </a>
+      }  
+      <a class="gallery-button" (click)="toggleEdit()">
+        <mat-icon>{{ showEditButtons ? 'check' : 'edit' }}</mat-icon>
+        {{ showEditButtons ? 'Done Editing' : 'Edit' }}
+      </a>  
+    </div>       
   </div>
 </div>
 <div class="gallery-grid">
-  @if(artworks.length) {
+  @if(paginatedArtworks().length) {
     <div class="gallery-images">
-      @for(artwork of artworks; track artwork.id) {
+      @for(artwork of paginatedArtworks(); track paginatedArtworks()) {
         <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
+          <img 
+            [lazyLoad]="getAbsoluteUrl('compressed_' + artwork.image_url)" 
+            [alt]="artwork.title" 
+            [defaultImage]="'../../assets/default-artwork.png'"
+            [errorImage]="'../../assets/default-artwork.png'"
             (click)="viewArtworkDetails(artwork)" />
-              
-          @if(showDeleteButton) {
-            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)"> 
+          @if(showEditButtons) {
+            <div class="trashbin-overlay" (click)="openDeleteModal(artwork)">
               <mat-icon>delete_outline</mat-icon>
             </div>
           }
@@ -58,13 +73,25 @@
       }
     </div>
   }
-  @if(!artworks.length) {
+  @if(!paginatedArtworks().length) {
     <p>{{ message }}</p>
   }
 </div>
 
+@if(paginatedArtworks().length) {
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+}
+
 <div class="add-artwork-container">
-  <a routerLink="/add-artwork" class="add-artwork">Showcase an Artwork!</a>  
+  <a routerLink="/add-artwork" class="add-artwork">Add New Artwork</a>  
 </div>
 
 @if(showConfirmModal) {

@@ -18,11 +18,6 @@
   height: 250px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.container:hover {
-  transform: scale(1.05);
 }
 
 .profile-picture img {
@@ -32,11 +27,6 @@
   height: 250px;
   object-fit: cover;
   border-radius: 8px;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.profile-picture img:hover {
-  transform: scale(1.05);
 }
 
 .profile-info {
@@ -158,6 +148,11 @@
   padding: 5px;
 }
 
+.gallery-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
 .gallery-button {
   padding: 7px;
   margin: 5px 10px 5px 10px;
@@ -170,23 +165,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-wrap: nowrap ;
+  text-decoration: none;
 }
 
 .gallery-button:hover {
-  transform: scale(1.2);
+  transform: translateY(-5px);
   font-weight: 600;
 }
 
 .gallery-button mat-icon {
   color: #888888;
+  margin-right: 5px;
 }
 
 .gallery-button a {
   display: flex;
   align-items: center;
-  gap: 5px;
   color: #8e7c70;
-  text-decoration: none;
 }
 
 .gallery-grid {
@@ -275,6 +271,43 @@
   margin-bottom: 5%;
 }
 
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  gap: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: medium;
+  color: #3e3e3e;
+}
+
+.pagination-controls button {
+  padding: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: small;
+  color:#fff; 
+  background-color: #4d493e;
+  border-radius: 5px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pagination-controls button:disabled {
+  background-color: #3e3e3e;
+  opacity: 50%;
+  transition: none;
+}
+
+.pagination-controls button:disabled:hover {
+  transform: none;
+  background-color: #3e3e3e;
+}
+
+.pagination-controls button:hover {
+  background-color: #8e7c70;
+  transform: translateY(-5px);
+}
+
 @media screen and (min-width: 320px) and (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -346,17 +379,26 @@
   .gallery-button {
     margin: 7px 0px 0px 5px;
     padding: 3px 0px 3px 0px;
-    font-size: 10px;
+    font-size: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     max-height: 15px;
+    transition: none;
+  }
+
+  .gallery-button:hover {
+    transform: none;
   }
 
   .gallery-button mat-icon{
-    font-size: 120%;
-    width: 120%;
-    padding-top: 10px;
+    font-size: 100%;
+    width: 100%;
+    padding-top: 16px;
+  }
+
+  .gallery-button a {
+    text-align: left;
   }
 
   .gallery-images {
@@ -407,6 +449,16 @@
 
   .close {
     font-size: 28px;
+  }
+
+  .pagination-controls {
+    gap: 10px;
+    font-size: xx-small;
+  }
+  
+  .pagination-controls button {
+    padding: 5px;
+    font-size: xx-small;
   }
 }
 
@@ -515,5 +567,15 @@
   .trashbin-overlay mat-icon {
     margin-top: 0;
     font-size: 150%;
+  }
+
+  .pagination-controls {
+    gap: 15px;
+    font-size: small;
+  }
+  
+  .pagination-controls button {
+    padding: 5px;
+    font-size: x-small;
   }
 }

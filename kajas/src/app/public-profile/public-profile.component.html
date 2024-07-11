@@ -1,20 +1,16 @@
-@if(sessionStorage.get('id')) {
-  <app-header></app-header>
-}
-@if(!sessionStorage.get('id')) {
-  <app-cta-banner></app-cta-banner>
-  <app-cta-header></app-cta-header>
-}
-
 <div class="profile-container">
   <div class="container">
     <div class="profile-picture">
-        <img [src]="profile || '../../assets/default-profile.png'" 
-        alt="Profile Picture" class="profile-picture" />
+      <img 
+        [lazyLoad]="profile" 
+        alt="Profile Picture"
+        class="profile-picture" 
+        [defaultImage]="'../../assets/default-profile.png'"
+        [errorImage]="'../../assets/default-profile.png'" />
     </div>
     <div class="profile-info">
       <h1>{{ firstName }} {{ lastName }}</h1>
-      <h2>{{ city }}, {{ country }}</h2>
+      <h2>{{ location }}</h2>
       <p>{{ bio }}</p>
       <div class="social-links">
         <a [attr.href]="linkedin" [class.hidden]="!linkedin" target="_blank">
@@ -43,27 +39,49 @@
     </div>              
   </div>
 </div>
-<div class="gallery-grid">
-  @if(artworks.length) {
-    <div class="gallery-images">
-      @for(artwork of artworks; track artwork.id) {
-        <div class="gallery-item">
-          <img [src]="getAbsoluteUrl(artwork.image_url)" [alt]="artwork.title" 
-            (click)="viewArtworkDetails(artwork)" />
 
+<div class="gallery-grid">
+  @if(paginatedArtworks().length) {
+    <div class="gallery-images">
+      @for(artwork of paginatedArtworks(); track paginatedArtworks()) {
+        <div class="gallery-item">
+          <img 
+            [lazyLoad]="getAbsoluteUrl('compressed_' + artwork.image_url)" 
+            [alt]="artwork.title" 
+            [defaultImage]="'../../assets/default-artwork.png'"
+            [errorImage]="'../../assets/default-artwork.png'"
+            (click)="viewArtworkDetails(artwork)" />
         </div>
       }
     </div>
   }
-  @if(!artworks.length) {
+  @if(!paginatedArtworks().length) {
     <p>{{ message }}</p>
   }
 </div>
 
+@if(paginatedArtworks().length) {
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+}
 
 @if(showMessageModal) {
   <app-modal-message 
     [message]="modalMessage" 
     (closeModal)="closeMessageModal()">
   </app-modal-message>
+}
+@if(sessionStorage.get('id')) {
+  <app-header></app-header>
+}
+@if(!sessionStorage.get('id')) {
+  <app-cta-banner></app-cta-banner>
+  <app-cta-header></app-cta-header>
 }

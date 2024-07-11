@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { SessionStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
 import { Artwork } from '../../models/user.model';
@@ -13,6 +13,7 @@ import axios from 'axios';
 export class ProfileComponent implements OnInit {
   firstName = '';
   lastName = '';
+  location = '';
   country = '';
   city = '';
   bio = '';
@@ -24,17 +25,22 @@ export class ProfileComponent implements OnInit {
   kajasLink = '';
   artworks: any[] = [];
   message = '';
-  showDeleteButton = false;
+  showEditButtons = false;
   showConfirmModal = false;
-  showMessageModal= false;
+  showMessageModal = false;
   modalMessage = '';
   selectedArtworkForDeletion: any = null;
   showLoader = false;
 
+  currentPage = 1;
+  itemsPerPage = 12;
+  totalPages = 1;
+
   constructor(
     private sessionStorage: SessionStorageService,
     private router: Router,
-    private artworkService: ArtworkService
+    private artworkService: ArtworkService,
+    private renderer: Renderer2 
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +59,10 @@ export class ProfileComponent implements OnInit {
     this.website = this.sessionStorage.get('website') || '';
     this.kajasLink = this.sessionStorage.get('kajas_link') || '';
 
+    this.location = this.city && this.country ? `${this.city}, ${this.country}` : this.city || this.country;
+
+    this.location = this.city && this.country ? `${this.city}, ${this.country}` : this.city || this.country;
+
     axios.get(`https://api.kajas.site/api/artworks/id?id=${id}`)
       .then(response => {
         if (response.status === 200 && response.data.data && response.data.data.length > 0) {
@@ -65,6 +75,8 @@ export class ProfileComponent implements OnInit {
             title: item.title,
             user_id: item.user_id,
           }));
+          this.artworks.reverse();
+          this.totalPages = Math.ceil(this.artworks.length / this.itemsPerPage);
         } else {
           this.message = "No Artworks Yet...";
         }
@@ -77,7 +89,7 @@ export class ProfileComponent implements OnInit {
   copy(text: string): void {
     navigator.clipboard.writeText(text).then(
       () => {
-        this.modalMessage = 'Profile link copied to clipboard!';
+        this.modalMessage = 'Your profile link has been copied to your clipboard. Feel free to share it with others!';
         this.showMessageModal = true;
       },
       (err) => {
@@ -100,6 +112,7 @@ export class ProfileComponent implements OnInit {
           setTimeout(() => {
             this.modalMessage = `Successfully deleted the artwork '${deletedArtwork?.title}'.`;
             this.artworks = this.artworks.filter(artwork => artwork.artwork_id !== artworkId);
+            this.totalPages = Math.ceil(this.artworks.length / this.itemsPerPage);
             this.showLoader = false;
           }, 3000);
         } else {
@@ -118,8 +131,8 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  toggleDelete(): void {
-    this.showDeleteButton = !this.showDeleteButton;
+  toggleEdit(): void {
+    this.showEditButtons = !this.showEditButtons;
   }
 
   trackByFn(index: number, artwork: Artwork): string {
@@ -154,4 +167,31 @@ export class ProfileComponent implements OnInit {
   closeMessageModal(): void {
     this.showMessageModal = false;
   }
+
+  paginatedArtworks(): any[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.artworks.slice(start, end);
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.scrollToGallery();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.scrollToGallery();
+    }
+  }
+
+  scrollToGallery(): void {
+    const galleryContainer = this.renderer.selectRootElement('.kajas-link');
+    if (galleryContainer) {
+      galleryContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }  
 }

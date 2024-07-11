@@ -188,6 +188,7 @@ export class SetupProfileComponent implements OnInit {
         if (response.status === 200) {
           this.showLoader = true;
 
+          this.sessionStorage.set('username', this.profileForm.controls.kajas_link.value);
           this.sessionStorage.set('first_name', this.profileForm.controls.firstName.value);
           this.sessionStorage.set('middle_name', this.profileForm.controls.middleName.value);
           this.sessionStorage.set('last_name', this.profileForm.controls.lastName.value);
@@ -199,7 +200,7 @@ export class SetupProfileComponent implements OnInit {
           this.sessionStorage.set('facebook', this.profileForm.controls.facebook.value);
           this.sessionStorage.set('instagram', this.profileForm.controls.instagram.value);
           this.sessionStorage.set('website', this.profileForm.controls.website.value);
-          this.sessionStorage.set('kajas_link', this.profileForm.controls.kajas_link.value);
+          this.sessionStorage.set('kajas_link', `kajas.site/profile/${this.profileForm.controls.kajas_link.value}`);
 
           setTimeout(() => {
             this.showLoader = false;

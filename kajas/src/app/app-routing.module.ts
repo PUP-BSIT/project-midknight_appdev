@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
-import { UserExistsGuard } from './user-exists.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { UserExistsGuard } from './guards/user-exists.guard';
+import { ProfileSetupGuard } from './guards/profile-setup.guard';
+import { ProfileCompletionGuard } from './guards/profile-completion.guard'; 
 import { HomeComponent } from './home/home.component';
 import { FeaturesComponent } from './home/features/features.component';
 import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
@@ -30,12 +32,12 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'signup', component: RegistrationComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'setup-profile', component: SetupProfileComponent, canActivate: [AuthGuard] },
-  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
-  { path: 'add-artwork', component: AddArtworkComponent, canActivate: [AuthGuard] },
-  { path: 'edit-artwork/:title', component: EditArtworkComponent, canActivate: [AuthGuard] },
-  { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard, ProfileCompletionGuard] },
+  { path: 'setup-profile', component: SetupProfileComponent, canActivate: [ProfileSetupGuard, AuthGuard] },
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard, ProfileCompletionGuard] },
+  { path: 'add-artwork', component: AddArtworkComponent, canActivate: [AuthGuard, ProfileCompletionGuard] },
+  { path: 'edit-artwork/:title', component: EditArtworkComponent, canActivate: [AuthGuard, ProfileCompletionGuard] },
+  { path: 'artwork-details/:title', component: ArtworkDetailsComponent, canActivate: [AuthGuard, ProfileCompletionGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'profile/:username', component: PublicProfileComponent, canActivate: [UserExistsGuard]},
   { path: ':username/artwork-details/:title', component: PublicArtworkDetailsComponent, canActivate: [UserExistsGuard]},
