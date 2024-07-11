@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .container {
@@ -16,6 +17,7 @@
   padding: 60px;
   width: 60%;
   height: 250px;
+  z-index: 10;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }

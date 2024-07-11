@@ -82,7 +82,7 @@ const verifyAccount = async (req, res) => {
           .status(404)
           .json({ title: "Internal Error", msg: "Not found!" });
       }
-      const redirectUrl = 'http://localhost:4200/login';
+      const redirectUrl = 'https://kajas.site/login';
       return res.redirect(301, redirectUrl);
     });
   } catch (error) {

@@ -43,7 +43,7 @@ const mailer = async (req, res) => {
                                 Please take a moment to confirm your email address 
                                 by clicking the link below:</p>
                             <button><a class="button"
-                                href="http://localhost:4000/api/verify?email=${email}">
+                                href="https://api.kajas.site/api/verify?email=${email}">
                                     Verify Email Address</a></button>
                             <p>Verifying your email address ensures that you can
                                 receive important updates and information about 
@@ -116,7 +116,7 @@ const forgotPassword = async (req, res) => {
                                 <p>You requested a password reset.</p>
                                 <p>Click the link below to reset your password:</p>
                                 <button><a class="button"
-                                    href="http://localhost:4200/reset-password?token=${token}">
+                                    href="https://kajas.site/reset-password?token=${token}">
                                         Reset Password</a></button>
                                 <p>This link will expire in 1 hour.</p>
                                 <p>If you did not request this password reset or

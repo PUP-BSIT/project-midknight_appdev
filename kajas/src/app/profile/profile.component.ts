@@ -61,8 +61,6 @@ export class ProfileComponent implements OnInit {
 
     this.location = this.city && this.country ? `${this.city}, ${this.country}` : this.city || this.country;
 
-    this.location = this.city && this.country ? `${this.city}, ${this.country}` : this.city || this.country;
-
     axios.get(`https://api.kajas.site/api/artworks/id?id=${id}`)
       .then(response => {
         if (response.status === 200 && response.data.data && response.data.data.length > 0) {

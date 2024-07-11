@@ -58,7 +58,7 @@ const getArtworkById = (artworkId, callback) => {
       return callback(null, null);
     }
     const artwork = results[0];
-    artwork.image_url = `http://localhost:4000/uploads/${artwork.image_url}`;
+    artwork.image_url = `https://api.kajas.site/uploads/${artwork.image_url}`;
     return callback(null, artwork);
   });
 };
